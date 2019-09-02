@@ -14,7 +14,7 @@ from django.utils import six
 import eox_theming
 
 
-def info_view(request):
+def info_view(request):  # pylint: disable=unused-argument
     """
     Basic view to show the working version and the exact git commit of the
     installed app
