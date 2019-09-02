@@ -16,25 +16,30 @@ from __future__ import unicode_literals
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'secret-key'
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-# Application definition
-
-INSTALLED_APPS = []
-
-ROOT_URLCONF = 'eox_theming.urls'
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'eox_theming'
+]
 
 TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'en-us'
 USE_TZ = True
 
+# This key needs to be defined so that the check_apps_ready passes and the
+# AppRegistry is loaded
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }
+}
 
-def plugin_settings(settings):
+
+def plugin_settings(settings):  # pylint: disable=unused-argument
     """
     Set of plugin settings used by the Open Edx platform.
     More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
