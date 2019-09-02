@@ -39,9 +39,12 @@ DATABASES = {
 }
 
 
-def plugin_settings(settings):  # pylint: disable=unused-argument
+def plugin_settings(settings):
     """
     Set of plugin settings used by the Open Edx platform.
     More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
     """
-    pass
+    settings.STATICFILES_FINDERS = [
+        'eox_theming.theming.finders.EoxThemeFilesFinder',
+    ] + settings.STATICFILES_FINDERS
+    settings.EOX_THEMING_BASE_FINDER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_finders'
