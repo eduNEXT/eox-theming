@@ -1,5 +1,4 @@
 # Main requirements of your plugin application.
 
 Django<2.0
-pylint==1.9.3
-pycodestyle==2.5.0
+futures==3.3.0; python_version < "3.0"
