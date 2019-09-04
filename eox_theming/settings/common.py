@@ -75,6 +75,8 @@ def plugin_settings(settings):
         # We must find a way to register this error.
         pass
 
+    settings.EOX_THEMING_DEFAULT_THEME_NAME = 'bragi'
+
     settings.EOX_THEMING_BASE_FINDER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_finders'
     settings.EOX_THEMING_BASE_LOADER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_loaders'
     settings.EOX_THEMING_SITE_THEME_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_models'
