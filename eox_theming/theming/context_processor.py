@@ -1,12 +1,6 @@
 """
 """
-
-class ThemingConfiguration(object):
-    """docstring for ThemingConfiguration"""
-
-    @staticmethod
-    def options(*args, **kwargs):
-        return 'example'
+from eox_theming.configuration import ThemingConfiguration
 
 
 def eox_configuration(*args, **kwargs):
@@ -15,5 +9,5 @@ def eox_configuration(*args, **kwargs):
     This is the last processor to be run.
     """
     return {
-        'theming': ThemingConfiguration
+        'theming': ThemingConfiguration,
     }

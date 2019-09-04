@@ -51,8 +51,13 @@ def plugin_settings(settings):
     settings.TEMPLATES[0]['OPTIONS']['loaders'][0] = 'eox_theming.theming.template_loaders.EoxThemeTemplateLoader'
     settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
 
-    settings.TEMPLATES[0]['OPTIONS']['context_processors'].append('eox_theming.theming.context_processor.eox_configuration')
-    settings.TEMPLATES[1]['OPTIONS']['context_processors'].append('eox_theming.theming.context_processor.eox_configuration')
+    eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
+    if eox_configuration_path not in settings.TEMPLATES[0]['OPTIONS']['context_processors']:
+        settings.TEMPLATES[0]['OPTIONS']['context_processors'].append(eox_configuration_path)
+    if eox_configuration_path not in settings.TEMPLATES[1]['OPTIONS']['context_processors']:
+        settings.TEMPLATES[1]['OPTIONS']['context_processors'].append(eox_configuration_path)
+
+    settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
 
     settings.MIDDLEWARE_CLASSES = [
         'eox_theming.theming.middleware.EoxThemeMiddleware' if 'CurrentSiteThemeMiddleware' in x else x for x in settings.MIDDLEWARE_CLASSES]
