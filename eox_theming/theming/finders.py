@@ -31,6 +31,4 @@ class EoxThemeFilesFinder(OpenedxThemeFinder):
 
     See: openedx/core/djangoapps/theming/finders.py
     """
-
-    def __init__(self, *args, **kwargs):
-        super(EoxThemeFilesFinder, self).__init__(*args, **kwargs)
+    pass

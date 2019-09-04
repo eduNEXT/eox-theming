@@ -46,21 +46,34 @@ def plugin_settings(settings):
     """
     settings.STATICFILES_FINDERS = [
         'eox_theming.theming.finders.EoxThemeFilesFinder',
-    ] + settings.STATICFILES_FINDERS
+    ] + getattr(settings, 'STATICFILES_FINDERS', [])
 
-    settings.TEMPLATES[0]['OPTIONS']['loaders'][0] = 'eox_theming.theming.template_loaders.EoxThemeTemplateLoader'
-    settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
+    try:
+        settings.TEMPLATES[0]['OPTIONS']['loaders'][0] = 'eox_theming.theming.template_loaders.EoxThemeTemplateLoader'
+    except AttributeError:
+        # We must find a way to register this error
+        pass
 
-    eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
-    if eox_configuration_path not in settings.TEMPLATES[0]['OPTIONS']['context_processors']:
-        settings.TEMPLATES[0]['OPTIONS']['context_processors'].append(eox_configuration_path)
-    if eox_configuration_path not in settings.TEMPLATES[1]['OPTIONS']['context_processors']:
-        settings.TEMPLATES[1]['OPTIONS']['context_processors'].append(eox_configuration_path)
+    try:
+        eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
+        if eox_configuration_path not in settings.TEMPLATES[0]['OPTIONS']['context_processors']:
+            settings.TEMPLATES[0]['OPTIONS']['context_processors'].append(eox_configuration_path)
+        if eox_configuration_path not in settings.TEMPLATES[1]['OPTIONS']['context_processors']:
+            settings.TEMPLATES[1]['OPTIONS']['context_processors'].append(eox_configuration_path)
 
-    settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
+        settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
+    except AttributeError:
+        # We must find a way to register this error
+        pass
 
-    settings.MIDDLEWARE_CLASSES = [
-        'eox_theming.theming.middleware.EoxThemeMiddleware' if 'CurrentSiteThemeMiddleware' in x else x for x in settings.MIDDLEWARE_CLASSES]
+    try:
+        settings.MIDDLEWARE_CLASSES = [
+            'eox_theming.theming.middleware.EoxThemeMiddleware' if 'CurrentSiteThemeMiddleware' in x else x
+            for x in settings.MIDDLEWARE_CLASSES
+        ]
+    except AttributeError:
+        # We must find a way to register this error.
+        pass
 
     settings.EOX_THEMING_BASE_FINDER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_finders'
     settings.EOX_THEMING_BASE_LOADER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_loaders'

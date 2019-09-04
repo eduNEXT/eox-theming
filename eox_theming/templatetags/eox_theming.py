@@ -11,6 +11,10 @@ register = template.Library()  # pylint: disable=invalid-name
 
 
 class ThemingOptionsNode(template.Node):
+    """
+    Django templates nodes to render the advanced tag.
+    Acts as a wrapper to the ThemingConfiguration.options call.
+    """
     def __init__(self, args, default):
         self.options_args = args
         self.options_default = default
@@ -20,24 +24,28 @@ class ThemingOptionsNode(template.Node):
 
 
 @register.tag(name="theming_options")
-def do_options_call(parser, token, *args, **kwargs):
-
+def do_options_call(parser, token):  # pylint: disable=unused-argument
+    """
+    Django templates tag definition.
+    """
     contents = token.split_contents()
-    tag_name = contents[0]
     args = contents[1:]
 
     parsed_args = []
     default = None
 
-    for x in args:
+    for arg in args:
         try:
-            val = literal_eval(x)
-        except Exception as e:
-            val = x
+            val = literal_eval(arg)
+        except (SyntaxError, ValueError):
+            val = arg
 
-        if val.startswith('default='):
-            default = val[8:]
-        else:
-            parsed_args.append(x)
+        try:
+            if val.startswith('default='):
+                default = val[8:]
+            else:
+                parsed_args.append(arg)
+        except AttributeError:
+            parsed_args.append(arg)
 
     return ThemingOptionsNode(parsed_args, default=default)
