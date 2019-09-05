@@ -8,14 +8,13 @@ from django.test import TestCase
 from django.template import Context, Template
 from mock import patch
 
-import eox_theming
-
 
 class TestsEoxThemingTags(TestCase):
     """ Tests for the eox_theming template tags """
 
     @patch('eox_theming.templatetags.eox_theming.ThemingConfiguration.options', return_value='Unique_Return_Value')
     def test_tag_renders(self, _):
+        """ Rendering the template must return the value of calling theming.options """
         context = {}
         context = Context(context)
 
