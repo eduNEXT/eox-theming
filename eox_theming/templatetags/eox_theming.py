@@ -2,10 +2,12 @@
 Template tags and helper functions for displaying breadcrumbs in page titles
 based on the current micro site.
 """
+from __future__ import absolute_import, unicode_literals
+
 from ast import literal_eval
 from django import template
 
-from ..configuration import ThemingConfiguration
+from eox_theming.configuration import ThemingConfiguration
 
 register = template.Library()  # pylint: disable=invalid-name
 
