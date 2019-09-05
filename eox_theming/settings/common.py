@@ -77,6 +77,15 @@ def plugin_settings(settings):
 
     settings.EOX_THEMING_DEFAULT_THEME_NAME = 'bragi'
 
+    settings.EOX_THEMING_CONFIG_SOURCES = [
+        'from_eox_tenant_config_theming',
+        'from_eox_tenant_config_lms',
+        'from_eox_tenant_microsite_v1',
+        'from_eox_tenant_microsite_v0',
+        'from_site_config',
+        'from_django_settings',
+    ]
+
     settings.EOX_THEMING_BASE_FINDER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_finders'
     settings.EOX_THEMING_BASE_LOADER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_loaders'
     settings.EOX_THEMING_SITE_THEME_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_models'
