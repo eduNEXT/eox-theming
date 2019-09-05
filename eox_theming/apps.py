@@ -33,6 +33,7 @@ class EoxThemingConfig(AppConfig):
                 'test': {'relative_path': 'settings.test'},
                 'aws': {'relative_path': 'settings.aws'},
                 'production': {'relative_path': 'settings.production'},
+                'devstack': {'relative_path': 'settings.devstack'},
             },
             'cms.djangoapp': {
                 'common': {'relative_path': 'settings.common'},

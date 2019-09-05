@@ -46,6 +46,11 @@ jobs:
             . venv/bin/activate
             coverage run --source="." manage.py test
             coverage report --fail-under=67 -m
+
+      - run:
+          name: Run QA
+          command: |
+            . venv/bin/activate
             pycodestyle ./eox_theming
             pylint ./eox_theming --rcfile=./setup.cfg
 
@@ -83,6 +88,6 @@ jobs:
           command: |
             . venv/bin/activate
             coverage run --source="." --rcfile=.coveragerc manage.py test
-            coverage report --fail-under=67 --rcfile=.coveragerc -m
+            coverage report --rcfile=.coveragerc -m
             pycodestyle ./eox_theming
             pylint ./eox_theming --rcfile=./setup.cfg

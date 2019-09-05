@@ -26,6 +26,15 @@ for app in TEST_INSTALLED_APPS:
 ROOT_URLCONF = 'eox_theming.urls'
 ALLOWED_HOSTS = ['*']
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {},
+    },
+]
+
 
 def plugin_settings(settings):  # pylint: disable=function-redefined, unused-argument
     """
