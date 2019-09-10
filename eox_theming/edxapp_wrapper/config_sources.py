@@ -11,15 +11,24 @@ import operator
 from functools import reduce  # pylint: disable=redefined-builtin
 
 from django.conf import settings
+from eox_theming.edxapp_wrapper.configuration_helpers import get_configuration_helper
 
+configuration_helpers = get_configuration_helper()
 LOG = logging.getLogger(__name__)
 
 
-def from_site_config(*args):  # pylint: disable=unused-argument
+def from_site_config(*args):
     """
     This source is compatible with the site_configurations from Open edX platform.
     """
-    LOG.info("Not implemented: from_site_config")
+    options_dict = configuration_helpers.get_value("THEME_OPTIONS", {})
+    if args:
+        try:
+            value = reduce(operator.getitem, args, options_dict)
+        except (AttributeError, KeyError):
+            LOG.debug("Found nothing when reading the theme options for %s", ".".join(args))
+            value = None
+    return value
 
 
 def from_eox_tenant_config_theming(*args):  # pylint: disable=unused-argument
@@ -27,7 +36,7 @@ def from_eox_tenant_config_theming(*args):  # pylint: disable=unused-argument
     This source is the most modern way of reading the theme configuration.
     Fully dependant on an advanced use of eox-tenant.
     """
-    LOG.info("Not implemented: from_eox_tenant_config_theming")
+    LOG.debug("Not implemented: from_eox_tenant_config_theming")
 
 
 def from_eox_tenant_microsite_v0(*args):  # pylint: disable=unused-argument
@@ -35,7 +44,7 @@ def from_eox_tenant_microsite_v0(*args):  # pylint: disable=unused-argument
     This source must act as a compatibility layer with the ungrouped way of storing
     config variables from the first iteration of the bragi theme.
     """
-    LOG.info("Not implemented: from_eox_tenant_microsite_v0 compatibility layer")
+    LOG.debug("Not implemented: from_eox_tenant_microsite_v0 compatibility layer")
 
 
 def from_eox_tenant_config_lms(*args):
@@ -64,6 +73,6 @@ def from_django_settings(*args):
         try:
             value = reduce(operator.getitem, args, options_dict)
         except (AttributeError, KeyError):
-            LOG.debug("Found nothing when reading the theme options for %s", ".".join(args))
+            LOG.debug("Found nothing when reading the theme options for %s on django settings", ".".join(args))
             value = None
     return value
