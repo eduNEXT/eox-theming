@@ -6,7 +6,7 @@
 #
 astroid==1.6.6            # via pylint
 backports.functools-lru-cache==1.5  # via astroid, isort, pylint
-configparser==3.8.1       # via pylint
+configparser==4.0.2       # via pylint
 coverage==4.5.1
 django==1.11.24
 enum34==1.1.6             # via astroid
@@ -14,9 +14,12 @@ funcsigs==1.0.2           # via mock
 futures==3.3.0 ; python_version < "3.0"
 isort==4.3.21             # via pylint
 lazy-object-proxy==1.4.2  # via astroid
+mako==1.0.2
+markupsafe==1.1.1         # via mako
 mccabe==0.6.1             # via pylint
 mock==2.0.0
-pbr==5.4.2                # via mock
+path.py==8.2.1
+pbr==5.4.3                # via mock
 pycodestyle==2.5.0
 pylint==1.9.3
 pytz==2019.2              # via django
