@@ -39,6 +39,8 @@ EOX_THEMING_DEFAULT_THEME_NAME = 'default-theme'
 
 EOX_THEMING_CONFIGURATION_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_configuration_helpers_tests'
 EOX_THEMING_THEMING_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_theming_helpers_tests'
+EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_mako_tests'
+EOX_THEMING_BASE_LOADER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_loaders_tests'
 
 
 def plugin_settings(settings):  # pylint: disable=function-redefined, unused-argument
