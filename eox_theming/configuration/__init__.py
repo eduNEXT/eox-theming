@@ -34,3 +34,21 @@ class ThemingConfiguration(object):
             value = kwargs.pop('default', None)
 
         return value
+
+    @classmethod
+    def get_theme_name(cls):
+        """
+        Get the current theme name
+
+        Returns:
+            (str): Theme name associated to the request.
+        """
+        theme_name = cls.options('theme', 'name', default=None)
+
+        if not theme_name:
+            theme_name = cls.options('template_dir', default=settings.EOX_THEMING_DEFAULT_THEME_NAME)
+
+        if theme_name:
+            theme_name = theme_name.split('/')[-1]
+
+        return theme_name

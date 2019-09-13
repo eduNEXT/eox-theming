@@ -35,6 +35,8 @@ TEMPLATES = [
     },
 ]
 
+EOX_THEMING_DEFAULT_THEME_NAME = 'default-theme'
+
 
 def plugin_settings(settings):  # pylint: disable=function-redefined, unused-argument
     """
