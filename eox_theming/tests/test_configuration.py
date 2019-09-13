@@ -29,3 +29,18 @@ class TestThemingConfiguration(TestCase):
         """ Calling options with error data must return the Default """
         result = ThemingConfiguration.options('section', 'item', default='Unique_string')
         self.assertEqual('Unique_string', result)
+
+    def test_get_theme_name(self):
+        """
+        Test get_theme_name function.
+        """
+        theme = ThemingConfiguration.get_theme_name()
+        self.assertEqual(theme, 'default-theme')  # pylint: disable=no-member
+
+    @override_settings(EOX_THEMING_DEFAULT_THEME_NAME='default-theme/inherits/other-theme')
+    def test_get_theme_name_tenant(self):
+        """
+        Test get_theme_name for microsite v0.
+        """
+        theme = ThemingConfiguration.get_theme_name()
+        self.assertEqual(theme, 'other-theme')  # pylint: disable=no-member
