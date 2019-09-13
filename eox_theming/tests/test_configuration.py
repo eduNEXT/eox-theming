@@ -4,6 +4,8 @@ Tests for the ThemingConfiguration class
 """
 from __future__ import absolute_import, unicode_literals
 
+from mock import patch
+
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -44,3 +46,10 @@ class TestThemingConfiguration(TestCase):
         """
         theme = ThemingConfiguration.get_theme_name()
         self.assertEqual(theme, 'other-theme')  # pylint: disable=no-member
+
+    @override_settings(THEME_OPTIONS=[])
+    @patch('eox_theming.edxapp_wrapper.config_sources.configuration_helpers')
+    def test_comfiguration_helpers_called(self, conf_helpers_mock):
+        """ If not found on settings it should use configuration helpers """
+        ThemingConfiguration.options('section', 'item', default='Unique_string')
+        conf_helpers_mock.get_value.assert_called()
