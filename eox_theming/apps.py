@@ -5,6 +5,7 @@ App configuration for eox_theming.
 from __future__ import unicode_literals
 
 from django.apps import AppConfig
+from django.conf import settings
 
 
 class EoxThemingConfig(AppConfig):
@@ -43,3 +44,19 @@ class EoxThemingConfig(AppConfig):
             },
         }
     }
+
+    def ready(self):
+        """
+        Method to perform actions after apps registry is ended
+        Setup mako lookup directories.
+        See: common.djangoapps.edxmako.apps.py
+        """
+        from eox_theming.theming.paths import add_lookup, clear_lookups
+        for backend in settings.TEMPLATES:
+            if 'edxmako' not in backend['BACKEND']:
+                continue
+            namespace = backend['OPTIONS'].get('namespace', 'main')
+            directories = backend['DIRS']
+            clear_lookups(namespace)
+            for directory in directories:
+                add_lookup(namespace, directory)
