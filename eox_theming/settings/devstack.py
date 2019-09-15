@@ -13,3 +13,5 @@ def plugin_settings(settings):
     settings.STATICFILES_FINDERS = [
         'eox_theming.theming.finders.EoxThemeFilesFinder',
     ] + settings.STATICFILES_FINDERS
+
+    settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxDevelopmentStorage'
