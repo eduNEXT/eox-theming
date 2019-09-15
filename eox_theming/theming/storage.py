@@ -5,6 +5,11 @@ import os
 
 from django.contrib.staticfiles.storage import StaticFilesStorage
 
+from django.utils.six.moves.urllib.parse import (  # pylint: disable=no-name-in-module, import-error
+    unquote,
+    urlsplit
+)
+
 from pipeline.storage import NonPackagingMixin  # pylint: disable=import-error
 from require.storage import OptimizedFilesMixin  # pylint: disable=import-error
 
@@ -62,7 +67,6 @@ class EoxThemeStorage(OpenedxThemeStorage):
         return super(EoxThemeStorage, self).url(name)
 
 
-
 class AbsoluteUrlAssetsMixin(object):
     """
     Mixin that overrides the url method on storages
@@ -82,6 +86,8 @@ class EoxProductionStorage(
         AbsoluteUrlAssetsMixin,
         PipelineForgivingStorage,
         OptimizedFilesMixin,
+        NonPackagingMixin,
+        ThemePipelineMixin,
         ThemeCachedFilesMixin,
         EoxThemeStorage,
         StaticFilesStorage
@@ -90,7 +96,54 @@ class EoxProductionStorage(
     This class combines Django's StaticFilesStorage class with several mixins
     that provide additional functionality. We use this version on production.
     """
-    pass
+    def _processed_asset_name(self, name):
+        """
+        Returns either a themed or unthemed version of the given asset name,
+        depending on several factors.
+
+        See the class docstring for more info.
+        """
+        theme = ThemingConfiguration.theming_helpers.get_current_theme()
+        if theme and theme.theme_dir_name not in name:
+            # during server run, append theme name to the asset name if it is not already there
+            # this is ensure that correct hash is created and default asset is not always
+            # used to create hash of themed assets.
+            name = os.path.join(theme.theme_dir_name, name)
+        parsed_name = urlsplit(unquote(name))
+        clean_name = parsed_name.path.strip()
+        asset_name = name
+        if not self.exists(clean_name):
+            # if themed asset does not exists then use default asset
+            theme = name.split("/", 1)[0]
+            # verify that themed asset was accessed
+            if theme in [theme.theme_dir_name for theme in ThemingConfiguration.theming_helpers.get_themes()]:
+                asset_name = "/".join(name.split("/")[1:])
+        elif theme and theme.theme_dir_name in asset_name:
+            return asset_name
+
+        # Try the same with default theme
+        default_theme = ThemingConfiguration.get_default_theme()
+
+        if theme and default_theme.name == theme.name:
+            return asset_name
+
+        theme = default_theme
+        if theme and theme.theme_dir_name not in asset_name:
+            # during server run, append theme name to the asset name if it is not already there
+            # this is ensure that correct hash is created and default asset is not always
+            # used to create hash of themed assets.
+            name = os.path.join(theme.theme_dir_name, asset_name)
+        parsed_name = urlsplit(unquote(name))
+        clean_name = parsed_name.path.strip()
+        asset_name = name
+        if not self.exists(clean_name):
+            # if themed asset does not exists then use default asset
+            theme = name.split("/", 1)[0]
+            # verify that themed asset was accessed
+            if theme in [theme.theme_dir_name for theme in ThemingConfiguration.theming_helpers.get_themes()]:
+                asset_name = "/".join(name.split("/")[1:])
+
+        return asset_name
 
 
 class EoxDevelopmentStorage(
