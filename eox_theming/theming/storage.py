@@ -62,7 +62,24 @@ class EoxThemeStorage(OpenedxThemeStorage):
         return super(EoxThemeStorage, self).url(name)
 
 
+
+class AbsoluteUrlAssetsMixin(object):
+    """
+    Mixin that overrides the url method on storages
+    """
+    def url(self, name):
+        """
+        Return url of the asset.
+        If the asset name is an absolute url, just return the asset name
+        """
+        if name.startswith("https://") or name.startswith("http://"):
+            return name
+
+        return super(AbsoluteUrlAssetsMixin, self).url(name)
+
+
 class EoxProductionStorage(
+        AbsoluteUrlAssetsMixin,
         PipelineForgivingStorage,
         OptimizedFilesMixin,
         ThemeCachedFilesMixin,
@@ -77,6 +94,7 @@ class EoxProductionStorage(
 
 
 class EoxDevelopmentStorage(
+        AbsoluteUrlAssetsMixin,
         NonPackagingMixin,
         ThemePipelineMixin,
         EoxThemeStorage,
