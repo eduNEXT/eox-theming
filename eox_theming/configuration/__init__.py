@@ -54,3 +54,17 @@ class ThemingConfiguration(object):
             theme_name = theme_name.split('/')[-1]
 
         return theme_name
+
+    @classmethod
+    def get_default_theme(cls):
+        """ Get parent theme of the current request. """
+        parent_theme_name = cls.options('theme', 'parent', default=None)
+        if not parent_theme_name:
+            parent_theme_name = settings.EOX_THEMING_DEFAULT_THEME_NAME
+
+        themes = cls.theming_helpers.get_themes()
+
+        for theme in themes:
+            if theme.name == parent_theme_name:
+                return theme
+        return None
