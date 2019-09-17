@@ -53,3 +53,36 @@ class TestThemingConfiguration(TestCase):
         """ If not found on settings it should use configuration helpers """
         ThemingConfiguration.options('section', 'item', default='Unique_string')
         conf_helpers_mock.get_value.assert_called()
+
+    @patch('eox_theming.configuration.ThemingConfiguration.theming_helpers')
+    @patch('eox_theming.configuration.Theme')
+    def test_get_parent_theme_is_default(self, theme_mock, helper_mock):
+        """
+        Test that method return default theme if parent is not defined.
+        """
+        helper_mock.get_project_root_name.return_value = 'lms'
+        helper_mock.get_theme_base_dir.return_value = 'templates'
+        ThemingConfiguration.get_parent_or_default_theme()
+        theme_mock.assert_called_with(
+            name='default-theme',
+            project_root='lms',
+            theme_dir_name='default-theme',
+            themes_base_dir='templates'
+        )
+
+    @override_settings(THEME_OPTIONS={'theme': {'parent': 'parent-theme'}})
+    @patch('eox_theming.configuration.ThemingConfiguration.theming_helpers')
+    @patch('eox_theming.configuration.Theme')
+    def test_get_parent_theme(self, theme_mock, helper_mock):
+        """
+        Test that method return parent theme.
+        """
+        helper_mock.get_project_root_name.return_value = 'lms'
+        helper_mock.get_theme_base_dir.return_value = 'templates'
+        ThemingConfiguration.get_parent_or_default_theme()
+        theme_mock.assert_called_with(
+            name='parent-theme',
+            project_root='lms',
+            theme_dir_name='parent-theme',
+            themes_base_dir='templates'
+        )
