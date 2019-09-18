@@ -44,7 +44,8 @@ def from_eox_tenant_microsite_v0(*args):  # pylint: disable=unused-argument
     This source must act as a compatibility layer with the ungrouped way of storing
     config variables from the first iteration of the bragi theme.
     """
-    LOG.debug("Not implemented: from_eox_tenant_microsite_v0 compatibility layer")
+    key = args[-1]
+    return configuration_helpers.get_value(key, None)
 
 
 def from_eox_tenant_config_lms(*args):
