@@ -86,8 +86,6 @@ class EoxProductionStorage(
         AbsoluteUrlAssetsMixin,
         PipelineForgivingStorage,
         OptimizedFilesMixin,
-        NonPackagingMixin,
-        ThemePipelineMixin,
         ThemeCachedFilesMixin,
         EoxThemeStorage,
         StaticFilesStorage
