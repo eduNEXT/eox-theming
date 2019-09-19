@@ -48,7 +48,7 @@ class EoxThemeStorage(OpenedxThemeStorage):
         """
         prefix = ''
         theme = ThemingConfiguration.theming_helpers.get_current_theme()
-        default_theme = ThemingConfiguration.get_default_theme()
+        parent_theme = ThemingConfiguration.get_parent_or_default_theme()
 
         # get theme prefix from site address if if asset is accessed via a url
         if theme:
@@ -62,8 +62,8 @@ class EoxThemeStorage(OpenedxThemeStorage):
         if prefix and self.themed(name, prefix):
             return super(EoxThemeStorage, self).url(name)
 
-        elif default_theme and self.themed(name, default_theme.theme_dir_name):
-            name = os.path.join(default_theme.theme_dir_name, name)
+        elif parent_theme and self.themed(name, parent_theme.theme_dir_name):
+            name = os.path.join(parent_theme.theme_dir_name, name)
         return super(EoxThemeStorage, self).url(name)
 
 
@@ -120,12 +120,12 @@ class EoxProductionStorage(
             return asset_name
 
         # Try the same with default theme
-        default_theme = ThemingConfiguration.get_default_theme()
+        parent_theme = ThemingConfiguration.get_parent_or_default_theme()
 
-        if theme and default_theme.name == theme.name:
+        if theme and parent_theme.name == theme.name:
             return asset_name
 
-        theme = default_theme
+        theme = parent_theme
         if theme and theme.theme_dir_name not in asset_name:
             # during server run, append theme name to the asset name if it is not already there
             # this is ensure that correct hash is created and default asset is not always
