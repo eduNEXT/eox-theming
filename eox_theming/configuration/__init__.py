@@ -26,14 +26,14 @@ class ThemingConfiguration(object):
         for source in cls.source_functions:
             try:
                 value = source(*args)
-                if value:
+                if value is not None:
                     break
             except Exception as exc:  # pylint: disable=broad-except
                 LOG.warning('Found an error reading %s from source %s. Trace: %s',
                             '.'.join(args), source.__name__, exc)
                 continue
 
-        if not value:
+        if value is None:
             value = kwargs.pop('default', None)
 
         return value
@@ -67,6 +67,21 @@ class ThemingConfiguration(object):
                 name=parent_theme_name,
                 theme_dir_name=parent_theme_name,
                 themes_base_dir=cls.theming_helpers.get_theme_base_dir(parent_theme_name),
+                project_root=cls.theming_helpers.get_project_root_name()
+            )
+        except ValueError as error:
+            # Log exception message and return None, so that open source theme is used instead
+            LOG.exception('Theme not found in any of the themes dirs. [%s]', error)
+        return None
+
+    @classmethod
+    def get_wrapped_theme(cls, theme_name):
+        """ Get theme based on the input name. """
+        try:
+            return Theme(
+                name=theme_name,
+                theme_dir_name=theme_name,
+                themes_base_dir=cls.theming_helpers.get_theme_base_dir(theme_name),
                 project_root=cls.theming_helpers.get_project_root_name()
             )
         except ValueError as error:
