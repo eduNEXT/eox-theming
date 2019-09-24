@@ -121,6 +121,7 @@ def get_template_path_with_theme(relative_path):
     theme = ThemingConfiguration.theming_helpers.get_current_theme()
     parent_theme = ThemingConfiguration.get_parent_or_default_theme()
 
+    # Try with the theme.name
     if theme:
         # strip `/` if present at the start of relative_path
         template_path = theme.template_path / template_name
@@ -131,15 +132,25 @@ def get_template_path_with_theme(relative_path):
         if not parent_theme or theme.name == parent_theme.name:
             return relative_path
 
-    # Try with the parent site theme
     if not parent_theme:
         return relative_path
 
+    # Try with the theme.parent site theme
     template_path = parent_theme.template_path / template_name
     absolute_path = parent_theme.path / "templates" / template_name
 
     if absolute_path.exists():
         return str(template_path)
+
+    # Try with grandparent
+    grandparent_name = ThemingConfiguration.options('theme', 'grandparent', default=None)
+    if grandparent_name:
+        grandparent_theme = ThemingConfiguration.get_wrapped_theme(grandparent_name)
+        template_path = grandparent_theme.template_path / template_name
+        absolute_path = grandparent_theme.path / "templates" / template_name
+
+        if absolute_path.exists():
+            return str(template_path)
 
     return relative_path
 
@@ -184,5 +195,20 @@ def strip_site_theme_templates_path(uri):
     ])
 
     uri = re.sub(r'^/*' + templates_path + '/*', '', uri)
+
+    grandparent_name = ThemingConfiguration.options('theme', 'grandparent', default=None)
+    if grandparent_name:
+        grandparent_theme = ThemingConfiguration.get_wrapped_theme(grandparent_name)
+        if not grandparent_theme:
+            return uri
+
+        # Do the same with the grandparent theme
+        templates_path = "/".join([
+            grandparent_theme.theme_dir_name,
+            ThemingConfiguration.theming_helpers.get_project_root_name(),
+            "templates"
+        ])
+
+        uri = re.sub(r'^/*' + templates_path + '/*', '', uri)
 
     return uri
