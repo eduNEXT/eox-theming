@@ -26,14 +26,14 @@ class ThemingConfiguration(object):
         for source in cls.source_functions:
             try:
                 value = source(*args)
-                if value:
+                if value is not None:
                     break
             except Exception as exc:  # pylint: disable=broad-except
                 LOG.warning('Found an error reading %s from source %s. Trace: %s',
                             '.'.join(args), source.__name__, exc)
                 continue
 
-        if not value:
+        if value is None:
             value = kwargs.pop('default', None)
 
         return value
