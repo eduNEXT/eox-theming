@@ -62,8 +62,17 @@ class EoxThemeStorage(OpenedxThemeStorage):
         if prefix and self.themed(name, prefix):
             return super(EoxThemeStorage, self).url(name)
 
-        elif parent_theme and self.themed(name, parent_theme.theme_dir_name):
+        if parent_theme and self.themed(name, parent_theme.theme_dir_name):
             name = os.path.join(parent_theme.theme_dir_name, name)
+            return super(EoxThemeStorage, self).url(name)
+
+        grandparent_name = ThemingConfiguration.options('theme', 'grandparent', default=None)
+        if grandparent_name:
+            grandparent_theme = ThemingConfiguration.get_wrapped_theme(grandparent_name)
+            if grandparent_theme and self.themed(name, grandparent_theme.theme_dir_name):
+                name = os.path.join(grandparent_theme.theme_dir_name, name)
+                super(EoxThemeStorage, self).url(name)
+
         return super(EoxThemeStorage, self).url(name)
 
 
