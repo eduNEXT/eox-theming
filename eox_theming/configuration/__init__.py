@@ -54,7 +54,7 @@ class ThemingConfiguration(object):
         if theme_name:
             theme_name = theme_name.split('/')[-1]
 
-        return theme_name
+        return theme_name.lower()
 
     @classmethod
     def get_parent_or_default_theme(cls):
@@ -62,21 +62,12 @@ class ThemingConfiguration(object):
         parent_theme_name = cls.options('theme', 'parent', default=None)
         if not parent_theme_name:
             parent_theme_name = settings.EOX_THEMING_DEFAULT_THEME_NAME
-        try:
-            return Theme(
-                name=parent_theme_name,
-                theme_dir_name=parent_theme_name,
-                themes_base_dir=cls.theming_helpers.get_theme_base_dir(parent_theme_name),
-                project_root=cls.theming_helpers.get_project_root_name()
-            )
-        except ValueError as error:
-            # Log exception message and return None, so that open source theme is used instead
-            LOG.exception('Theme not found in any of the themes dirs. [%s]', error)
-        return None
+        return cls.get_wrapped_theme(parent_theme_name)
 
     @classmethod
     def get_wrapped_theme(cls, theme_name):
         """ Get theme based on the input name. """
+        theme_name = theme_name.lower()
         try:
             return Theme(
                 name=theme_name,
