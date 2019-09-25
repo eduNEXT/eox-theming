@@ -71,7 +71,6 @@ class EoxThemeStorage(OpenedxThemeStorage):
             grandparent_theme = ThemingConfiguration.get_wrapped_theme(grandparent_name)
             if grandparent_theme and self.themed(name, grandparent_theme.theme_dir_name):
                 name = os.path.join(grandparent_theme.theme_dir_name, name)
-                super(EoxThemeStorage, self).url(name)
 
         return super(EoxThemeStorage, self).url(name)
 
