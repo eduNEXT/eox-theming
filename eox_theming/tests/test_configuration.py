@@ -32,6 +32,13 @@ class TestThemingConfiguration(TestCase):
         result = ThemingConfiguration.options('section', 'item', default='Unique_string')
         self.assertEqual('Unique_string', result)
 
+    @override_settings(THEME_OPTIONS={'section': {'item': False}})
+    def test_falsy_value(self):
+        """ Calling options must return the value defined in the source even if that is false """
+        result = ThemingConfiguration.options('section', 'item', default=None)
+        self.assertIsNotNone(result)
+        self.assertFalse(result)
+
     def test_get_theme_name(self):
         """
         Test get_theme_name function.
