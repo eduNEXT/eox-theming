@@ -24,7 +24,7 @@ class EoxThemeMiddleware(object):
         theme_name = ThemingConfiguration.get_theme_name()
 
         if theme_name:
-            current_theme, _ = SITE_THEME.objects.get_or_create(
+            current_theme = SITE_THEME(
                 site_id=1,
                 theme_dir_name=theme_name,
             )
