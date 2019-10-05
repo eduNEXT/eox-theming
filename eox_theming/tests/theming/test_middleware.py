@@ -17,7 +17,7 @@ class TestsEoxThemeMiddleware(TestCase):
         """ The first implementation must return a site_theme in the requests object """
         request = RequestFactory().get('/')
         site_theme = mock.Mock()
-        module_mock.return_value.objects.get_or_create.return_value = site_theme, mock.Mock()
+        module_mock.return_value.return_value = site_theme
 
         from eox_theming.theming.middleware import EoxThemeMiddleware
         EoxThemeMiddleware().process_request(request)
