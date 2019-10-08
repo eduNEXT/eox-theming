@@ -28,4 +28,5 @@ class EoxThemeMiddleware(object):
                 site_id=1,
                 theme_dir_name=theme_name,
             )
+            current_theme.id = 1
             request.site_theme = current_theme
