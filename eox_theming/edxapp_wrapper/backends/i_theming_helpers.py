@@ -9,7 +9,7 @@ def get_theming_helpers():
 
 
 def get_theming_helpers_dirs():
-    """ Backend to get the theming helpers. """
+    """ Backend to get the theming helpers dirs. """
     return theming_helpers_dirs
 
 
