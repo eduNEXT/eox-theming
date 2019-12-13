@@ -1,6 +1,6 @@
 """ Backend abstraction for theming helpers. """
 from openedx.core.djangoapps.theming import helpers as theming_helpers  # pylint: disable=import-error
-from openedx.core.djangoapps.theming.helpers_dirs import Theme  # pylint: disable=import-error
+from openedx.core.djangoapps.theming import helpers_dirs as theming_helpers_dirs  # pylint: disable=import-error
 
 
 def get_theming_helpers():
@@ -8,6 +8,11 @@ def get_theming_helpers():
     return theming_helpers
 
 
+def get_theming_helpers_dirs():
+    """ Backend to get the theming helpers dirs. """
+    return theming_helpers_dirs
+
+
 def get_theme_class():
     """ Backend to get the Theme class. """
-    return Theme
+    return theming_helpers_dirs.Theme
