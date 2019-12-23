@@ -35,10 +35,10 @@ class EoxThemeFilesystemLoader(ThemeFilesystemLoader):
             template_dirs = self.engine.dirs
 
         parent_theme_dirs = self.get_parent_theme_template_sources()
-
+        grandparent_theme_dirs = self.get_grandparent_theme_template_sources()
         # append parent theme dirs to the beginning so templates are looked up inside theme dir first
-        if isinstance(parent_theme_dirs, list):
-            template_dirs = parent_theme_dirs + template_dirs
+        if isinstance(parent_theme_dirs, list) and isinstance(grandparent_theme_dirs, list):
+            template_dirs = parent_theme_dirs + grandparent_theme_dirs + template_dirs
 
         # on the next call, it will be appended to the beginning the site theme dir.
         return list(super(EoxThemeFilesystemLoader, self).get_template_sources(template_name, template_dirs))
@@ -52,5 +52,21 @@ class EoxThemeFilesystemLoader(ThemeFilesystemLoader):
         template_paths = list()
         if default_theme:
             return default_theme.template_dirs
+
+        return template_paths
+
+    @staticmethod
+    def get_grandparent_theme_template_sources():
+        """
+        Return the template dirs of the grandparent theme.
+        """
+        grandparent_theme = None
+        grandparent_name = ThemingConfiguration.options('theme', 'grandparent', default=None)
+        if grandparent_name:
+            grandparent_theme = ThemingConfiguration.get_wrapped_theme(grandparent_name)
+
+        template_paths = list()
+        if grandparent_theme:
+            return grandparent_theme.template_dirs
 
         return template_paths
