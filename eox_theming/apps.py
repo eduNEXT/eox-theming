@@ -60,3 +60,19 @@ class EoxThemingConfig(AppConfig):
             clear_lookups(namespace)
             for directory in directories:
                 add_lookup(namespace, directory)
+
+        self.apply_patches()
+
+    def apply_patches(self):
+        """
+        Method to apply monkey patches over openedX classes
+        """
+        from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers_dirs, get_theming_helpers
+        from eox_theming import configuration
+        from eox_theming.theming.patches import EoxTheme
+
+        theming_helpers = get_theming_helpers()
+        theming_helpers_dirs = get_theming_helpers_dirs()
+        theming_helpers.Theme = EoxTheme
+        theming_helpers_dirs.Theme = EoxTheme
+        configuration.Theme = EoxTheme
