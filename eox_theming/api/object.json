@@ -1,0 +1,239 @@
+// Theme object Version 1.0.0
+// Note: to add single-line comments please use //. Block comments are not supported
+{
+    "THEME_OPTIONS": {
+        "theme": {
+            "name": "poligran",
+            "parent": "bragi-123456",
+            "grandparent": "bragi"
+        },
+        "variables": {
+            "fuente_gigante": "Humongous Font Face",
+            "nombre_legal": "The Learning Partner Association",
+            "nombre_legal_i18n": {
+                "en": "The Learning Partner Association",
+                "es": "La Asociación de Parners de Aprendizaje"
+            },
+            "color-palette": {
+                "primary-color": "#888",
+                "primary-color-c1": "#fff",
+                "primary-color-c2": "#555",
+                "secondary-color": "#000",
+                "button_text_color": "{{ primary-color-c1 }}",
+                "button_text_color_hover": "{{ secondary-color }}",
+                "button_background_color": " {{ primary-color }}",
+                "button_background_color_hover": "{{ primary-color-c2 }}",
+                "button_border_color": "{{ primary-color }}",
+                "button_border_color_hover": "{{ primary-color-c2 }}",
+                "link_color": "{{ primary-color-c1 }}",
+                "link_color_hover": " {{secondary-color }}"
+            },
+            "logos": {
+                "navigation": {
+                    "scr": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
+                    "alt": " Test tenant",
+                    "href": "",
+                    "width": "100px",
+                    "height": "20px"
+                },
+                "footer": {
+                    "scr": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
+                    "alt": " Test tenant",
+                    "href": ""
+                },
+                "openedx": {
+                    "visibility": true,
+                    "scr": "https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png",
+                    "alt": " Powered by Open edX",
+                    "href": ""
+                },
+                "edunext": {
+                    "visibility": true,
+                    "scr": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small.png",
+                    "alt": " eduNEXT - World class Open edX services provider",
+                    "href": "",
+                    "width": "100px",
+                    "height": "20px"
+                }
+            }
+        },
+        "all_pages": {
+            "font": "{fuente_gigante}",
+            "extra_css": ["links", "inline"],
+            "extra_js": ["", ""],
+            "favicon_src": "",
+            "google_analytics": "",
+            "google_tag_manager": ""
+        },
+        "each_page": {
+            "meta-title": "",
+            "meta-keywords": "",
+            "meta-description": "",
+            "meta-robotss": "",
+            "meta-copyright": "",
+            "extra_css": "",
+            "extra_js": ""
+        },
+        "downgrade_notice": {
+            "active": true,
+            "level": "level1",
+            "list_of_pages": ["home", "login"]
+        },
+        "dataprivacy_notice": {
+            "active": true,
+            "type": "level1",
+            "list_of_pages": ["home", "login", "register"],
+            "position": "top",
+            "link_href": "http://lf.dk/privatlivspolitik",
+            "message": "If you continue browsing this site, we understand that you accept the use of cookies",
+            "message_button": "Got it",
+            "message_link": "Learn more",
+            "palette": {
+                "popup_color_background": "#0c511e",
+                "button_color_background": "#f0f0e9",
+                "button_color_text": "#000000"
+            }
+        },
+        "user_notice": {
+            "active": true,
+            "type": "level1",
+            "list_of_pages": ["home", "login", "register"],
+            "position": "top",
+            "link_href": "http://lf.dk/privatlivspolitik",
+            "message": "If you continue browsing this site, we understand that you accept the use of cookies",
+            "message_button": "Got it",
+            "message_link": "Learn more"
+        },
+        "navigation": {
+            "top_block": {
+                "content": "<div>this is the top block of the header</div>"
+            },
+            "objects": [{
+                "key": "navigation_extra",
+                "type": "html_block",
+                "vars": "{{ top_block }}"
+            }, {
+                "ID": "navigation_content",
+                "type": "html_block",
+                "vars": {
+                    "header_langselector_visibility": true,
+                    "header_links": [{
+                        "target": "_self",
+                        "txt": "Courses ",
+                        "url": "/courses"
+                    }, {
+                        "class": "mx-2",
+                        "target": "_self"
+                    }],
+                    "login_button_caption": "My login",
+                    "register_button_caption": "My register",
+                    "logo": "{{ logos.navigation }}"
+                }
+            }]
+        },
+        "footer": {
+            "override_template": false,
+            "top_block": {
+                "content": "<div>this is the div for top block on footer</div>"
+            },
+            "bottom_block": {
+                "content": "<div>this is the div for bottom block on footer</div>"
+            },
+            "footer_description_paragraph": "this is the div for the footer description",
+            "objects": [{
+                "ID": "top_footer",
+                "type": "html_block",
+                "vars": "{{ top_block }}"
+            }, {
+                "ID": "my_3cc",
+                "type": "3_column_content",
+                "palette": {},
+                "vars": "{{ 3_column_vars }}"
+            }, {
+                "ID": "extra_footer",
+                "type": "html_block",
+                "palette": "{{basic_palette}}",
+                "vars": {
+                    "back_top_button_visibility": true,
+                    "copyright_text": "Copyright 2020 This is a text by eduNEXT."
+                }
+            }, {
+                "ID": "my_bottom_block",
+                "type": "html_block",
+                "vars": "{{ bottom_block }}"
+            }, {
+                "ID": "my_cookie_block",
+                "type": "privacy_block"
+            }],
+            "3_column_vars": {
+                "column-layout": [
+                    3,
+                    6,
+                    3
+                ],
+                "objects": [{
+                    "ID": "footer_logo",
+                    "type": "image_tag",
+                    "vars": "{{logos.footer }}",
+                    "column": 1
+                }, {
+                    "ID": "my_footext",
+                    "type": "text",
+                    "vars": "{{ footer_description_paragraph }}",
+                    "column": 2
+                }, {
+                    "ID": "my_language_footer",
+                    "type": "selector_tag",
+                    "vars": {},
+                    "column": 2
+                }, {
+                    "ID": "footer_links",
+                    "type": "list",
+                    "vars": [{
+                        "target": "_blank",
+                        "text": "About eduNEXT",
+                        "url": "https://www.edunext.co/about-edunext/"
+                    }, {
+                        "target": "_blank",
+                        "text": "Contact us",
+                        "url": "/contact"
+                    }],
+                    "column": 2
+                }, {
+                    "ID": "social_footer_links",
+                    "type": "list",
+                    "vars": [{
+                        "url": "https://www.facebook.com/mysite",
+                        "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
+                        "alt": "Facebook",
+                        "target": "_blank",
+                        "class-icon": "fa-facebook"
+                    }, {
+                        "url": "https://twitter.com/mysite",
+                        "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
+                        "alt": "Twitter",
+                        "target": "_blank",
+                        "class-icon": "fa-twitter"
+                    }],
+                    "column": 2
+                }, {
+                    "ID": "openedx_logo",
+                    "type": "image_tag",
+                    "vars": {
+                        "visibility": true,
+                        "logo": "{{logos.openedx}}"
+                    },
+                    "column": 3
+                }, {
+                    "ID": "edunext_logo",
+                    "type": "image_tag",
+                    "vars": {
+                        "visibility": true,
+                        "logo": "{{ logos.edunext }}"
+                    },
+                    "column": 3
+                }]
+            }
+        }
+    }
+}
