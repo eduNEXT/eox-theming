@@ -104,33 +104,6 @@
             "message_button": "Got it",
             "message_link": "Learn more"
         },
-        "navigation": {
-            "top_block": {
-                "content": "<div>this is the top block of the header</div>"
-            },
-            "objects": [{
-                "key": "navigation_extra",
-                "type": "html_block",
-                "vars": "{{ top_block }}"
-            }, {
-                "ID": "navigation_content",
-                "type": "html_block",
-                "vars": {
-                    "header_langselector_visibility": true,
-                    "header_links": [{
-                        "target": "_self",
-                        "txt": "Courses ",
-                        "url": "/courses"
-                    }, {
-                        "class": "mx-2",
-                        "target": "_self"
-                    }],
-                    "login_button_caption": "My login",
-                    "register_button_caption": "My register",
-                    "logo": "{{ logos.navigation }}"
-                }
-            }]
-        },
         "footer": {
             "override_template": false,
             "top_block": {
