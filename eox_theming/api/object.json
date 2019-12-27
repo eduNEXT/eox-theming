@@ -57,53 +57,6 @@
                 }
             }
         },
-        "all_pages": {
-            "font": "{fuente_gigante}",
-            "extra_css": ["links", "inline"],
-            "extra_js": ["", ""],
-            "favicon_src": "",
-            "google_analytics": "",
-            "google_tag_manager": ""
-        },
-        "each_page": {
-            "meta-title": "",
-            "meta-keywords": "",
-            "meta-description": "",
-            "meta-robotss": "",
-            "meta-copyright": "",
-            "extra_css": "",
-            "extra_js": ""
-        },
-        "downgrade_notice": {
-            "active": true,
-            "level": "level1",
-            "list_of_pages": ["home", "login"]
-        },
-        "dataprivacy_notice": {
-            "active": true,
-            "type": "level1",
-            "list_of_pages": ["home", "login", "register"],
-            "position": "top",
-            "link_href": "http://lf.dk/privatlivspolitik",
-            "message": "If you continue browsing this site, we understand that you accept the use of cookies",
-            "message_button": "Got it",
-            "message_link": "Learn more",
-            "palette": {
-                "popup_color_background": "#0c511e",
-                "button_color_background": "#f0f0e9",
-                "button_color_text": "#000000"
-            }
-        },
-        "user_notice": {
-            "active": true,
-            "type": "level1",
-            "list_of_pages": ["home", "login", "register"],
-            "position": "top",
-            "link_href": "http://lf.dk/privatlivspolitik",
-            "message": "If you continue browsing this site, we understand that you accept the use of cookies",
-            "message_button": "Got it",
-            "message_link": "Learn more"
-        },
         "footer": {
             "override_template": false,
             "top_block": {
