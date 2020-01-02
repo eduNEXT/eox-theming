@@ -1,5 +1,9 @@
 // Theme object Version 1.0.0
 // Note: to add single-line comments please use //. Block comments are not supported
+// TODO: definir el atributo "class" a los objetos que al final se renderizaran con html tags
+// TODO Estandarizar todos los urls de destination para que usen un solo nombre (href?, destination?)
+// TODO: agregar la posibilidad de añadir palette para cada uno de sus objectos dentro de sus variables
+// TODO: Definir si estandarizamos los campos de text a que se llamen text o label
 {
     "THEME_OPTIONS": {
         "theme": {
@@ -69,19 +73,21 @@
             "objects": [{
                 "ID": "top_footer",
                 "type": "html_block",
+                // Por qué no dejar el atributo "content" directamente dentro de vars y llamar a ese objeto
+                // top_block en el primer nivel del footer??
+                // TODO: Mover los objetos de primer nivel del footer hacia los objetos dentro del footer
                 "vars": "{{ top_block }}"
             }, {
                 "ID": "my_3cc",
                 "type": "3_column_content",
-                "palette": {},
                 "vars": "{{ 3_column_vars }}"
             }, {
                 "ID": "extra_footer",
                 "type": "html_block",
-                "palette": "{{basic_palette}}",
                 "vars": {
                     "back_top_button_visibility": true,
-                    "copyright_text": "Copyright 2020 This is a text by eduNEXT."
+                    "copyright_text": "Copyright 2020 This is a text by eduNEXT.",
+                    "palette": "{{basic_palette}}"
                 }
             }, {
                 "ID": "my_bottom_block",
@@ -91,31 +97,52 @@
                 "ID": "my_cookie_block",
                 "type": "privacy_block"
             }],
+            // Analizar como generalizamos esto a n columnas
             "3_column_vars": {
-                "column-layout": [
+                "column-layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
                     3,
                     6,
                     3
                 ],
+                "palette": {},
+                // TODO: que default manejamos para cuando no hay definido contenido en la columnas
                 "objects": [{
                     "ID": "footer_logo",
                     "type": "image_tag",
-                    "vars": "{{logos.footer }}",
+                    // Manejar los default de image_tag
+                    "vars": {
+                        "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
+                        "alt": " Test tenant",
+                        "href": "", // Si hay un href, como vamos a soportar el wrapping en el a tag?
+                        "height": 200,
+                        "width": 200,
+                        "target": "_blank"
+                    },
                     "column": 1
                 }, {
+                    // Definir el scope de lo que vamos a soportar en este objeto text
+                    // TODO: Vamos a soportar solo tags sencillos como P o DIV o vamos a soportar cosas como
+                    // markdown, htmls con links, etc
                     "ID": "my_footext",
                     "type": "text",
-                    "vars": "{{ footer_description_paragraph }}",
+                    "vars": "This is the text for the footer", // podemos volver un texto en link
                     "column": 2
                 }, {
+                    // TODO: definir un type específico para el selector de idiomas que es un caso muy específico
+                    // TODO: Definir si vamos a soportar selects con call to actions cuando cambie, por ejemplo postear un form
                     "ID": "my_language_footer",
                     "type": "selector_tag",
-                    "vars": {},
+                    "vars": {
+                        "options": [],
+                        "selected": 1
+                    },
                     "column": 2
                 }, {
+                    // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                     "ID": "footer_links",
                     "type": "list",
                     "vars": [{
+                        // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
                         "target": "_blank",
                         "text": "About eduNEXT",
                         "url": "https://www.edunext.co/about-edunext/"
@@ -126,6 +153,8 @@
                     }],
                     "column": 2
                 }, {
+                    // Como sabemos que tipo de lista estamos renderizando: lista de cards? de imagenes?
+                    // de links, de texto?
                     "ID": "social_footer_links",
                     "type": "list",
                     "vars": [{
@@ -146,7 +175,6 @@
                     "ID": "openedx_logo",
                     "type": "image_tag",
                     "vars": {
-                        "visibility": true,
                         "logo": "{{logos.openedx}}"
                     },
                     "column": 3
@@ -154,11 +182,42 @@
                     "ID": "edunext_logo",
                     "type": "image_tag",
                     "vars": {
-                        "visibility": true,
                         "logo": "{{ logos.edunext }}"
                     },
                     "column": 3
-                }]
+                }, {
+                    "ID": "edunext_button",
+                    "type": "button_tag",
+                    "vars": {
+                        "text": "button_label",
+                        "href": "#component",
+                        "target": "_blank"
+                    },
+                    "column": 3
+                }, {
+                    "ID": "footer_jumbotron",
+                    "type": "jumbotron",
+                    "vars": {
+                        "background_src": "",
+                        "overlay_color": "", // Mover a css
+                        "title": "Welcome to the test tenant platform", // Aplicar default
+                        "subtitle": "your first choice for latest technology training", // Aplicar default
+                        "alignment": "", // Mover a css
+                        "extra_html_content": ""
+                    }
+                }, {
+                    // Revisar si el hecho de mover un componente de search de un lado a otro hace que se rompa su funcionalidad
+                    // Definir diferentes tipos de search? En el dashboard el search muestra sus resultados debajo del input,
+                    // mientras que en /courses los resultados son filtrados de la lista completa de courses en base al term de
+                    // busqueda
+                    "ID":"courses_search",
+                    "type": "search",
+                    "vars": {
+                        "text": "Search in your courses",
+                        "search-icon": "fa-search"
+                    },
+                    "column":2
+                },]
             }
         }
     }
