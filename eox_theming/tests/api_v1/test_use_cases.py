@@ -4,12 +4,18 @@ Tests for the custom template tags
 """
 from django.test import TestCase
 from django.template import Context, Template
+from parameterized import parameterized
 from mock import patch
 import json
 
 
+def get_all_test_cases():
+    return [
+        'case_001.txt',
+    ]
 
-class TestsUseCases(TestCase):
+
+class TestsUseCasesSequence(TestCase):
 
     def run_case(self, data, code, output):
         clean_data = ''.join(data.splitlines())
@@ -17,16 +23,19 @@ class TestsUseCases(TestCase):
 
         case_result = eval(code)
 
-        print('======')
-        print(case_result)
-        print('======')
-        print(''.join(output.splitlines()))  # si es esto?
-        print('======')
+        # print('======')
+        # print(case_result)
+        # print('======')
+        # print(''.join(output.splitlines()))  # si es esto?
+        # print('======')
+
+        self.assertEqual(case_result, ''.join(output.splitlines()))
 
 
-    def test_all(self):
+    @parameterized.expand(get_all_test_cases)
+    def test_case(self, name):
 
-        f = open('eox_theming/tests/api_v1/case_001.txt', 'r')
+        f = open('eox_theming/tests/api_v1/{}'.format(name), 'r')
         text = f.read()
         blocks = text.split("======")
 
@@ -38,4 +47,4 @@ class TestsUseCases(TestCase):
 
         self.run_case(**test_case)
 
-        self.fail()
+        # self.fail()
