@@ -2,8 +2,9 @@
 """
 Tests for the custom template tags
 """
-import glob, os
+import glob
 import json
+import os
 
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -41,15 +42,14 @@ class TestsUseCasesSequence(TestCase):
         }
 
         with override_settings(THEME_OPTIONS=case_data):
-            case_result = eval(code, my_globals)
+            case_result = eval(code, my_globals)  # pylint: disable=eval-used
 
         # For now we compare the results as being the same without
         # trailing and leading spaces
         self.assertEqual(case_result, ''.join(output.splitlines()))
 
-
     @parameterized.expand(get_all_test_cases)
-    def test_case(self, name, pathname):
+    def test_case(self, name, pathname):  # pylint: disable=unused-argument
         """
         Dynamic test definition to run every case in this directory.
 
