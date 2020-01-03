@@ -1,14 +1,12 @@
 ====== Data ======
 {
-    "static": {"logo": {"url": "https://fake.com/logo"}}
+    "static": {"logo": {"url": "https://fake.com/logo.jpg"}}
 }
 
 
 ====== Code ======
 
-# theming.get('static', 'logo', 'url')
-"hola mundo"
-
+theming.options('static', 'logo', 'url')
 
 ====== Output ======
 
