@@ -1,0 +1,244 @@
+// Theme object Version 1.0.0
+// Note: to add single-line comments please use //. Block comments are not supported
+// TODO: definir el atributo "class" a los objetos que al final se renderizaran con html tags
+// TODO Estandarizar todos los urls de destination para que usen un solo nombre (href?, destination?)
+// TODO: agregar la posibilidad de añadir palette para cada uno de sus objectos dentro de sus variables
+// TODO: Definir si estandarizamos los campos de text a que se llamen text o label
+// TODO: Solo comentarios en español, el objeto debe tener sus keys en ingles
+{
+    "THEME_OPTIONS": {
+        "theme": {
+            "name": "poligran",
+            "parent": "bragi-123456",
+            "grandparent": "bragi"
+        },
+        "variables": {
+            "fuente_gigante": "Humongous Font Face",
+            "legal_name": "The Learning Partner Association",
+            "i18n": {
+                "en": {
+                    "The Learning Partner Association": ""
+                },
+                "es": {
+                    "The Learning Partner Association": "La Asociación de Parners de Aprendizaje"
+                }
+            },
+            "color-palette": {
+                "primary-color": "#888",
+                "primary-color-c1": "#fff",
+                "primary-color-c2": "#555",
+                "secondary-color": "#000",
+                "button_text_color": "#fff",
+                "button_text_color_hover": "#000",
+                "button_background_color": "#888",
+                "button_background_color_hover": "#555",
+                "button_border_color": "#888",
+                "button_border_color_hover": "#555",
+                "link_color": "#fff",
+                "link_color_hover": "#000"
+            },
+            "logos": {
+                "navigation": {
+                    "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
+                    "alt": " Test tenant",
+                    "destination_url": "",
+                    "width": "100px",
+                    "height": "20px"
+                },
+                "footer": {
+                    "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
+                    "alt": " Test tenant",
+                    "destination_url": ""
+                },
+                "openedx": {
+                    "source": "https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png",
+                    "alt": " Powered by Open edX",
+                    "destination_url": ""
+                },
+                "edunext": {
+                    "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small.png",
+                    "alt": " eduNEXT - World class Open edX services provider",
+                    "destination_url": "",
+                    "width": "100px",
+                    "height": "20px"
+                }
+            }
+        },
+        "footer": {
+            // TODO: Debería el footer poder definir su wrapper? div, article, section, etc
+            "id": "",
+            // TODO: Asignar clase al footer?
+            "class": "",
+            "override_template": false,
+            "footer_description_paragraph": "this is the div for the footer description",
+            "objects": [{
+                "id": "top_footer",
+                "type": "html_block",
+                "vars": {
+                    "content": "<div>this is the div for top block on footer</div>"
+                }
+            }, {
+                // TODO: Analizar como generalizamos esto a n columnas
+                "id": "my_3cc",
+                "type": "3_column_content",
+                "vars": {
+                    "column-layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
+                        3,
+                        6,
+                        3
+                    ],
+                    "palette": {},
+                    // TODO: que default manejamos para cuando no hay definido contenido en la columnas??
+                    "objects": [{
+                        "id": "footer_logo",
+                        "type": "image_tag",
+                        "class": "footer-img",
+                        // TODO: Manejar los default de image_tag
+                        "vars": {
+                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
+                            "alt": " Test tenant",
+                            "destination_url": "", // TODO: Si hay un dest url, como vamos a soportar el wrapping en el a tag?
+                            "height": "200px",
+                            "width": "200px",
+                            "target": "_blank"
+                        },
+                        "column": 1
+                    }, {
+                        // TODO: Vamos a soportar solo tags sencillos como P o DIV o vamos a soportar cosas como
+                        // markdown, htmls con links, etc (scope del objeto text)
+                        "id": "my_footext",
+                        "type": "text",
+                        "class": "footer-text",
+                        "vars": {
+                            "text": "This is the text for the footer"
+                        }, // TODO: como podemos volver un texto en link?
+                        "column": 2
+                    }, {
+                        // TODO: definir un type específico para el selector de idiomas que es un caso muy específico
+                        // TODO: Definir si vamos a soportar selects con call to actions cuando cambie, por ejemplo postear un form
+                        "id": "my_language_footer",
+                        "type": "selector_tag",
+                        "vars": {
+                            "options": ["English", "Spanish"],
+                            "selected": 1
+                        },
+                        "column": 2
+                    }, {
+                        // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
+                        "id": "footer_links",
+                        "type": "list",
+                        "vars": [{
+                            // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
+                            "target": "_blank",
+                            "text": "About eduNEXT",
+                            "destination_url": "https://www.edunext.co/about-edunext/"
+                        }, {
+                            "target": "_blank",
+                            "text": "Contact us",
+                            "destination_url": "/contact"
+                        }],
+                        "column": 2
+                    }, {
+                        // TODO: Como sabemos que tipo de lista estamos renderizando: lista de cards? de imagenes?
+                        // de links, de texto?
+                        "id": "social_footer_links",
+                        "type": "list",
+                        "vars": [{
+                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
+                            "destination_url": "https://www.facebook.com/mysite",
+                            "alt": "Facebook",
+                            "target": "_blank",
+                            "class-icon": "fa-facebook"
+                        }, {
+                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
+                            "destination_url": "https://twitter.com/mysite",
+                            "alt": "Twitter",
+                            "target": "_blank",
+                            "class-icon": "fa-twitter"
+                        }],
+                        "column": 2
+                    }, {
+                        "id": "openedx_logo",
+                        "type": "image_tag",
+                        "vars": {
+                            "source": "https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png",
+                            "alt": " Powered by Open edX",
+                            "destination_url": ""
+                        },
+                        "column": 3
+                    }, {
+                        "id": "edunext_logo",
+                        "type": "image_tag",
+                        "vars": {
+                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small.png",
+                            "alt": " eduNEXT - World class Open edX services provider",
+                            "destination_url": "",
+                            "width": "100px",
+                            "height": "20px"
+                        },
+                        "column": 3
+                    }, {
+                        "id": "edunext_button",
+                        "type": "button_tag",
+                        "vars": {
+                            "text": "button_text",
+                            "destination_url": "#component",
+                            "target": "_blank"
+                        },
+                        "column": 3
+                    }, {
+                        "id": "footer_jumbotron",
+                        "type": "jumbotron",
+                        // TODO: definir si este key de css solo debería definir reglas de CSS propiamente dichas o parámetros
+                        // o variables directamente relacionadas con la apariencia del objeto en cuestión.
+                        // TODO: se podría tener tambien una variable que fuera extra_css dentro del key "vars" para agregar
+                        // esos estilos custom
+                        "css": {
+                            "overlay_color": "",
+                            "alignment": ""
+                        },
+                        "vars": {
+                            "background_source": "",
+                            "title": "Welcome to the test tenant platform", // Aplicar default
+                            "subtitle": "your first choice for latest technology training", // Aplicar default
+                            "extra_html_content": ""
+                        }
+                    }, {
+                        // TODO: Revisar si el hecho de mover un componente de search de un lado a otro hace que se rompa su funcionalidad
+                        // Definir diferentes tipos de search? En el dashboard el search muestra sus resultados debajo del input,
+                        // mientras que en /courses los resultados son filtrados de la lista completa de courses en base al term de
+                        // busqueda.
+                        // TODO: se podrían tener searches custom? que disparen un query custom cuando sean accionados
+                        "id": "courses_search",
+                        "type": "search",
+                        "vars": {
+                            "text": "Search in your courses",
+                            "search_icon": "fa-search"
+                        },
+                        "column": 2
+                    }]
+                }
+            }, {
+                "id": "extra_footer",
+                "type": "html_block",
+                "css": {
+                    "back_top_button_visibility": true
+                },
+                "vars": {
+                    "copyright_text": "Copyright 2020 This is a text by eduNEXT.",
+                    "palette": "",
+                    "content": "<p>This is the content of the extra footer</p>"
+                }
+            }, {
+                "id": "my_bottom_block",
+                "type": "html_block",
+                "vars": {
+                    "content": "<div>this is the div for bottom block on footer</div>"
+                }
+            }, {
+                "id": "my_cookie_block",
+                "type": "privacy_block"
+            }]
+        }
+    }
+}
