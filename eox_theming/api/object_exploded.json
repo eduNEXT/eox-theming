@@ -74,14 +74,14 @@
             "particles": [{
                 "id": "top_footer",
                 "type": "html_block",
-                "vars": {
+                "variables": {
                     "content": "<div>this is the div for top block on footer</div>"
                 }
             }, {
                 // TODO: Analizar como generalizamos esto a n columnas
                 "id": "my_3cc",
                 "type": "3_column_content",
-                "vars": {
+                "variables": {
                     "column-layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
                         3,
                         6,
@@ -94,7 +94,7 @@
                         "type": "image_tag",
                         "class": "footer-img",
                         // TODO: Manejar los default de image_tag
-                        "vars": {
+                        "variables": {
                             "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
                             "alt": " Test tenant",
                             "destination_url": "", // TODO: Si hay un dest url, como vamos a soportar el wrapping en el a tag?
@@ -109,7 +109,7 @@
                         "id": "my_footext",
                         "type": "text",
                         "class": "footer-text",
-                        "vars": {
+                        "variables": {
                             "text": "This is the text for the footer"
                         }, // TODO: como podemos volver un texto en link?
                         "column": 2
@@ -118,7 +118,7 @@
                         // TODO: Definir si vamos a soportar selects con call to actions cuando cambie, por ejemplo postear un form
                         "id": "my_language_footer",
                         "type": "selector_tag",
-                        "vars": {
+                        "variables": {
                             "options": ["English", "Spanish"],
                             "selected": 1
                         },
@@ -127,7 +127,7 @@
                         // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                         "id": "footer_links",
                         "type": "list",
-                        "vars": [{
+                        "variables": [{
                             // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
                             "target": "_blank",
                             "text": "About eduNEXT",
@@ -143,7 +143,7 @@
                         // de links, de texto?
                         "id": "social_footer_links",
                         "type": "list",
-                        "vars": [{
+                        "variables": [{
                             "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
                             "destination_url": "https://www.facebook.com/mysite",
                             "alt": "Facebook",
@@ -160,7 +160,7 @@
                     }, {
                         "id": "openedx_logo",
                         "type": "image_tag",
-                        "vars": {
+                        "variables": {
                             "source": "https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png",
                             "alt": " Powered by Open edX",
                             "destination_url": ""
@@ -169,7 +169,7 @@
                     }, {
                         "id": "edunext_logo",
                         "type": "image_tag",
-                        "vars": {
+                        "variables": {
                             "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small.png",
                             "alt": " eduNEXT - World class Open edX services provider",
                             "destination_url": "",
@@ -180,7 +180,7 @@
                     }, {
                         "id": "edunext_button",
                         "type": "button_tag",
-                        "vars": {
+                        "variables": {
                             "text": "button_text",
                             "destination_url": "#component",
                             "target": "_blank"
@@ -191,13 +191,13 @@
                         "type": "jumbotron",
                         // TODO: definir si este key de css solo debería definir reglas de CSS propiamente dichas o parámetros
                         // o variables directamente relacionadas con la apariencia del objeto en cuestión.
-                        // TODO: se podría tener tambien una variable que fuera extra_css dentro del key "vars" para agregar
+                        // TODO: se podría tener tambien una variable que fuera extra_css dentro del key "variables" para agregar
                         // esos estilos custom
                         "css": {
                             "overlay_color": "",
                             "alignment": ""
                         },
-                        "vars": {
+                        "variables": {
                             "background_source": "",
                             "title": "Welcome to the test tenant platform", // Aplicar default
                             "subtitle": "your first choice for latest technology training", // Aplicar default
@@ -211,7 +211,7 @@
                         // TODO: se podrían tener searches custom? que disparen un query custom cuando sean accionados
                         "id": "courses_search",
                         "type": "search",
-                        "vars": {
+                        "variables": {
                             "text": "Search in your courses",
                             "search_icon": "fa-search"
                         },
@@ -224,7 +224,7 @@
                 "css": {
                     "back_top_button_visibility": true
                 },
-                "vars": {
+                "variables": {
                     "copyright_text": "Copyright 2020 This is a text by eduNEXT.",
                     "palette": "",
                     "content": "<p>This is the content of the extra footer</p>"
@@ -232,7 +232,7 @@
             }, {
                 "id": "my_bottom_block",
                 "type": "html_block",
-                "vars": {
+                "variables": {
                     "content": "<div>this is the div for bottom block on footer</div>"
                 }
             }, {
