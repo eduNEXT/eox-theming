@@ -71,7 +71,7 @@
             "class": "",
             "override_template": false,
             "footer_description_paragraph": "this is the div for the footer description",
-            "objects": [{
+            "particles": [{
                 "id": "top_footer",
                 "type": "html_block",
                 "vars": {
@@ -89,7 +89,7 @@
                     ],
                     "palette": {},
                     // TODO: que default manejamos para cuando no hay definido contenido en la columnas??
-                    "objects": [{
+                    "particles": [{
                         "id": "footer_logo",
                         "type": "image_tag",
                         "class": "footer-img",

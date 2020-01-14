@@ -179,7 +179,7 @@ class Particle(object):
         if self._loaded_children is not None:
             return self._loaded_children
 
-        children = self.options('objects')
+        children = self.options('particles')
         if not children:
             return []
 
