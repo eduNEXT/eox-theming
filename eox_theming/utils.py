@@ -19,9 +19,6 @@ def dict_merge(dct, merge_dct):
         if (k in dct and isinstance(dct[k], dict)
                 and isinstance(merge_dct[k], dict)):
             dict_merge(dct[k], merge_dct[k])
-        elif (k in dct and isinstance(dct[k], list)
-                and isinstance(merge_dct[k], list)):
-            dct[k].append(merge_dct[k])
         else:
             dct[k] = merge_dct[k]
     return dct
