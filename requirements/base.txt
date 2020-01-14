@@ -5,7 +5,7 @@
 #    pip-compile --output-file=requirements/base.txt requirements/base.in
 #
 commentjson==0.8.2
-django==1.11.22
+django==1.11.27
 futures==3.3.0 ; python_version < "3.0"
 lark-parser==0.7.8        # via commentjson
-pytz==2019.1              # via django
+pytz==2019.3              # via django
