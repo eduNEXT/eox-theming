@@ -1,3 +1,6 @@
+"""
+Utils definitions
+"""
 import six
 
 
@@ -12,7 +15,7 @@ def dict_merge(dct, merge_dct):
 
     Inspired on https://gist.github.com/angstwad/bf22d1822c38a92ec0a9
     """
-    for k, v in six.iteritems(merge_dct):
+    for k, _ in six.iteritems(merge_dct):
         if (k in dct and isinstance(dct[k], dict)
                 and isinstance(merge_dct[k], dict)):
             dict_merge(dct[k], merge_dct[k])
