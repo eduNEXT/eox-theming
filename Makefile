@@ -25,5 +25,7 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 	pip-compile -U --output-file requirements/test.txt requirements/test.in requirements/base.in
 
 quality: clean ## check coding style with pycodestyle and pylint
+	coverage run --source="." --rcfile=.coveragerc manage.py test
+	coverage report --rcfile=.coveragerc -m
 	pycodestyle ./eox_theming
 	pylint ./eox_theming --rcfile=./setup.cfg
