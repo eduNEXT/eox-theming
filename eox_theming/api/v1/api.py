@@ -12,6 +12,8 @@ from functools import reduce  # pylint: disable=redefined-builtin
 import commentjson
 
 from django.conf import settings
+from django.template.loader import render_to_string
+from django.template.exceptions import TemplateDoesNotExist
 
 from eox_theming.utils import dict_merge
 
@@ -19,6 +21,30 @@ LOG = logging.getLogger(__name__)
 
 LOCAL_JSON_OBJECT_FILENAME = 'object_exploded.json'
 LOCAL_JSON_MODULE_LOCATION = 'eox_theming.api'
+DEFAULT_TEMPLATE_ENGINE_NAME = 'mako'
+DEFAULT_PARTICLES_TEMPLATES_FOLDER = 'particles'
+
+
+class Renderer(object):
+    """
+    Class in charge to handle the render process for Theme segments and particles
+    """
+    @classmethod
+    def render_to_string(cls, template_name, context, request=None):
+        """
+        render a template with a given context
+        """
+        engine_name = cls.get_template_engine_name()
+        return render_to_string(template_name, context, request, using=engine_name)
+
+    @classmethod
+    def get_template_engine_name(cls):
+        """
+        return a template engine name to use in a render process
+        """
+        # Only MAKO engine is supported. A more complex logic can be added here to decide
+        # which engine to use
+        return DEFAULT_TEMPLATE_ENGINE_NAME
 
 
 def from_local_file():
@@ -98,7 +124,7 @@ class ThemingOptions(object):
         # Getting theme defaults
         default_config = self._get_default_configuration()
         # Updating default configs with current config
-        config = dict_merge(deepcopy(default_config), config)
+        config = dict_merge(default_config, config)
         self._config = config
 
     def _get_default_configuration(self):
@@ -108,13 +134,22 @@ class ThemingOptions(object):
         # TODO: define the logic to get the defaults from the right location
         return {}
 
+    def get_segment(self, segment_name):
+        """
+        Get a high level element of an html page
+        """
+        segment_obj = self.options(segment_name)
+        if not segment_obj:
+            return None
+
+        return Particle(**segment_obj)
+
 
 class Particle(object):
     """
     Basic definition of a particle
     """
-    context = None
-    config = None
+    _config = None
     default_config = {}
     template_name = None  # Should this one be included in the configuration?
     parent = None  # Determine if the Particle will have a parent
@@ -123,10 +158,11 @@ class Particle(object):
     def __init__(self, *args, **kwargs):  # pylint: disable=unused-argument
         """
         Initiating a new Particle
+        TODO: Maybe a Particle should be initialized with a global context (global vars?)
+        TODO: could a template path be a configuration variable for a particle
         """
-        self.context = kwargs.pop('context', {})  # This is the parameter to pass globlal context like globals variables
         default_config = self._get_default_configuration()
-        self.config = dict_merge(default_config, kwargs)
+        self._config = dict_merge(default_config, kwargs)
 
     def _get_default_configuration(self):
         """
@@ -140,7 +176,7 @@ class Particle(object):
 
         try:
             value = reduce(operator.getitem, args, self._config)
-        except (AttributeError, KeyError):
+        except (AttributeError, KeyError, TypeError):
             LOG.debug("Found nothing when reading the theme options for %s", ".".join(args))
             value = None
 
@@ -149,18 +185,79 @@ class Particle(object):
 
         return value
 
-    def render(self):
+    def render(self, *args, **kwargs):  # pylint: disable=unused-argument
         """
         render the particle
+        TODO: It could be desirable to support input arguments, for now they're unused
         """
+        context = self.get_context_render()
+        raw_result = ''
+        template_names = []
+
+        if self.template_name:
+            template_names.append(self.template_name)
+
+        template_by_type = self.get_template_name_by_type()
+        if template_by_type:
+            template_names.append(template_by_type)
+
+        try:
+            if template_names:
+                raw_result = Renderer.render_to_string(template_names, context)
+        except TemplateDoesNotExist:
+            LOG.debug("Templates %s not found for particle", ",".join(template_names))
+            raw_result = ''
+
+        if not raw_result:
+            if self.children:
+                raw_result = self.render_children()
+            else:
+                raw_result = Renderer.render_to_string(
+                    '{}/particle.html'.format(DEFAULT_PARTICLES_TEMPLATES_FOLDER),
+                    context
+                )
+
+        return self.post_render(raw_result)
+
+    def post_render(self, raw_output):
+        """
+        Apply some processing to a given raw output
+        """
+        # TODO: for now this method just return the raw output
+        return raw_output
+
+    def render_children(self):
+        """
+        Render and concatenate every children particle
+        """
+        result = ''
+        for sub_part in self.children:
+            partial = sub_part.render()
+            result += partial
+
+        return result
+
+    def get_template_name_by_type(self, extension=None):
+        """
+        return a template name based on the type of the particle
+        """
+        if extension is None:
+            extension = 'html'
+        particle_type = self.options('type')
+        if not particle_type:
+            return ''
+        return '{}/{}.{}'.format(
+            DEFAULT_PARTICLES_TEMPLATES_FOLDER,
+            particle_type,
+            extension
+        )
 
     def get_context_render(self):
         """
         get the context to render a particle
         """
         context = {
-            'config': self.config,
-            'children': self.children
+            'particle': self
         }
         return context
 
@@ -179,7 +276,8 @@ class Particle(object):
         if self._loaded_children is not None:
             return self._loaded_children
 
-        children = self.options('particles')
+        # TODO: This is an ugly line to get children from different locations
+        children = self.options('particles') or self.options('variables', 'particles')
         if not children:
             return []
 
