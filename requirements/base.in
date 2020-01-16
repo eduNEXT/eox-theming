@@ -2,4 +2,3 @@
 
 Django<2.0
 futures==3.3.0; python_version < "3.0"
-commentjson==0.8.2
