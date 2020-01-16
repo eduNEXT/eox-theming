@@ -1,7 +1,12 @@
 """
 Utils definitions
 """
+import os
+import logging
 import six
+import commentjson
+
+LOG = logging.getLogger(__name__)
 
 
 def dict_merge(dct, merge_dct):
@@ -22,3 +27,21 @@ def dict_merge(dct, merge_dct):
         else:
             dct[k] = merge_dct[k]
     return dct
+
+
+def load_json_from_file(location):
+    """
+    load a json from a file location
+    """
+    configuration = {}
+    if not os.path.exists(location):
+        return configuration
+
+    with open(location, 'r') as f:
+        try:
+            configuration = commentjson.load(f)
+        except Exception as exc:  # pylint: disable=broad-except
+            LOG.warning('Found an error reading json object from location %s. Trace: %s',
+                        location, exc)
+
+    return configuration

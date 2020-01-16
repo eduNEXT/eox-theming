@@ -9,13 +9,13 @@ from copy import deepcopy
 
 # forward compatibility for Python 3
 from functools import reduce  # pylint: disable=redefined-builtin
-import commentjson
 
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.template.exceptions import TemplateDoesNotExist
 
-from eox_theming.utils import dict_merge
+from eox_theming.utils import dict_merge, load_json_from_file
+from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers
 
 LOG = logging.getLogger(__name__)
 
@@ -59,20 +59,10 @@ def from_local_file():
         base_dir = os.path.dirname(local_json_module_location.__file__)
         location = os.path.join(base_dir, LOCAL_JSON_OBJECT_FILENAME)
 
-    configuration = {}
+    configuration = load_json_from_file(location)
 
-    if not os.path.exists(location):
-        return configuration
-
-    with open(location, 'r') as f:
-        try:
-            configuration = commentjson.load(f)
-        except Exception as exc:  # pylint: disable=broad-except
-            LOG.warning('Found an error reading json theme object from location %s. Trace: %s',
-                        location, exc)
-
-    options_dict = configuration.get('THEME_OPTIONS', {})
-    return options_dict
+    # TODO: is the object going to live under THEME_OPTIONS key??
+    return configuration.get('THEME_OPTIONS', {})
 
 
 class ThemingOptions(object):
@@ -82,6 +72,7 @@ class ThemingOptions(object):
     # TODO: This value source_functions must come from a django setting
     source_functions = [from_local_file]
     _config = None
+    theming_helpers = get_theming_helpers()
 
     def __init__(self):
         """
@@ -131,8 +122,21 @@ class ThemingOptions(object):
         """
         obtain a set of configurations defined in the current theme
         """
-        # TODO: define the logic to get the defaults from the right location
-        return {}
+        # For now the default is taken from current theme in theme_name/lms/default_exploded.json
+        return self._defaults_from_current_theme()
+
+    def _defaults_from_current_theme(self):
+        """
+        Get defaults from current theme
+        """
+        filename = 'default_exploded.json'
+        current_theme = self.theming_helpers.get_current_theme()
+        if not current_theme:
+            return {}
+
+        default_file_loc = current_theme.path / filename
+        default_config = load_json_from_file(default_file_loc)
+        return default_config.get('THEME_OPTIONS', {})
 
     def get_segment(self, segment_name):
         """
