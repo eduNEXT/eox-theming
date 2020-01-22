@@ -5,11 +5,13 @@ import operator
 # forward compatibility for Python 3
 from functools import reduce  # pylint: disable=redefined-builtin
 
-from django.template.exceptions import TemplateDoesNotExist
+from django.conf import settings
 
 from eox_theming.utils import dict_merge
 from eox_theming.api.v1.renderers import Renderer
+from eox_theming.edxapp_wrapper.configuration_helpers import get_configuration_helper
 
+configuration_helpers = get_configuration_helper()
 LOG = logging.getLogger(__name__)
 
 DEFAULT_PARTICLES_TEMPLATES_FOLDER = 'particles'
@@ -20,7 +22,6 @@ class Particle(object):
     Basic definition of a particle
     """
     _config = None
-    template_name = None  # Should this one be included in the configuration?
     parent = None  # Determine if the Particle will have a parent
     _loaded_children = None
 
@@ -54,37 +55,44 @@ class Particle(object):
 
         return value
 
+    def get_template_names_list(self):
+        """
+        Get a list of template names ordered by priority to render the particle
+        """
+        default_template_name = '{}/particle.html'.format(DEFAULT_PARTICLES_TEMPLATES_FOLDER)
+        template_names = [
+            self.template_name,
+            self.get_template_name_by_type(),
+            default_template_name
+        ]
+
+        return [tpl for tpl in template_names if tpl]
+
     def render(self, *args, **kwargs):  # pylint: disable=unused-argument
         """
-        render the particle
+        Render the particle
         TODO: It could be desirable to support input arguments, for now they're unused
         """
         context = self.get_context_render()
         raw_result = ''
-        template_names = []
 
-        if self.template_name:
-            template_names.append(self.template_name)
-
-        template_by_type = self.get_template_name_by_type()
-        if template_by_type:
-            template_names.append(template_by_type)
+        template_names = self.get_template_names_list()
+        # TODO: is this the best way to get the current site?
+        current_site_name = configuration_helpers.get_value(
+            'SITE_NAME',
+            getattr(settings, 'SITE_NAME', '')
+        )
 
         try:
-            if template_names:
-                raw_result = Renderer.render_to_string(template_names, context)
-        except TemplateDoesNotExist:
-            LOG.debug("Templates %s not found for particle", ",".join(template_names))
+            raw_result = Renderer.render_to_string(template_names, context)
+        except Exception as e:  # pylint: disable=broad-except
+            LOG.warning(
+                "The error %s ocurred when rendering %s templates for particle with id [%s] in site [%s]",
+                e, ",".join(template_names),
+                self.options('id', default=''),
+                current_site_name
+            )
             raw_result = ''
-
-        if not raw_result:
-            if self.children:
-                raw_result = self.render_children()
-            else:
-                raw_result = Renderer.render_to_string(
-                    '{}/particle.html'.format(DEFAULT_PARTICLES_TEMPLATES_FOLDER),
-                    context
-                )
 
         return self.post_render(raw_result)
 
@@ -131,11 +139,11 @@ class Particle(object):
         return context
 
     @property
-    def template(self):
+    def template_name(self):
         """
-        return the template defined for the particle
+        return the template name defined for the particle
         """
-        return self.template_name
+        return self.options('template_name')
 
     @property
     def children(self):
