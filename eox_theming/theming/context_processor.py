@@ -29,5 +29,5 @@ def get_active_theming_api():
         "V1": ThemingOptions()
     }
 
-    current_api = configuration_helpers.get_value('EOX_THEMING_CURRENT_THEMING_API', 'V1')
+    current_api = configuration_helpers.get_value('EOX_THEMING_API_CURRENT_VERSION', 'V1')
     return localizer.get(current_api, localizer['V1'])

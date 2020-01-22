@@ -7,9 +7,11 @@ import operator
 # forward compatibility for Python 3
 from functools import reduce  # pylint: disable=redefined-builtin
 
+from django.conf import settings
+
 from eox_theming.utils import dict_merge, load_json_from_file
 from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers
-from eox_theming.api.v1.config_sources import from_local_file
+from eox_theming.api.v1 import config_sources
 from eox_theming.api.v1.particles import Particle
 
 LOG = logging.getLogger(__name__)
@@ -19,8 +21,9 @@ class ThemingOptions(object):
     """
     This class must handle all the calls to the diferential settings a theme will be allowed to use
     """
-    # TODO: This value source_functions must come from a django setting
-    source_functions = [from_local_file]
+    source_functions = [
+        getattr(config_sources, name) for name in settings.EOX_THEMING_API_CONFIG_SOURCES
+    ]
     _config = None
     theming_helpers = get_theming_helpers()
 
@@ -72,7 +75,8 @@ class ThemingOptions(object):
         """
         obtain a set of configurations defined in the current theme
         """
-        # For now the default is taken from current theme in theme_name/lms/default_exploded.json
+        # For now the default object is taken from current theme in
+        # <theme_name>/lms/default_exploded.json
         return self._defaults_from_current_theme()
 
     def _defaults_from_current_theme(self):
@@ -90,10 +94,11 @@ class ThemingOptions(object):
 
     def get_segment(self, segment_name):
         """
-        Get a high level element of an html page
+        Get a high level element (Segment) of an html page
         """
         segment_obj = self.options(segment_name)
         if not segment_obj:
             return None
 
+        # TODO: create from Factory
         return Particle(**segment_obj)

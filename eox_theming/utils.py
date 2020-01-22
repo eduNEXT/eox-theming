@@ -32,6 +32,8 @@ def dict_merge(dct, merge_dct):
 def load_json_from_file(location):
     """
     load a json from a file location
+    This method support location fo json files with comments that respect the restrictions in the
+    package: https://github.com/vaidik/commentjson
     """
     configuration = {}
     if not os.path.exists(location):

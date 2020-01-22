@@ -95,3 +95,9 @@ def plugin_settings(settings):
     settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxProductionStorage'
 
     settings.EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_mako'
+
+    # Settings for Eox Theming API
+    settings.EOX_THEMING_API_CONFIG_SOURCES = [
+        'from_local_file',
+        'from_site_config',
+    ]
