@@ -69,7 +69,6 @@
             "id": "",
             // TODO: Asignar clase al footer?
             "class": "",
-            "override_template": false,
             "footer_description_paragraph": "this is the div for the footer description",
             "particles": [{
                 "id": "top_footer",
@@ -127,35 +126,39 @@
                         // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                         "id": "footer_links",
                         "type": "list",
-                        "variables": [{
-                            // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
-                            "target": "_blank",
-                            "text": "About eduNEXT",
-                            "destination_url": "https://www.edunext.co/about-edunext/"
-                        }, {
-                            "target": "_blank",
-                            "text": "Contact us",
-                            "destination_url": "/contact"
-                        }],
+                        "variables": {
+                            "items": [{
+                                // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
+                                "target": "_blank",
+                                "text": "About eduNEXT",
+                                "destination_url": "https://www.edunext.co/about-edunext/"
+                            }, {
+                                "target": "_blank",
+                                "text": "Contact us",
+                                "destination_url": "/contact"
+                            }]
+                        },
                         "column": 2
                     }, {
                         // TODO: Como sabemos que tipo de lista estamos renderizando: lista de cards? de imagenes?
                         // de links, de texto?
                         "id": "social_footer_links",
                         "type": "list",
-                        "variables": [{
-                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
-                            "destination_url": "https://www.facebook.com/mysite",
-                            "alt": "Facebook",
-                            "target": "_blank",
-                            "class-icon": "fa-facebook"
-                        }, {
-                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
-                            "destination_url": "https://twitter.com/mysite",
-                            "alt": "Twitter",
-                            "target": "_blank",
-                            "class-icon": "fa-twitter"
-                        }],
+                        "variables": {
+                            "items": [{
+                                "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
+                                "destination_url": "https://www.facebook.com/mysite",
+                                "alt": "Facebook",
+                                "target": "_blank",
+                                "class-icon": "fa-facebook"
+                            }, {
+                                "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
+                                "destination_url": "https://twitter.com/mysite",
+                                "alt": "Twitter",
+                                "target": "_blank",
+                                "class-icon": "fa-twitter"
+                            }]
+                        },
                         "column": 2
                     }, {
                         "id": "openedx_logo",

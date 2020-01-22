@@ -62,7 +62,6 @@
             }
         },
         "footer": {
-            "override_template": false,
             "top_block": {
                 "content": "<div>this is the div for top block on footer</div>"
             },
@@ -70,21 +69,21 @@
                 "content": "<div>this is the div for bottom block on footer</div>"
             },
             "footer_description_paragraph": "this is the div for the footer description",
-            "objects": [{
+            "particles": [{
                 "ID": "top_footer",
                 "type": "html_block",
-                // Por qué no dejar el atributo "content" directamente dentro de vars y llamar a ese objeto
+                // Por qué no dejar el atributo "content" directamente dentro de variables y llamar a ese objeto
                 // top_block en el primer nivel del footer??
                 // TODO: Mover los objetos de primer nivel del footer hacia los objetos dentro del footer
-                "vars": "{{ top_block }}"
+                "variables": "{{ top_block }}"
             }, {
                 "ID": "my_3cc",
                 "type": "3_column_content",
-                "vars": "{{ 3_column_vars }}"
+                "variables": "{{ 3_column_vars }}"
             }, {
                 "ID": "extra_footer",
                 "type": "html_block",
-                "vars": {
+                "variables": {
                     "back_top_button_visibility": true,
                     "copyright_text": "Copyright 2020 This is a text by eduNEXT.",
                     "palette": "{{basic_palette}}"
@@ -92,7 +91,7 @@
             }, {
                 "ID": "my_bottom_block",
                 "type": "html_block",
-                "vars": "{{ bottom_block }}"
+                "variables": "{{ bottom_block }}"
             }, {
                 "ID": "my_cookie_block",
                 "type": "privacy_block"
@@ -106,11 +105,11 @@
                 ],
                 "palette": {},
                 // TODO: que default manejamos para cuando no hay definido contenido en la columnas
-                "objects": [{
+                "particles": [{
                     "ID": "footer_logo",
                     "type": "image_tag",
                     // Manejar los default de image_tag
-                    "vars": {
+                    "variables": {
                         "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
                         "alt": " Test tenant",
                         "href": "", // Si hay un href, como vamos a soportar el wrapping en el a tag?
@@ -125,14 +124,14 @@
                     // markdown, htmls con links, etc
                     "ID": "my_footext",
                     "type": "text",
-                    "vars": "This is the text for the footer", // podemos volver un texto en link
+                    "variables": "This is the text for the footer", // podemos volver un texto en link
                     "column": 2
                 }, {
                     // TODO: definir un type específico para el selector de idiomas que es un caso muy específico
                     // TODO: Definir si vamos a soportar selects con call to actions cuando cambie, por ejemplo postear un form
                     "ID": "my_language_footer",
                     "type": "selector_tag",
-                    "vars": {
+                    "variables": {
                         "options": [],
                         "selected": 1
                     },
@@ -141,54 +140,58 @@
                     // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                     "ID": "footer_links",
                     "type": "list",
-                    "vars": [{
-                        // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
-                        "target": "_blank",
-                        "text": "About eduNEXT",
-                        "url": "https://www.edunext.co/about-edunext/"
-                    }, {
-                        "target": "_blank",
-                        "text": "Contact us",
-                        "url": "/contact"
-                    }],
+                    "variables": {
+                        "items": [{
+                            // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
+                            "target": "_blank",
+                            "text": "About eduNEXT",
+                            "url": "https://www.edunext.co/about-edunext/"
+                        }, {
+                            "target": "_blank",
+                            "text": "Contact us",
+                            "url": "/contact"
+                        }]
+                    },
                     "column": 2
                 }, {
                     // Como sabemos que tipo de lista estamos renderizando: lista de cards? de imagenes?
                     // de links, de texto?
                     "ID": "social_footer_links",
                     "type": "list",
-                    "vars": [{
-                        "url": "https://www.facebook.com/mysite",
-                        "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
-                        "alt": "Facebook",
-                        "target": "_blank",
-                        "class-icon": "fa-facebook"
-                    }, {
-                        "url": "https://twitter.com/mysite",
-                        "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
-                        "alt": "Twitter",
-                        "target": "_blank",
-                        "class-icon": "fa-twitter"
-                    }],
+                    "variables": {
+                        "items": [{
+                            "url": "https://www.facebook.com/mysite",
+                            "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
+                            "alt": "Facebook",
+                            "target": "_blank",
+                            "class-icon": "fa-facebook"
+                        }, {
+                            "url": "https://twitter.com/mysite",
+                            "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
+                            "alt": "Twitter",
+                            "target": "_blank",
+                            "class-icon": "fa-twitter"
+                        }]
+                    },
                     "column": 2
                 }, {
                     "ID": "openedx_logo",
                     "type": "image_tag",
-                    "vars": {
+                    "variables": {
                         "logo": "{{logos.openedx}}"
                     },
                     "column": 3
                 }, {
                     "ID": "edunext_logo",
                     "type": "image_tag",
-                    "vars": {
+                    "variables": {
                         "logo": "{{ logos.edunext }}"
                     },
                     "column": 3
                 }, {
                     "ID": "edunext_button",
                     "type": "button_tag",
-                    "vars": {
+                    "variables": {
                         "text": "button_label",
                         "href": "#component",
                         "target": "_blank"
@@ -197,7 +200,7 @@
                 }, {
                     "ID": "footer_jumbotron",
                     "type": "jumbotron",
-                    "vars": {
+                    "variables": {
                         "background_src": "",
                         "overlay_color": "", // Mover a css
                         "title": "Welcome to the test tenant platform", // Aplicar default
@@ -212,7 +215,7 @@
                     // busqueda
                     "ID":"courses_search",
                     "type": "search",
-                    "vars": {
+                    "variables": {
                         "text": "Search in your courses",
                         "search-icon": "fa-search"
                     },
