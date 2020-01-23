@@ -1,0 +1,17 @@
+====== Defaults ======
+{
+    "key": "value"
+}
+
+====== Data ======
+{
+    "static": {"logo": {"url": "https://fake.com/logo.jpg"}}
+}
+
+====== Code ======
+
+theming.options('static', 'logo', 'url')
+
+====== Output ======
+
+https://fake.com/logo.jpg

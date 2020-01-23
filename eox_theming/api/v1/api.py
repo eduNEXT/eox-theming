@@ -52,6 +52,7 @@ class ThemingOptions(object):
         """
         Load the configuration theme values on the instance
         """
+        config = {}
         for source in self.source_functions:
             try:
                 config = source()
