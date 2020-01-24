@@ -66,13 +66,29 @@
         },
         "footer": {
             // TODO: Debería el footer poder definir su wrapper? div, article, section, etc
-            "id": "",
+            "id": "footer_component",
             // TODO: Asignar clase al footer?
             "class": "",
+            "css":"#footer_component {background: #6e6e6e;} #footer_component ul{list-style: none; padding: 0;}",
             "footer_description_paragraph": "this is the div for the footer description",
             "particles": [{
+                "id": "footer_jumbotron",
+                "type": "jumbotron",
+                // TODO: definir si este key de css solo debería definir reglas de CSS propiamente dichas o parámetros
+                // o variables directamente relacionadas con la apariencia del objeto en cuestión.
+                // TODO: se podría tener tambien una variable que fuera extra_css dentro del key "variables" para agregar
+                // esos estilos custom
+                "css": "#footer_jumbotron {height: 170px;display: flex;justify-content: center;align-items: center;background-size: cover;} #footer_jumbotron h3{font-style: italic;} #footer_jumbotron h1{font-weight: bold;}",
+                "variables": {
+                    "background_source": "https://i.ibb.co/vkzr9ZS/paper-1990111-1280.jpg",
+                    "title": "Welcome to the test tenant platform", // Aplicar default
+                    "subtitle": "your first choice for latest technology training", // Aplicar default
+                    "extra_html_content": ""
+                    }
+            },{
                 "id": "top_footer",
                 "type": "html_block",
+                "css":"#top_footer {text-align: center; padding: 20px;color:#fff;}",
                 "variables": {
                     "content": "<div>this is the div for top block on footer</div>"
                 }
@@ -80,6 +96,7 @@
                 // TODO: Analizar como generalizamos esto a n columnas
                 "id": "my_3cc",
                 "type": "3_column_content",
+                "css":"#footer_component #my_3cc > ul{padding: 20px;display: flex;flex-wrap: wrap;justify-content: center;align-items: center;}",
                 "variables": {
                     "column_layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
                         3,
@@ -91,14 +108,15 @@
                     "particles": [{
                         "id": "footer_logo",
                         "type": "image_tag",
+                        "css":"#footer_logo{margin: 0 5px;}",
                         "class": "footer-img",
                         // TODO: Manejar los default de image_tag
                         "variables": {
                             "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
                             "alt": " Test tenant",
                             "destination_url": "", // TODO: Si hay un dest url, como vamos a soportar el wrapping en el a tag?
-                            "height": "200px",
-                            "width": "200px",
+                            "height": "100px",
+                            "width": "150px",
                             "target": "_blank"
                         },
                         "column": 1
@@ -107,6 +125,7 @@
                         // markdown, htmls con links, etc (scope del objeto text)
                         "id": "my_footext",
                         "type": "text",
+                        "css":"#my_footext{font-weight: bold; padding: 10px 0;color:#fff;margin: 0 5px;}",
                         "class": "footer-text",
                         "variables": {
                             "text": "This is the text for the footer"
@@ -117,6 +136,7 @@
                         // TODO: Definir si vamos a soportar selects con call to actions cuando cambie, por ejemplo postear un form
                         "id": "my_language_footer",
                         "type": "selector_tag",
+                        "css":"#my_language_footer{border-radius: 3px;padding: 2px;color: #0621b2;border-color: #0621b2;margin: 0 5px;}",
                         "variables": {
                             "options": ["English", "Spanish"],
                             "selected": 1
@@ -126,6 +146,7 @@
                         // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                         "id": "footer_links",
                         "type": "list",
+                        "css":"#footer_links a{color: #fff;margin: 0 5px;}",
                         "variables": {
                             "items": [{
                                 // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
@@ -163,26 +184,30 @@
                     }, {
                         "id": "openedx_logo",
                         "type": "image_tag",
+                        "css": "#openedx_logo{margin: 0 5px;}",
                         "variables": {
                             "source": "https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png",
                             "alt": " Powered by Open edX",
-                            "destination_url": ""
+                            "destination_url": "",
+                            "width":"200px"
                         },
                         "column": 3
                     }, {
                         "id": "edunext_logo",
                         "type": "image_tag",
+                        "css": "#edunext_logo{margin: 0 5px;}",
                         "variables": {
                             "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small.png",
                             "alt": " eduNEXT - World class Open edX services provider",
                             "destination_url": "",
-                            "width": "100px",
-                            "height": "20px"
+                            "width": "140px",
+                            "height": "40px"
                         },
                         "column": 3
                     }, {
                         "id": "edunext_button",
                         "type": "button_tag",
+                        "css":"#edunext_button{background: #001779;text-shadow: none;color: #fff;box-shadow: none;border-radius: 10px;margin: 10px 5px;}#edunext_button:hover{background: #2640ac;}#edunext_button a:hover{text-decoration: none;}",
                         "variables": {
                             "text": "button_text",
                             "destination_url": "#component",
@@ -190,30 +215,14 @@
                         },
                         "column": 3
                     }, {
-                        "id": "footer_jumbotron",
-                        "type": "jumbotron",
-                        // TODO: definir si este key de css solo debería definir reglas de CSS propiamente dichas o parámetros
-                        // o variables directamente relacionadas con la apariencia del objeto en cuestión.
-                        // TODO: se podría tener tambien una variable que fuera extra_css dentro del key "variables" para agregar
-                        // esos estilos custom
-                        "css": {
-                            "overlay_color": "",
-                            "alignment": ""
-                        },
-                        "variables": {
-                            "background_source": "",
-                            "title": "Welcome to the test tenant platform", // Aplicar default
-                            "subtitle": "your first choice for latest technology training", // Aplicar default
-                            "extra_html_content": ""
-                        }
-                    }, {
                         // TODO: Revisar si el hecho de mover un componente de search de un lado a otro hace que se rompa su funcionalidad
                         // Definir diferentes tipos de search? En el dashboard el search muestra sus resultados debajo del input,
                         // mientras que en /courses los resultados son filtrados de la lista completa de courses en base al term de
                         // busqueda.
                         // TODO: se podrían tener searches custom? que disparen un query custom cuando sean accionados
-                        "id": "courses_search",
+                        "id": "footer_search",
                         "type": "search",
+                        "css":"#footer_search button{background: #001779;box-shadow: none;}#footer_search{margin: 0 5px;}",
                         "variables": {
                             "text": "Search in your courses",
                             "search_icon": "fa-search"
@@ -224,9 +233,7 @@
             }, {
                 "id": "extra_footer",
                 "type": "html_block",
-                "css": {
-                    "back_top_button_visibility": true
-                },
+                "css":"#extra_footer{text-align: center;padding: 15px;color: #fff;font-style: italic;}",
                 "variables": {
                     "copyright_text": "Copyright 2020 This is a text by eduNEXT.",
                     "palette": "",
@@ -235,6 +242,7 @@
             }, {
                 "id": "my_bottom_block",
                 "type": "html_block",
+                "css":"#my_bottom_block{text-align: center;color: #fff;text-transform: uppercase;padding: 15px;}",
                 "variables": {
                     "content": "<div>this is the div for bottom block on footer</div>"
                 }
