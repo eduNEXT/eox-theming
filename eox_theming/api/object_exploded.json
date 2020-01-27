@@ -242,6 +242,92 @@
                 "id": "my_cookie_block",
                 "type": "privacy_block"
             }]
+        },
+        "navigation": {
+            "id":"navigation_edunext",
+            "class":"",
+            "css":"",
+            "particles": [{
+                "id":"navigation_extra",
+                "type": "html_block",
+                "variables":{
+                    "content":"<div>this is the top block of the header</div>"
+                }
+            }, {
+                "id":"header_content",
+                "type":"2_column_content",
+                "variables":{
+                    "column-layout":[
+                        4,
+                        8
+                    ],
+                    "palette":{},
+                    "particles":[{
+                        "id":"navigation_logo",
+                        "type":"image_tag",
+                        "css":"",
+                        "variables":{
+                            "source": "https://enext-analytics.s3.amazonaws.com/usercontent/9mP8nx2U5_edit.png",
+                            "alt":" Test tenant",
+                            "destination_url":"",
+                            "width":"230px",
+                            "height":"50px"
+                        }
+                    }, {
+                        "id":"language_header",
+                        "type":"selector_tag",
+                        "css":"",
+                        "variables":{
+                            "options":["English","Spanish"],
+                            "selected":"1"
+                        }
+                    }, {
+                        "id":"header_links",
+                        "type":"list",
+                        "css":"",
+                        "variables":{
+                            "items":[{
+                                "class":"",
+                                "target": "_self",
+                                "text": "Courses ",
+                                "destionatin_url": "/courses"
+                            },
+                            {
+                                "class":"",
+                                "target": "_self",
+                                "text": "About us",
+                                "destionatin_url": "/about"
+                            }]
+                        }
+                    }, {
+                        "id":"auth_navigation",
+                        "type":"auth_link",
+                        "css":"",
+                        "variables":{
+                            "particles":[{
+                                "id":"login_button",
+                                "type":"button_tag",
+                                "css":"",
+                                "variables":{
+                                    "text":"My login",
+                                    "destination_url":"/login",
+                                    "target":"_self"
+                                }
+                            },
+                            {
+                                "id":"register_button",
+                                "type":"button_tag",
+                                "css":"",
+                                "variables":{
+                                    "text":"My register",
+                                    "destination_url":"/register",
+                                    "target":"_self"
+                                }
+                            }]
+                        }
+                    }]
+                }
+            }]
         }
     }
 }
