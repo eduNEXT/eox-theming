@@ -69,7 +69,10 @@
             "id": "footer_component",
             // TODO: Asignar clase al footer?
             "class": "",
-            "css":"#footer_component {background: #6e6e6e;} #footer_component ul{list-style: none; padding: 0;}",
+            "css":{
+                "background": "#6e6e6e",
+                "color": "#fff"
+            },
             "footer_description_paragraph": "this is the div for the footer description",
             "particles": [{
                 "id": "footer_jumbotron",
@@ -78,7 +81,13 @@
                 // o variables directamente relacionadas con la apariencia del objeto en cuestión.
                 // TODO: se podría tener tambien una variable que fuera extra_css dentro del key "variables" para agregar
                 // esos estilos custom
-                "css": "#footer_jumbotron {height: 170px;display: flex;justify-content: center;align-items: center;background-size: cover;} #footer_jumbotron h3{font-style: italic;} #footer_jumbotron h1{font-weight: bold;}",
+                "css": {
+                    "height": "170px",
+                    "display": "flex",
+                    "justify-content": "center",
+                    "align-items": "center",
+                    "background-size": "cover"
+                },
                 "variables": {
                     "background_source": "https://i.ibb.co/vkzr9ZS/paper-1990111-1280.jpg",
                     "title": "Welcome to the test tenant platform", // Aplicar default
@@ -88,7 +97,11 @@
             },{
                 "id": "top_footer",
                 "type": "html_block",
-                "css":"#top_footer {text-align: center; padding: 20px;color:#fff;}",
+                "css":{
+                    "text-align": "center",
+                    "padding": "20px",
+                    "color": "#fff"
+                },
                 "variables": {
                     "content": "<div>this is the div for top block on footer</div>"
                 }
@@ -96,7 +109,7 @@
                 // TODO: Analizar como generalizamos esto a n columnas
                 "id": "my_3cc",
                 "type": "3_column_content",
-                "css":"#footer_component #my_3cc > ul{padding: 20px;display: flex;flex-wrap: wrap;justify-content: center;align-items: center;}",
+                "css":{},
                 "variables": {
                     "column_layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
                         3,
@@ -108,7 +121,9 @@
                     "particles": [{
                         "id": "footer_logo",
                         "type": "image_tag",
-                        "css":"#footer_logo{margin: 0 5px;}",
+                        "css":{
+                            "margin": "0 5px"
+                        },
                         "class": "footer-img",
                         // TODO: Manejar los default de image_tag
                         "variables": {
@@ -125,7 +140,12 @@
                         // markdown, htmls con links, etc (scope del objeto text)
                         "id": "my_footext",
                         "type": "text",
-                        "css":"#my_footext{font-weight: bold; padding: 10px 0;color:#fff;margin: 0 5px;}",
+                        "css":{
+                            "font-weight": "bold",
+                            "padding": "10px 0",
+                            "color": "#fff",
+                            "margin": "0 5px"
+                        },
                         "class": "footer-text",
                         "variables": {
                             "text": "This is the text for the footer"
@@ -136,7 +156,13 @@
                         // TODO: Definir si vamos a soportar selects con call to actions cuando cambie, por ejemplo postear un form
                         "id": "my_language_footer",
                         "type": "selector_tag",
-                        "css":"#my_language_footer{border-radius: 3px;padding: 2px;color: #0621b2;border-color: #0621b2;margin: 0 5px;}",
+                        "css":{
+                            "border-radius": "3px",
+                            "padding": "2px",
+                            "color": "#0621b2",
+                            "border-color": "#0621b2",
+                            "margin": "0 5px"
+                        },
                         "variables": {
                             "options": ["English", "Spanish"],
                             "selected": 1
@@ -146,7 +172,7 @@
                         // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                         "id": "footer_links",
                         "type": "list",
-                        "css":"#footer_links a{color: #fff;margin: 0 5px;}",
+                        "css":{},
                         "variables": {
                             "items": [{
                                 // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
@@ -184,7 +210,9 @@
                     }, {
                         "id": "openedx_logo",
                         "type": "image_tag",
-                        "css": "#openedx_logo{margin: 0 5px;}",
+                        "css": {
+                            "margin": "0 5px"
+                        },
                         "variables": {
                             "source": "https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png",
                             "alt": " Powered by Open edX",
@@ -195,7 +223,9 @@
                     }, {
                         "id": "edunext_logo",
                         "type": "image_tag",
-                        "css": "#edunext_logo{margin: 0 5px;}",
+                        "css": {
+                            "margin": "0 5px"
+                        },
                         "variables": {
                             "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small.png",
                             "alt": " eduNEXT - World class Open edX services provider",
@@ -207,7 +237,14 @@
                     }, {
                         "id": "edunext_button",
                         "type": "button_tag",
-                        "css":"#edunext_button{background: #001779;text-shadow: none;color: #fff;box-shadow: none;border-radius: 10px;margin: 10px 5px;}#edunext_button:hover{background: #2640ac;}#edunext_button a:hover{text-decoration: none;}",
+                        "css": {
+                            "background": "#001779",
+                            "text-shadow": "none",
+                            "color": "#fff",
+                            "box-shadow": "none",
+                            "border-radius": "10px",
+                            "margin": "10px 5px"
+                        },
                         "variables": {
                             "text": "button_text",
                             "destination_url": "#component",
@@ -222,7 +259,9 @@
                         // TODO: se podrían tener searches custom? que disparen un query custom cuando sean accionados
                         "id": "footer_search",
                         "type": "search",
-                        "css":"#footer_search button{background: #001779;box-shadow: none;}#footer_search{margin: 0 5px;}",
+                        "css":{
+                            "margin": "0 5px"
+                        },
                         "variables": {
                             "text": "Search in your courses",
                             "search_icon": "fa-search"
@@ -233,7 +272,12 @@
             }, {
                 "id": "extra_footer",
                 "type": "html_block",
-                "css":"#extra_footer{text-align: center;padding: 15px;color: #fff;font-style: italic;}",
+                "css":{
+                    "text-align": "center",
+                    "padding": "15px",
+                    "color": "#fff",
+                    "font-style": "italic"
+                },
                 "variables": {
                     "copyright_text": "Copyright 2020 This is a text by eduNEXT.",
                     "palette": "",
@@ -242,7 +286,12 @@
             }, {
                 "id": "my_bottom_block",
                 "type": "html_block",
-                "css":"#my_bottom_block{text-align: center;color: #fff;text-transform: uppercase;padding: 15px;}",
+                "css": {
+                    "text-align": "center",
+                    "color": "#fff",
+                    "text-transform": "uppercase",
+                    "padding": "15px"
+                },
                 "variables": {
                     "content": "<div>this is the div for bottom block on footer</div>"
                 }
