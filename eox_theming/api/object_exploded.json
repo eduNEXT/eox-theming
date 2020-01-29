@@ -81,7 +81,7 @@
                 "id": "my_3cc",
                 "type": "3_column_content",
                 "variables": {
-                    "column-layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
+                    "column_layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
                         3,
                         6,
                         3
@@ -150,13 +150,13 @@
                                 "destination_url": "https://www.facebook.com/mysite",
                                 "alt": "Facebook",
                                 "target": "_blank",
-                                "class-icon": "fa-facebook"
+                                "class_icon": "fa-facebook"
                             }, {
                                 "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
                                 "destination_url": "https://twitter.com/mysite",
                                 "alt": "Twitter",
                                 "target": "_blank",
-                                "class-icon": "fa-twitter"
+                                "class_icon": "fa-twitter"
                             }]
                         },
                         "column": 2

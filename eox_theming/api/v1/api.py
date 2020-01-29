@@ -12,7 +12,7 @@ from django.conf import settings
 from eox_theming.utils import dict_merge, load_json_from_file
 from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers
 from eox_theming.api.v1 import config_sources
-from eox_theming.api.v1.particles import Particle
+from eox_theming.api.v1.particles import ParticleFactory
 
 LOG = logging.getLogger(__name__)
 
@@ -101,5 +101,4 @@ class ThemingOptions(object):
         if not segment_obj:
             return None
 
-        # TODO: create from Factory
-        return Particle(**segment_obj)
+        return ParticleFactory.create(**segment_obj)

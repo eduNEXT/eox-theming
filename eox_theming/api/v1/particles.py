@@ -4,6 +4,7 @@ import operator
 
 # forward compatibility for Python 3
 from functools import reduce  # pylint: disable=redefined-builtin
+import six
 
 from django.conf import settings
 
@@ -167,12 +168,44 @@ class Particle(object):
         return children_particles
 
 
+class NcolumnContent(Particle):
+    """
+    Class definition for particles with columns
+    """
+    @property
+    def columns_number(self):
+        """
+        Return the number of columns of the NcolumnContent particle
+        """
+        columns_layout = self.options('variables', 'column_layout')
+        if not columns_layout or not isinstance(columns_layout, list):
+            return 1
+
+        return len(columns_layout)
+
+    def children_by_column(self, column_number):
+        """
+        Return an iterator that filter the children based on the passed
+        column_number
+        """
+        def predicate(child):
+            """
+            Useful to filter children by column
+            """
+            return child.options('column', default=1) == column_number
+
+        iter_column = six.moves.filter(predicate, self.children)
+        return iter_column
+
+
 class ParticleFactory(object):
     """
     Particle factory to allow parent particles to instantiate their children
     """
     localizer = {
-        "default": Particle
+        "default": Particle,
+        "2_column_content": NcolumnContent,
+        "3_column_content": NcolumnContent
     }
 
     @classmethod

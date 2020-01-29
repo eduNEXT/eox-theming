@@ -98,7 +98,7 @@
             }],
             // Analizar como generalizamos esto a n columnas
             "3_column_vars": {
-                "column-layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
+                "column_layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
                     3,
                     6,
                     3
@@ -164,13 +164,13 @@
                             "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/facebook.png",
                             "alt": "Facebook",
                             "target": "_blank",
-                            "class-icon": "fa-facebook"
+                            "class_icon": "fa-facebook"
                         }, {
                             "url": "https://twitter.com/mysite",
                             "src": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/mysite/icons/twitter.png",
                             "alt": "Twitter",
                             "target": "_blank",
-                            "class-icon": "fa-twitter"
+                            "class_icon": "fa-twitter"
                         }]
                     },
                     "column": 2
