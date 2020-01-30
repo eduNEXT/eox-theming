@@ -167,6 +167,23 @@ class Particle(object):
         self._loaded_children = children_particles
         return children_particles
 
+    def get_css(self):
+        """
+        return a string with all the CSS rules defined for the particle concatenated and
+        ready to use in a "style" property of an html tag
+        """
+        string_css_rules = ''
+        css_rules = self.options('css', {})
+        try:
+            string_css_rules = ';'.join(
+                ['{}: {}'.format(key, value) for key, value in six.iteritems(css_rules)]
+            )
+        # TODO: logging a warning here
+        except (AttributeError, TypeError):
+            string_css_rules = ''
+
+        return string_css_rules
+
 
 class NcolumnContent(Particle):
     """
