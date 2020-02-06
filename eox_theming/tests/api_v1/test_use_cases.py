@@ -12,6 +12,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from parameterized import parameterized
 
+from eox_theming.test_utils import process_multiline_string
 from eox_theming import configuration
 from eox_theming.api.v1.api import ThemingOptions
 
@@ -54,7 +55,10 @@ class TestsUseCasesSequence(TestCase):
 
         # For now we compare the results as being the same without
         # trailing and leading spaces
-        self.assertEqual(case_result, ''.join(output.splitlines()))
+        self.assertEqual(
+            process_multiline_string(case_result),
+            process_multiline_string(output)
+        )
 
     @parameterized.expand(get_all_test_cases)
     def test_case(self, name, pathname):  # pylint: disable=unused-argument
@@ -110,7 +114,10 @@ class TestsUseCasesAPIV1Sequence(TestCase):
 
             # For now we compare the results as being the same without
             # trailing and leading spaces
-            self.assertEqual(case_result, ''.join(output.splitlines()))
+            self.assertEqual(
+                process_multiline_string(case_result),
+                process_multiline_string(output)
+            )
 
     @parameterized.expand(partial(get_all_test_cases, expr='v1/*.txt'))
     def test_case(self, name, pathname):  # pylint: disable=unused-argument

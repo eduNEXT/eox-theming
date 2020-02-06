@@ -1,0 +1,11 @@
+## mako
+<%page expression_filter="h"/>
+
+<%
+  el_id = particle.options('id', default=0)
+  el_content = particle.options('variables', 'content',  default={})
+%>
+
+<div id="${el_id}">
+	${el_content | n, decode.utf8}
+</div>

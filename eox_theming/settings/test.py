@@ -26,14 +26,38 @@ for app in TEST_INSTALLED_APPS:
 ROOT_URLCONF = 'eox_theming.urls'
 ALLOWED_HOSTS = ['*']
 
+CONTEXT_PROCESSORS = [
+    # This is a minimum context processors list extracted from lms/envs/common.py in edunext-platform
+    'django.template.context_processors.request',
+    'django.template.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
+    'django.template.context_processors.i18n',
+    'django.template.context_processors.csrf',
+
+    # eox-theming specific context processors
+    'eox_theming.theming.context_processor.eox_configuration',
+]
+
 TEMPLATES = [
     {
+        'NAME': 'django',
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {},
     },
+    {
+        'NAME': 'mako',
+        'BACKEND': 'eox_theming.tests.mako_backend.Mako',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': CONTEXT_PROCESSORS,
+        },
+    },
 ]
+
+SITE_NAME = 'default.eox-theming.site'
 
 EOX_THEMING_DEFAULT_THEME_NAME = 'default-theme'
 

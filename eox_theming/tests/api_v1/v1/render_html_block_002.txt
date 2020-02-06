@@ -1,0 +1,25 @@
+====== Defaults ======
+{
+    "key": "value"
+}
+
+====== Data ======
+{
+    "main_block": {
+        "id": "my_bottom_block",
+        "type": "html_block",
+        "variables": {
+            "content": "<div>this is the div for main block</div>"
+        }
+    }
+}
+
+====== Code ======
+
+theming.get_segment('main_block').render()
+
+====== Output ======
+
+<div id="my_bottom_block">
+    <div>this is the div for main block</div>
+</div>
