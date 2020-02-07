@@ -2,7 +2,7 @@
 import logging
 import operator
 
-# forward compatibility for Python 3
+# Forward compatibility for Python 3
 from functools import reduce  # pylint: disable=redefined-builtin
 import six
 
@@ -18,26 +18,30 @@ LOG = logging.getLogger(__name__)
 DEFAULT_PARTICLES_TEMPLATES_FOLDER = 'particles'
 
 
-class Particle(object):
+class ThemingFlexibleObject(object):
     """
-    Basic definition of a particle
+    This class defines the basic functionality required from the frontend
+    to render an html section based on a provided configuration.
+    To define more complex Flexible Objects, inherit from this class and
+    extend the functionality.
+    An instance of this class is named 'particle' on the frontend side.
     """
     _config = None
-    parent = None  # Determine if the Particle will have a parent
+    parent = None  # Determine if the Flexible Object will have a parent
     _loaded_children = None
 
     def __init__(self, *args, **kwargs):  # pylint: disable=unused-argument
         """
-        Initiating a new Particle
-        TODO: Maybe a Particle should be initialized with a global context (global vars?)
-        TODO: could a template path be a configuration variable for a particle
+        Initiating a new Flexible Object
+        TODO: Maybe a Flexible Object should be initialized with a global context (global vars?)
+        TODO: could a template path be a configuration variable for a Flexible Object
         """
         default_config = self._get_default_configuration()
         self._config = dict_merge(default_config, kwargs)
 
     def _get_default_configuration(self):
         """
-        Get the default configuration for the particle
+        Get the default configuration for the Flexible Object
         """
         return {}
 
@@ -58,7 +62,7 @@ class Particle(object):
 
     def get_template_names_list(self):
         """
-        Get a list of template names ordered by priority to render the particle
+        Get a list of template names ordered by priority to render the Flexible Object
         """
         default_template_name = '{}/particle.html'.format(DEFAULT_PARTICLES_TEMPLATES_FOLDER)
         template_names = [
@@ -71,7 +75,7 @@ class Particle(object):
 
     def render(self, *args, **kwargs):  # pylint: disable=unused-argument
         """
-        Render the particle
+        Render the Flexible Object
         TODO: It could be desirable to support input arguments, for now they're unused
         """
         context = self.get_context_render()
@@ -106,7 +110,8 @@ class Particle(object):
 
     def render_children(self):
         """
-        Render and concatenate every children particle
+        Render and concatenate every children contained in the
+        Flexible Object
         """
         result = ''
         for sub_part in self.children:
@@ -117,7 +122,7 @@ class Particle(object):
 
     def get_template_name_by_type(self, extension=None):
         """
-        return a template name based on the type of the particle
+        return a template name based on the type of the Flexible Object
         """
         if extension is None:
             extension = 'html'
@@ -132,7 +137,7 @@ class Particle(object):
 
     def get_context_render(self):
         """
-        get the context to render a particle
+        get the context to render a Flexible Object
         """
         context = {
             'particle': self
@@ -142,14 +147,14 @@ class Particle(object):
     @property
     def template_name(self):
         """
-        return the template name defined for the particle
+        return the template name defined for the Flexible Object
         """
         return self.options('template_name')
 
     @property
     def children(self):
         """
-        Get the particle children, if they exist
+        Get the Flexible Object children, if they exist
         """
         if self._loaded_children is not None:
             return self._loaded_children
@@ -161,7 +166,7 @@ class Particle(object):
 
         children_particles = []
         for el in children:
-            new_particle = ParticleFactory.create(**el)
+            new_particle = ThemingFlexibleObjectFactory.create(**el)
             children_particles.append(new_particle)
 
         self._loaded_children = children_particles
@@ -169,7 +174,7 @@ class Particle(object):
 
     def get_css(self):
         """
-        return a string with all the CSS rules defined for the particle concatenated and
+        return a string with all the CSS rules defined for the Flexible Object concatenated and
         ready to use in a "style" property of an html tag
         """
         string_css_rules = ''
@@ -185,14 +190,14 @@ class Particle(object):
         return string_css_rules
 
 
-class NcolumnContent(Particle):
+class NcolumnContent(ThemingFlexibleObject):
     """
-    Class definition for particles with columns
+    Class definition for Flexible Object with columns
     """
     @property
     def columns_number(self):
         """
-        Return the number of columns of the NcolumnContent particle
+        Return the number of columns of the NcolumnContent Flexible Object
         """
         columns_layout = self.options('variables', 'column_layout')
         if not columns_layout or not isinstance(columns_layout, list):
@@ -215,12 +220,12 @@ class NcolumnContent(Particle):
         return iter_column
 
 
-class ParticleFactory(object):
+class ThemingFlexibleObjectFactory(object):
     """
-    Particle factory to allow parent particles to instantiate their children
+    Flexible Object factory
     """
     localizer = {
-        "default": Particle,
+        "default": ThemingFlexibleObject,
         "2_column_content": NcolumnContent,
         "3_column_content": NcolumnContent
     }
@@ -228,7 +233,7 @@ class ParticleFactory(object):
     @classmethod
     def create(cls, *args, **kwargs):
         """
-        Create a new particle
+        Create a new Flexible Object
         """
         particle_type = kwargs.get('type')
         creator_class = cls.localizer.get(particle_type)
