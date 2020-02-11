@@ -30,13 +30,8 @@ def process_multiline_string(string):
     This method remove new lines from multiline string outputs and
     other undesirable characters
     """
-    undesirable_characters = [
-        '/n',
-        '\n',
-        '/t',
-        '\t',
-        ' '
-    ]
-    as_list = '|'.join(undesirable_characters)
-    output = re.sub(r'({})'.format(as_list), '', string)
+    # Multiple lines to single line and strip
+    string = ''.join(string.splitlines()).strip()
+    # In HTML case, remove spaces and tabs not inside html tags
+    output = re.sub(r'(>)([\t\s]+)(<[^/])', r'\1\3', string)
     return output
