@@ -21,9 +21,9 @@ requirements: ## install environment requirements
 
 upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
 	pip install -q pip-tools
-	pip-compile -U --output-file requirements/base_extra.txt requirements/base_extra.in
-	pip-compile -U --output-file requirements/base.txt requirements/base.in requirements/base_extra.in
-	pip-compile -U --output-file requirements/test.txt requirements/test.in requirements/base.in requirements/base_extra.in
+	pip-compile -U --output-file requirements/package.txt requirements/package.in
+	pip-compile -U --output-file requirements/base.txt requirements/base.in requirements/package.in
+	pip-compile -U --output-file requirements/test.txt requirements/test.in requirements/base.in requirements/package.in
 
 quality: clean ## check coding style with pycodestyle and pylint
 	coverage run --source="." --rcfile=.coveragerc manage.py test

@@ -68,7 +68,7 @@ setup(
         'eox_theming'
     ],
     include_package_data=True,
-    install_requires=load_requirements("requirements/base_extra.txt"),
+    install_requires=load_requirements("requirements/package.txt"),
     zip_safe=False,
     entry_points={
         "lms.djangoapp": [
