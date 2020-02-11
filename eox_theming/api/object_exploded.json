@@ -69,7 +69,7 @@
             "id": "footer_component",
             // TODO: Asignar clase al footer?
             "class": "",
-            "css":{
+            "css": {
                 "background": "#6e6e6e",
                 "color": "#fff"
             },
@@ -97,7 +97,7 @@
             },{
                 "id": "top_footer",
                 "type": "html_block",
-                "css":{
+                "css": {
                     "text-align": "center",
                     "padding": "20px",
                     "color": "#fff"
@@ -109,7 +109,7 @@
                 // TODO: Analizar como generalizamos esto a n columnas
                 "id": "my_3cc",
                 "type": "3_column_content",
-                "css":{
+                "css": {
                     "display":"flex",
                     "align-items": "center"
                 },
@@ -124,7 +124,7 @@
                     "particles": [{
                         "id": "footer_logo",
                         "type": "image_tag",
-                        "css":{
+                        "css": {
                             "margin": "0 5px"
                         },
                         "class": "footer-img",
@@ -143,7 +143,7 @@
                         // markdown, htmls con links, etc (scope del objeto text)
                         "id": "my_footext",
                         "type": "text",
-                        "css":{
+                        "css": {
                             "font-weight": "bold",
                             "padding": "10px 0",
                             "color": "#fff",
@@ -159,7 +159,7 @@
                         // TODO: Definir si vamos a soportar selects con call to actions cuando cambie, por ejemplo postear un form
                         "id": "my_language_footer",
                         "type": "selector_tag",
-                        "css":{
+                        "css": {
                             "border-radius": "3px",
                             "padding": "2px",
                             "color": "#0621b2",
@@ -175,7 +175,7 @@
                         // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                         "id": "footer_links",
                         "type": "list",
-                        "css":{},
+                        "css": {},
                         "variables": {
                             "items": [{
                                 // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
@@ -262,7 +262,7 @@
                         // TODO: se podrían tener searches custom? que disparen un query custom cuando sean accionados
                         "id": "footer_search",
                         "type": "search",
-                        "css":{
+                        "css": {
                             "margin": "0 5px"
                         },
                         "variables": {
@@ -275,7 +275,7 @@
             }, {
                 "id": "extra_footer",
                 "type": "html_block",
-                "css":{
+                "css": {
                     "text-align": "center",
                     "padding": "15px",
                     "color": "#fff",
