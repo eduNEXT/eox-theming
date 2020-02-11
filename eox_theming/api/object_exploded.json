@@ -109,7 +109,10 @@
                 // TODO: Analizar como generalizamos esto a n columnas
                 "id": "my_3cc",
                 "type": "3_column_content",
-                "css":{},
+                "css":{
+                    "display":"flex",
+                    "align-items": "center"
+                },
                 "variables": {
                     "column_layout": [ // El numero de columnas se define a partir del numero de elementos del column-layout
                         3,
