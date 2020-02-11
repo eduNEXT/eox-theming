@@ -178,7 +178,7 @@ class ThemingFlexibleObject(object):
         ready to use in a "style" property of an html tag
         """
         string_css_rules = ''
-        css_rules = self.options('css', {})
+        css_rules = self.options('css', default={})
         try:
             string_css_rules = ';'.join(
                 ['{}: {}'.format(key, value) for key, value in six.iteritems(css_rules)]
