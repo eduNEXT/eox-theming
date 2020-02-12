@@ -70,7 +70,7 @@
             // TODO: Asignar clase al footer?
             "class": "",
             "css": {
-                "background": "#6e6e6e",
+                "background": "#232748",
                 "color": "#fff"
             },
             "footer_description_paragraph": "this is the div for the footer description",
@@ -86,10 +86,9 @@
                     "display": "flex",
                     "justify-content": "center",
                     "align-items": "center",
-                    "background-size": "cover"
+                    "background": "#838383"
                 },
                 "variables": {
-                    "background_source": "https://i.ibb.co/vkzr9ZS/paper-1990111-1280.jpg",
                     "title": "Welcome to the test tenant platform", // Aplicar default
                     "subtitle": "your first choice for latest technology training", // Aplicar default
                     "extra_html_content": ""
@@ -130,11 +129,11 @@
                         "class": "footer-img",
                         // TODO: Manejar los default de image_tag
                         "variables": {
-                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/llpa/logos/llpa.svg",
+                            "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small-light.png",
                             "alt": " Test tenant",
                             "destination_url": "", // TODO: Si hay un dest url, como vamos a soportar el wrapping en el a tag?
-                            "height": "100px",
-                            "width": "150px",
+                            "height": "35px",
+                            "width": "120px",
                             "target": "_blank"
                         },
                         "column": 1
@@ -151,7 +150,7 @@
                         },
                         "class": "footer-text",
                         "variables": {
-                            "text": "This is the text for the footer"
+                            "text": "This is a demonstration site, to showcase all the features available in the Open edX platform as provided by eduNEXT."
                         }, // TODO: como podemos volver un texto en link?
                         "column": 2
                     }, {
@@ -175,7 +174,9 @@
                         // TODO: Evaluar la posibilidad de tener mas de un tipo de listas
                         "id": "footer_links",
                         "type": "list",
-                        "css": {},
+                        "css": {
+                            "display": "flex"
+                        },
                         "variables": {
                             "items": [{
                                 // TODO: definir de manera muy clara un set de variables que se requiere para renderizar un list
@@ -186,6 +187,10 @@
                                 "target": "_blank",
                                 "text": "Contact us",
                                 "destination_url": "/contact"
+                            }, {
+                                "target": "_blank",
+                                "text": "Get your own Open edX site",
+                                "destination_url": "https://www.edunext.co/cloud/?utm_source=learnerdemo&utm_medium=web&utm_campaing=footer"
                             }]
                         },
                         "column": 2
@@ -220,7 +225,8 @@
                             "source": "https://files.edx.org/openedx-logos/edx-openedx-logo-tag.png",
                             "alt": " Powered by Open edX",
                             "destination_url": "",
-                            "width":"200px"
+                            "width":"150px",
+                            "height": "45px"
                         },
                         "column": 3
                     }, {
@@ -233,25 +239,8 @@
                             "source": "https://d1uwn6yupg8lfo.cloudfront.net/edxsites/aegir-images/logo-small.png",
                             "alt": " eduNEXT - World class Open edX services provider",
                             "destination_url": "",
-                            "width": "140px",
-                            "height": "40px"
-                        },
-                        "column": 3
-                    }, {
-                        "id": "edunext_button",
-                        "type": "button_tag",
-                        "css": {
-                            "background": "#001779",
-                            "text-shadow": "none",
-                            "color": "#fff",
-                            "box-shadow": "none",
-                            "border-radius": "10px",
-                            "margin": "10px 5px"
-                        },
-                        "variables": {
-                            "text": "button_text",
-                            "destination_url": "#component",
-                            "target": "_blank"
+                            "width": "100px",
+                            "height": "26px"
                         },
                         "column": 3
                     }, {
