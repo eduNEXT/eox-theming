@@ -6,7 +6,7 @@ Tests for the template loaders
 from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
-from mock import patch, mock
+from mock import mock, patch
 from path import Path
 
 from eox_theming.theming.template_loaders import EoxThemeFilesystemLoader

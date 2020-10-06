@@ -8,20 +8,16 @@ import os
 import re
 
 import pkg_resources
-
 from django.conf import settings
-
-from mako.exceptions import TopLevelLookupException  # pylint: disable=import-error
+from mako.exceptions import TopLevelLookupException
 
 from eox_theming.configuration import ThemingConfiguration
-
 from eox_theming.edxapp_wrapper.mako import (
+    get_clear_lookups,
     get_dynamictemplate_lookup,
-    get_top_level_template_uri,
     get_lookup,
-    get_clear_lookups
+    get_top_level_template_uri,
 )
-
 
 DynamicTemplateLookup = get_dynamictemplate_lookup()
 TopLevelTemplateURI = get_top_level_template_uri()

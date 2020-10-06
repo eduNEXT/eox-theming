@@ -6,7 +6,7 @@ Tests for the selection middleware
 from __future__ import absolute_import, unicode_literals
 
 from django.test import RequestFactory, TestCase
-from mock import patch, mock
+from mock import mock, patch
 
 
 class TestsEoxThemeMiddleware(TestCase):

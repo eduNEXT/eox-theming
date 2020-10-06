@@ -1,8 +1,8 @@
 """
 Plugin middlewares
 """
-from eox_theming.edxapp_wrapper.models import get_openedx_site_theme_model
 from eox_theming.configuration import ThemingConfiguration
+from eox_theming.edxapp_wrapper.models import get_openedx_site_theme_model
 
 SITE_THEME = get_openedx_site_theme_model()
 

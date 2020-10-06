@@ -1,8 +1,7 @@
-""" Backend abstraction for edxmako. """
+"""Backend abstraction for edxmako. """
 
-from edxmako.makoloader import MakoLoader  # pylint: disable=import-error
 from edxmako import LOOKUP, clear_lookups  # pylint: disable=import-error
-
+from edxmako.makoloader import MakoLoader  # pylint: disable=import-error
 from edxmako.paths import DynamicTemplateLookup, TopLevelTemplateURI  # pylint: disable=import-error
 
 

@@ -2,6 +2,7 @@
 This module abstracts the File Finder class from the platform core to prevent a dependency requirement while testing
 """
 from importlib import import_module
+
 from django.conf import settings
 
 

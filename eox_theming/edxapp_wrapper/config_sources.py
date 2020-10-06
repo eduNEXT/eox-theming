@@ -6,11 +6,11 @@ Some functions are so simple they do not require a backend.
 """
 import logging
 import operator
-
 # forward compatibility for Python 3
-from functools import reduce  # pylint: disable=redefined-builtin
+from functools import reduce  # pylint: disable=redefined-builtin, useless-suppression
 
 from django.conf import settings
+
 from eox_theming.edxapp_wrapper.configuration_helpers import get_configuration_helper
 
 configuration_helpers = get_configuration_helper()
@@ -39,7 +39,7 @@ def from_eox_tenant_config_theming(*args):  # pylint: disable=unused-argument
     LOG.debug("Not implemented: from_eox_tenant_config_theming")
 
 
-def from_eox_tenant_microsite_v0(*args):  # pylint: disable=unused-argument
+def from_eox_tenant_microsite_v0(*args):
     """
     This source must act as a compatibility layer with the ungrouped way of storing
     config variables from the first iteration of the bragi theme.
