@@ -1,8 +1,8 @@
 """
 eox_theming URL Configuration
 """
-from django.conf.urls import url, include
+from django.conf.urls import include, url
 
 urlpatterns = [
-    url(r'', include('eox_theming.management.urls', namespace='eox-theming-management')),
+    url(r'', include(('eox_theming.management.urls', 'eox_theming'), namespace='eox-theming-management')),
 ]

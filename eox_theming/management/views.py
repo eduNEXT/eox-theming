@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-"""The views for the plugin management"""
+"""
+The views for the plugin management
+"""
 
 from __future__ import unicode_literals
 
 import json
 from os.path import dirname, realpath
-from subprocess import check_output, CalledProcessError
+from subprocess import CalledProcessError, check_output
 
 from django.http import HttpResponse
 from django.utils import six
-
 
 import eox_theming
 

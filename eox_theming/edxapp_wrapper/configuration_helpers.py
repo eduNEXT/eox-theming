@@ -1,5 +1,6 @@
-""" Backend abstraction for configuration helpers. """
+"""Backend abstraction for configuration helpers. """
 from importlib import import_module
+
 from django.conf import settings
 
 

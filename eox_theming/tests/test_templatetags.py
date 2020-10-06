@@ -4,8 +4,8 @@ Tests for the custom template tags
 """
 from __future__ import absolute_import, unicode_literals
 
-from django.test import TestCase
 from django.template import Context, Template
+from django.test import TestCase
 from mock import patch
 
 

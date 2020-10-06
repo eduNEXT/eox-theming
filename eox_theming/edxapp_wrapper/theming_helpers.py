@@ -1,5 +1,6 @@
-""" Backend abstraction for theming helpers. """
+"""Backend abstraction for theming helpers. """
 from importlib import import_module
+
 from django.conf import settings
 
 

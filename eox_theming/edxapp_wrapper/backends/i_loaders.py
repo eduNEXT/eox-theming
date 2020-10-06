@@ -1,7 +1,10 @@
 """
 Simple backend that returns the platform's ThemeTemplateLoader class
 """
-from openedx.core.djangoapps.theming.template_loaders import ThemeTemplateLoader, ThemeFilesystemLoader  # pylint: disable=import-error
+from openedx.core.djangoapps.theming.template_loaders import (  # pylint: disable=import-error
+    ThemeFilesystemLoader,
+    ThemeTemplateLoader,
+)
 
 
 def get_openedx_theme_loader():

@@ -4,8 +4,9 @@ Manages the diferent access, storage locations and methods used to read the conf
 import logging
 
 from django.conf import settings
+
 from eox_theming.edxapp_wrapper import config_sources
-from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers, get_theme_class
+from eox_theming.edxapp_wrapper.theming_helpers import get_theme_class, get_theming_helpers
 
 LOG = logging.getLogger(__name__)
 Theme = get_theme_class()

@@ -1,7 +1,11 @@
 """
 Simple backend that returns the platform's SiteTheme model
 """
-from openedx.core.djangoapps.theming.storage import ThemeStorage, ThemeCachedFilesMixin, ThemePipelineMixin  # pylint: disable=import-error
+from openedx.core.djangoapps.theming.storage import (  # pylint: disable=import-error
+    ThemeCachedFilesMixin,
+    ThemePipelineMixin,
+    ThemeStorage,
+)
 from openedx.core.storage import PipelineForgivingStorage  # pylint: disable=import-error
 
 

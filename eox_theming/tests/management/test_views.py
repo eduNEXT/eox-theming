@@ -5,7 +5,7 @@ Tests for the admin views
 from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
-from django.urls import reverse, exceptions
+from django.urls import exceptions, reverse
 
 import eox_theming
 

@@ -2,16 +2,14 @@
 Module to test patched modules
 """
 import operator
-
-# Forward compatibility for Python 3
-from functools import reduce  # pylint: disable=redefined-builtin
-
 from collections import OrderedDict
-import six
-from path import Path
-from mock import patch
+# Forward compatibility for Python 3
+from functools import reduce  # pylint: disable=redefined-builtin, useless-suppression
 
+import six
 from django.test import TestCase
+from mock import patch
+from path import Path
 
 from eox_theming.theming.patches import EoxTheme
 

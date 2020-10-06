@@ -4,22 +4,17 @@ Theming Storage abstraction used in eox-theming
 import os
 
 from django.contrib.staticfiles.storage import StaticFilesStorage
-
-from django.utils.six.moves.urllib.parse import (  # pylint: disable=no-name-in-module, import-error
-    unquote,
-    urlsplit
-)
-
+from django.utils.six.moves.urllib.parse import unquote, urlsplit  # pylint: disable=no-name-in-module, import-error
 from pipeline.storage import NonPackagingMixin  # pylint: disable=import-error
 from require.storage import OptimizedFilesMixin  # pylint: disable=import-error
 
-from eox_theming.edxapp_wrapper.storage import (
-    get_theme_storage, get_themecached_mixin,
-    get_pipeline_forgiving_storage,
-    get_themepipeline_mixin
-)
 from eox_theming.configuration import ThemingConfiguration
-
+from eox_theming.edxapp_wrapper.storage import (
+    get_pipeline_forgiving_storage,
+    get_theme_storage,
+    get_themecached_mixin,
+    get_themepipeline_mixin,
+)
 
 OpenedxThemeStorage = get_theme_storage()
 ThemeCachedFilesMixin = get_themecached_mixin()

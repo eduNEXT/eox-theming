@@ -4,10 +4,9 @@ Tests for the ThemingConfiguration class
 """
 from __future__ import absolute_import, unicode_literals
 
-from mock import patch
-
 from django.test import TestCase
 from django.test.utils import override_settings
+from mock import patch
 
 from eox_theming.configuration import ThemingConfiguration
 
@@ -44,7 +43,7 @@ class TestThemingConfiguration(TestCase):
         Test get_theme_name function.
         """
         theme = ThemingConfiguration.get_theme_name()
-        self.assertEqual(theme, 'default-theme')  # pylint: disable=no-member
+        self.assertEqual(theme, 'default-theme')
 
     @override_settings(EOX_THEMING_DEFAULT_THEME_NAME='default-theme/inherits/other-theme')
     def test_get_theme_name_tenant(self):
@@ -52,7 +51,7 @@ class TestThemingConfiguration(TestCase):
         Test get_theme_name for microsite v0.
         """
         theme = ThemingConfiguration.get_theme_name()
-        self.assertEqual(theme, 'other-theme')  # pylint: disable=no-member
+        self.assertEqual(theme, 'other-theme')
 
     @override_settings(THEME_OPTIONS=[])
     @patch('eox_theming.edxapp_wrapper.config_sources.configuration_helpers')

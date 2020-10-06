@@ -2,10 +2,9 @@
 This stub module contains an empty extension point to modify the template loading
 This module's logic applies both to Mako and Django Templates
 """
+from eox_theming.configuration import ThemingConfiguration
 from eox_theming.edxapp_wrapper.loaders import get_openedx_theme_loader, get_theme_filesystem_loader
 from eox_theming.edxapp_wrapper.mako import get_mako_loader
-
-from eox_theming.configuration import ThemingConfiguration
 
 MakoLoader = get_mako_loader()
 OpenedxThemeLoader = get_openedx_theme_loader()

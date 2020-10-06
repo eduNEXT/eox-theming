@@ -6,12 +6,10 @@ Tests for eox theming paths
 from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase
-
+from mock import mock, patch
 from path import Path
 
-from mock import patch, mock
-
-from eox_theming.theming.paths import strip_site_theme_templates_path, get_template_path_with_theme
+from eox_theming.theming.paths import get_template_path_with_theme, strip_site_theme_templates_path
 
 
 class ThemingPathsTest(TestCase):
