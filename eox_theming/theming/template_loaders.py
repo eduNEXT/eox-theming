@@ -23,24 +23,34 @@ class EoxThemeTemplateLoader(OpenedxThemeLoader):
 
 class EoxThemeFilesystemLoader(ThemeFilesystemLoader):
     """
-    Overrided to append parent theme dirs to the beginning so templates are looked up inside theme dir
-    and parent theme dir first.
+    Overrode to append current theme, parent, and grandparent theme dirs so templates are looked up
+    in the correct order.
     """
-    def get_template_sources(self, template_name, template_dirs=None):
-        """
-        Append to the beginning of the template dirs the dir of the parent theme.
-        """
-        if not template_dirs:
-            template_dirs = self.engine.dirs
 
-        parent_theme_dirs = self.get_parent_theme_template_sources()
-        grandparent_theme_dirs = self.get_grandparent_theme_template_sources()
-        # append parent theme dirs to the beginning so templates are looked up inside theme dir first
-        if isinstance(parent_theme_dirs, list) and isinstance(grandparent_theme_dirs, list):
-            template_dirs = parent_theme_dirs + grandparent_theme_dirs + template_dirs
+    @staticmethod
+    def get_theme_template_sources():
+        """
+        Return template sources for the given theme and if request object is None (this would be the case for
+        management commands) return template sources for all themes.
+        """
+        if not ThemingConfiguration.theming_helpers.get_current_request():
+            # if request object is not present, then this method is being called inside a management
+            # command and return all theme template sources for compression
+            return ThemingConfiguration.theming_helpers.get_all_theme_template_dirs()
+        else:
+            # template is being accessed by a view, so return templates sources for current theme
+            template_dirs = list()
+            theme = ThemingConfiguration.theming_helpers.get_current_theme()
+            if theme:
+                template_dirs = theme.template_dirs
 
-        # on the next call, it will be appended to the beginning the site theme dir.
-        return list(super(EoxThemeFilesystemLoader, self).get_template_sources(template_name, template_dirs))
+                parent_theme_dirs = EoxThemeFilesystemLoader.get_parent_theme_template_sources()
+                grandparent_theme_dirs = EoxThemeFilesystemLoader.get_grandparent_theme_template_sources()
+                # append parent and grandparent dirs to the end so templates are looked up in the correct order
+                if isinstance(parent_theme_dirs, list) and isinstance(grandparent_theme_dirs, list):
+                    template_dirs += parent_theme_dirs + grandparent_theme_dirs
+
+            return template_dirs
 
     @staticmethod
     def get_parent_theme_template_sources():

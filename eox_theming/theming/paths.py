@@ -39,13 +39,14 @@ class EoxDynamicTemplateLookup(DynamicTemplateLookup):
         """
         # Make requested uri relative to the calling uri.
         relative_uri = super(EoxDynamicTemplateLookup, self).adjust_uri(uri, calling_uri)
+        adjusted_uri = get_template_path_with_theme(strip_site_theme_templates_path(relative_uri))
         # Is the calling template (calling_uri) which is including or inheriting current template (uri)
         # located inside a theme?
         if calling_uri != strip_site_theme_templates_path(calling_uri):
             # Is the calling template trying to include/inherit itself?
-            if calling_uri == get_template_path_with_theme(strip_site_theme_templates_path(relative_uri)):
+            if calling_uri == adjusted_uri:
                 return TopLevelTemplateURI(relative_uri)
-        return get_template_path_with_theme(strip_site_theme_templates_path(relative_uri))
+        return adjusted_uri
 
     def get_template(self, uri):
         """

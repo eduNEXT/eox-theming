@@ -3,14 +3,14 @@ Theming Storage abstraction used in eox-theming
 """
 import os
 
+from django.contrib.staticfiles.finders import find
 from django.contrib.staticfiles.storage import StaticFilesStorage
 from django.utils.six.moves.urllib.parse import unquote, urlsplit  # pylint: disable=no-name-in-module, import-error
 from pipeline.storage import NonPackagingMixin  # pylint: disable=import-error
-from require.storage import OptimizedFilesMixin  # pylint: disable=import-error
 
 from eox_theming.configuration import ThemingConfiguration
 from eox_theming.edxapp_wrapper.storage import (
-    get_pipeline_forgiving_storage,
+    get_production_mixin,
     get_theme_storage,
     get_themecached_mixin,
     get_themepipeline_mixin,
@@ -18,7 +18,7 @@ from eox_theming.edxapp_wrapper.storage import (
 
 OpenedxThemeStorage = get_theme_storage()
 ThemeCachedFilesMixin = get_themecached_mixin()
-PipelineForgivingStorage = get_pipeline_forgiving_storage()
+ProductionStorageMixin = get_production_mixin()
 ThemePipelineMixin = get_themepipeline_mixin()
 
 
@@ -87,9 +87,7 @@ class AbsoluteUrlAssetsMixin(object):
 
 class EoxProductionStorage(
         AbsoluteUrlAssetsMixin,
-        PipelineForgivingStorage,
-        OptimizedFilesMixin,
-        ThemeCachedFilesMixin,
+        ProductionStorageMixin,
         EoxThemeStorage,
         StaticFilesStorage
 ):
@@ -115,9 +113,9 @@ class EoxProductionStorage(
         asset_name = name
         if not self.exists(clean_name):
             # if themed asset does not exists then use default asset
-            theme = name.split("/", 1)[0]
+            theme_name = name.split("/", 1)[0]
             # verify that themed asset was accessed
-            if theme in [theme.theme_dir_name for theme in ThemingConfiguration.theming_helpers.get_themes()]:
+            if theme_name in [theme.theme_dir_name for theme in ThemingConfiguration.theming_helpers.get_themes()]:
                 asset_name = "/".join(name.split("/")[1:])
         elif theme and theme.theme_dir_name in asset_name:
             return asset_name
@@ -145,6 +143,35 @@ class EoxProductionStorage(
                 asset_name = "/".join(name.split("/")[1:])
 
         return asset_name
+
+    @staticmethod
+    def get_themed_packages(prefix, packages):
+        """
+        Method overriding to avoid including non themed assets during the collect static command,
+        so the themes assets are loaded in the correct order for the sites.
+
+        Update paths with the themed assets,
+        Args:
+            prefix: theme prefix for which to update asset paths e.g. 'red-theme', 'edx.org' etc.
+            packages: packages to update
+
+        Returns: list of updated paths and a boolean indicating whether any path was path or not
+        """
+        themed_packages = {}
+        for name in packages:
+            # collect source file names for the package
+            source_files = []
+            for path in packages[name].get('source_filenames', []):
+                # if themed asset exists use that, otherwise do not include it.
+                if find(os.path.join(prefix, path)):
+                    source_files.append(os.path.join(prefix, path))
+
+            if source_files:
+                themed_packages[name] = {
+                    'output_filename': os.path.join(prefix, packages[name].get('output_filename', '')),
+                    'source_filenames': source_files,
+                }
+        return themed_packages
 
 
 class EoxDevelopmentStorage(

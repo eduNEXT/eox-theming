@@ -1,13 +1,15 @@
 """
 Plugin middlewares
 """
+from django.utils.deprecation import MiddlewareMixin
+
 from eox_theming.configuration import ThemingConfiguration
 from eox_theming.edxapp_wrapper.models import get_openedx_site_theme_model
 
 SITE_THEME = get_openedx_site_theme_model()
 
 
-class EoxThemeMiddleware(object):
+class EoxThemeMiddleware(MiddlewareMixin):
     """
     This Middleware class is required to load a site_theme into the current request.
 
