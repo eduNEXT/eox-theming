@@ -6,8 +6,7 @@ from openedx.core.djangoapps.theming.storage import (  # pylint: disable=import-
     ThemePipelineMixin,
     ThemeStorage,
 )
-from openedx.core.storage import PipelineForgivingStorage  # pylint: disable=import-error
-from require.storage import OptimizedFilesMixin  # pylint: disable=import-error
+from openedx.core.storage import ProductionMixin  # pylint: disable=import-error
 
 
 def get_theme_storage():
@@ -25,24 +24,6 @@ def get_themepipeline_mixin():
     return ThemePipelineMixin
 
 
-def get_pipeline_forgiving_storage():
-    """Return PipelineForgivingStorage when called during runtime"""
-    return PipelineForgivingStorage
-
-
-class ProductionMixinI(
-        PipelineForgivingStorage,
-        OptimizedFilesMixin,
-        ThemeCachedFilesMixin,
-):
-    """
-    This class offers support for Ironwood version.
-
-    Combines several mixins that provide additional functionality.
-    We use this version on production.
-    """
-
-
 def get_production_mixin():
     """Return ProductionMixin when called during runtime"""
-    return ProductionMixinI
+    return ProductionMixin

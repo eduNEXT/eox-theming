@@ -19,12 +19,12 @@ class EoxThemingConfig(AppConfig):
         'url_config': {
             'lms.djangoapp': {
                 'namespace': 'eox_theming',
-                'regex': r'^eox_theming/',
+                'regex': r'^eox-theming/',
                 'relative_path': 'urls',
             },
             'cms.djangoapp': {
                 'namespace': 'eox_theming',
-                'regex': r'^eox_theming/',
+                'regex': r'^eox-theming/',
                 'relative_path': 'urls',
             }
         },
@@ -32,14 +32,12 @@ class EoxThemingConfig(AppConfig):
             'lms.djangoapp': {
                 'common': {'relative_path': 'settings.common'},
                 'test': {'relative_path': 'settings.test'},
-                'aws': {'relative_path': 'settings.aws'},
                 'production': {'relative_path': 'settings.production'},
                 'devstack': {'relative_path': 'settings.devstack'},
             },
             'cms.djangoapp': {
                 'common': {'relative_path': 'settings.common'},
                 'test': {'relative_path': 'settings.test'},
-                'aws': {'relative_path': 'settings.aws'},
                 'production': {'relative_path': 'settings.production'},
             },
         }

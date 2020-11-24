@@ -43,8 +43,23 @@ EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_mako_tests'
 EOX_THEMING_BASE_LOADER_BACKEND = 'eox_theming.edxapp_wrapper.backends.i_loaders_tests'
 
 
-def plugin_settings(settings):  # pylint: disable=function-redefined, unused-argument
+def plugin_settings(settings):  # pylint: disable=function-redefined
     """
     For the platform tests, we want everything to be disabled
     """
-    pass
+    theme_template_loader = 'openedx.core.djangoapps.theming.template_loaders.ThemeTemplateLoader'
+    settings.TEMPLATES[0]['OPTIONS']['loaders'][0] = theme_template_loader
+
+    try:
+        settings.MIDDLEWARE = [
+            'openedx.core.djangoapps.theming.middleware.CurrentSiteThemeMiddleware' if 'EoxThemeMiddleware' in x else x
+            for x in settings.MIDDLEWARE
+        ]
+    except AttributeError:
+        pass
+
+    settings.STATICFILES_STORAGE = 'openedx.core.storage.ProductionStorage'
+
+    settings.STATICFILES_FINDERS = [
+        x for x in settings.STATICFILES_FINDERS if 'EoxThemeFilesFinder' not in x
+    ]
