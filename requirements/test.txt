@@ -24,4 +24,5 @@ pylint==1.9.3             # via -c requirements/constraints.txt, -r requirements
 pytz==2020.1              # via -r requirements/base.txt, django
 singledispatch==3.4.0.3   # via astroid, pylint
 six==1.15.0               # via astroid, mock, pylint, singledispatch
+testfixtures==6.4.3       # via -c requirements/constraints.txt, -r requirements/test.in
 wrapt==1.12.1             # via astroid
