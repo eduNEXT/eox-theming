@@ -12,6 +12,14 @@ Change Log
 Unreleased
 ----------
 
+[1.1.0] - 2020-12-17
+--------------------
+
+Added
+~~~~~~~
+
+* A new feature to add extra scripts in templates.
+
 [1.0.1] - 2020-11-24
 --------------------
 
