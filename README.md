@@ -21,4 +21,6 @@ Include a usage description for your plugin.
 
 ## Contributing
 
-Add your contribution policy. (If required)
+Contributions are welcome! See our [CONTRIBUTING](https://github.com/eduNEXT/eox-theming/blob/master/CONTRIBUTING.rst) 
+file for more information – it also contains guidelines for how to maintain high code
+quality, which will make your contribution more likely to be accepted.
