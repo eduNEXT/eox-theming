@@ -3,7 +3,7 @@ Test util modules
 """
 
 
-class TestThemingHelpersDirs(object):
+class TestThemingHelpersDirs:
     """
     Theme class for helpers_dirs
     """

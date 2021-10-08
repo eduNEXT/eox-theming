@@ -12,7 +12,7 @@ LOG = logging.getLogger(__name__)
 Theme = get_theme_class()
 
 
-class ThemingConfiguration(object):
+class ThemingConfiguration:
     """
     This class must handle all the calls to the diferential settings a theme will be allowed to use
     """

@@ -49,7 +49,7 @@ class EoxThemingConfig(AppConfig):
         Setup mako lookup directories.
         See: common.djangoapps.edxmako.apps.py
         """
-        from eox_theming.theming.paths import add_lookup, clear_lookups
+        from eox_theming.theming.paths import add_lookup, clear_lookups  # pylint: disable=import-outside-toplevel
         for backend in settings.TEMPLATES:
             if 'edxmako' not in backend['BACKEND']:
                 continue
@@ -65,9 +65,9 @@ class EoxThemingConfig(AppConfig):
         """
         Method to apply monkey patches over openedX classes
         """
-        from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers_dirs, get_theming_helpers
-        from eox_theming import configuration
-        from eox_theming.theming.patches import EoxTheme
+        from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers_dirs, get_theming_helpers    # pylint: disable=import-outside-toplevel
+        from eox_theming import configuration    # pylint: disable=import-outside-toplevel
+        from eox_theming.theming.patches import EoxTheme    # pylint: disable=import-outside-toplevel
 
         theming_helpers = get_theming_helpers()
         theming_helpers_dirs = get_theming_helpers_dirs()
