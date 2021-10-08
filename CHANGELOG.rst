@@ -12,6 +12,19 @@ Change Log
 Unreleased
 ----------
 
+Added
+~~~~~
+
+* **BREAKING CHANGE**: Default backends for storage and mako are not compatible with Juniper or older versions anymore.
+* Tests for python 3.8.
+* Update readme with new information and formats.
+
+Removed
+~~~~~~~
+
+* Backends support to Ironwood. 
+
+
 [1.1.0] - 2020-12-17
 --------------------
 
