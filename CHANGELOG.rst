@@ -12,6 +12,9 @@ Change Log
 Unreleased
 ----------
 
+[2.0.0] - 2021-11-09
+--------------------
+
 Added
 ~~~~~
 
@@ -22,8 +25,7 @@ Added
 Removed
 ~~~~~~~
 
-* Backends support to Ironwood. 
-
+* Backends support to Ironwood.
 
 [1.1.0] - 2020-12-17
 --------------------
