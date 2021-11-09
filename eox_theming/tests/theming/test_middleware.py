@@ -19,7 +19,7 @@ class TestsEoxThemeMiddleware(TestCase):
         site_theme = mock.Mock()
         module_mock.return_value.return_value = site_theme
 
-        from eox_theming.theming.middleware import EoxThemeMiddleware
+        from eox_theming.theming.middleware import EoxThemeMiddleware  # pylint: disable=import-outside-toplevel
         EoxThemeMiddleware().process_request(request)
 
         self.assertEqual(site_theme, request.site_theme)  # pylint: disable=no-member

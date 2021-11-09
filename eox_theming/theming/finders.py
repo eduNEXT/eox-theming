@@ -31,4 +31,3 @@ class EoxThemeFilesFinder(OpenedxThemeFinder):
 
     See: openedx/core/djangoapps/theming/finders.py
     """
-    pass

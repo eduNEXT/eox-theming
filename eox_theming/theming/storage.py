@@ -70,7 +70,7 @@ class EoxThemeStorage(OpenedxThemeStorage):
         return super(EoxThemeStorage, self).url(name)
 
 
-class AbsoluteUrlAssetsMixin(object):
+class AbsoluteUrlAssetsMixin:
     """
     Mixin that overrides the url method on storages
     """
@@ -186,4 +186,3 @@ class EoxDevelopmentStorage(
     that provide additional functionality. We use this version for development,
     so that we can skip packaging and optimization.
     """
-    pass

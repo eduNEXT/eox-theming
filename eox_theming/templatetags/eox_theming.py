@@ -10,7 +10,7 @@ from django import template
 
 from eox_theming.configuration import ThemingConfiguration
 
-register = template.Library()  # pylint: disable=invalid-name
+register = template.Library()
 
 
 class ThemingOptionsNode(template.Node):
