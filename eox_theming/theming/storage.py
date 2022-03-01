@@ -5,8 +5,8 @@ import os
 
 from django.contrib.staticfiles.finders import find
 from django.contrib.staticfiles.storage import StaticFilesStorage
-from django.utils.six.moves.urllib.parse import unquote, urlsplit  # pylint: disable=no-name-in-module, import-error
 from pipeline.storage import NonPackagingMixin  # pylint: disable=import-error
+from six.moves.urllib.parse import unquote, urlsplit
 
 from eox_theming.configuration import ThemingConfiguration
 from eox_theming.edxapp_wrapper.storage import (
@@ -55,11 +55,11 @@ class EoxThemeStorage(OpenedxThemeStorage):
 
         # join theme prefix with asset name if theme is applied and themed asset exists
         if prefix and self.themed(name, prefix):
-            return super(EoxThemeStorage, self).url(name)
+            return super().url(name)
 
         if parent_theme and self.themed(name, parent_theme.theme_dir_name):
             name = os.path.join(parent_theme.theme_dir_name, name)
-            return super(EoxThemeStorage, self).url(name)
+            return super().url(name)
 
         grandparent_name = ThemingConfiguration.options('theme', 'grandparent', default=None)
         if grandparent_name:
@@ -67,7 +67,7 @@ class EoxThemeStorage(OpenedxThemeStorage):
             if grandparent_theme and self.themed(name, grandparent_theme.theme_dir_name):
                 name = os.path.join(grandparent_theme.theme_dir_name, name)
 
-        return super(EoxThemeStorage, self).url(name)
+        return super().url(name)
 
 
 class AbsoluteUrlAssetsMixin:
@@ -82,7 +82,7 @@ class AbsoluteUrlAssetsMixin:
         if name.startswith("https://") or name.startswith("http://"):
             return name
 
-        return super(AbsoluteUrlAssetsMixin, self).url(name)
+        return super().url(name)
 
 
 class EoxProductionStorage(
