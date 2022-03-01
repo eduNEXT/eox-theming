@@ -65,9 +65,12 @@ class EoxThemingConfig(AppConfig):
         """
         Method to apply monkey patches over openedX classes
         """
-        from eox_theming.edxapp_wrapper.theming_helpers import get_theming_helpers_dirs, get_theming_helpers    # pylint: disable=import-outside-toplevel
-        from eox_theming import configuration    # pylint: disable=import-outside-toplevel
-        from eox_theming.theming.patches import EoxTheme    # pylint: disable=import-outside-toplevel
+        from eox_theming import configuration  # pylint: disable=import-outside-toplevel
+        from eox_theming.edxapp_wrapper.theming_helpers import (  # pylint: disable=import-outside-toplevel
+            get_theming_helpers,
+            get_theming_helpers_dirs,
+        )
+        from eox_theming.theming.patches import EoxTheme  # pylint: disable=import-outside-toplevel
 
         theming_helpers = get_theming_helpers()
         theming_helpers_dirs = get_theming_helpers_dirs()
