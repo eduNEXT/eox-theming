@@ -8,11 +8,12 @@ This plugin provides a stable place from where to create and launch your openedx
 
 ## Compatibility Notes
 
-| Open edX Release |  Version  |
-| ---------------- | ---------:|
-|     Juniper      |   >= 1.0  |
-|       Koa        |   >= 2.0  |
-|      Lilac       |   >= 2.0  |
+| Open edX Release |        Version      |
+| ---------------- | -------------------:|
+|     Juniper      |       >= 1.0 < 2.0  |
+|       Koa        |       >= 2.0 < 3.0  |
+|      Lilac       |         >= 2.0      |
+|      Maple       |         >= 3.0      |
 
 The following changes to the plugin settings are necessary. If the release you are looking for is
 not listed, then the accumulation of changes from previous releases is enough.
@@ -37,7 +38,7 @@ EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
 EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
 ```
 
-### Lilac
+### Lilac - Maple
 
 ```
 EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
