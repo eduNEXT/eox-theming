@@ -1,10 +1,11 @@
 """ Backend abstraction for theming helpers tests. """
+from eox_theming import test_module as TestThemingHelper
 from eox_theming.test_utils import TestThemingHelpersDirs
 
 
 def get_theming_helpers():
     """ Backend abstraction used on the tests """
-    return object
+    return TestThemingHelper
 
 
 def get_theming_helpers_dirs():

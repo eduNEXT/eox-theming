@@ -38,7 +38,7 @@ class EoxDynamicTemplateLookup(DynamicTemplateLookup):
         get_template_path_with_theme instead of the equivalent functions used in the platform.
         """
         # Make requested uri relative to the calling uri.
-        relative_uri = super(EoxDynamicTemplateLookup, self).adjust_uri(uri, calling_uri)
+        relative_uri = super().adjust_uri(uri, calling_uri)
         adjusted_uri = get_template_path_with_theme(strip_site_theme_templates_path(relative_uri))
         # Is the calling template (calling_uri) which is including or inheriting current template (uri)
         # located inside a theme?
@@ -59,7 +59,7 @@ class EoxDynamicTemplateLookup(DynamicTemplateLookup):
         else:
             try:
                 # Try to find themed template, i.e. see if current theme overrides the template
-                template = super(EoxDynamicTemplateLookup, self).get_template(get_template_path_with_theme(uri))
+                template = super().get_template(get_template_path_with_theme(uri))
             except TopLevelLookupException:
                 template = self._get_toplevel_template(uri)
 
@@ -70,7 +70,7 @@ class EoxDynamicTemplateLookup(DynamicTemplateLookup):
         Lookup a default/toplevel template, ignoring current theme.
         """
         # Strip off the prefix path to request theme and parent theme and look in default template dirs.
-        return super(EoxDynamicTemplateLookup, self)._get_toplevel_template(strip_site_theme_templates_path(uri))
+        return super()._get_toplevel_template(strip_site_theme_templates_path(uri))
 
 
 def add_lookup(namespace, directory, package=None, prepend=False):

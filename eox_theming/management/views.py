@@ -9,8 +9,8 @@ import json
 from os.path import dirname, realpath
 from subprocess import CalledProcessError, check_output
 
+import six
 from django.http import HttpResponse
-from django.utils import six
 
 import eox_theming
 

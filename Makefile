@@ -25,6 +25,9 @@ clean: ## delete most git-ignored files
 requirements: ## install environment requirements
 	pip install -r requirements.txt
 
+install-dev-dependencies: ## install tox
+	pip install -r requirements/tox.txt
+
 upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
 upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
 	pip install -qr requirements/pip-tools.txt
@@ -41,7 +44,7 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 quality: clean ## check coding style with pycodestyle and pylint
 	$(TOX) pycodestyle ./eox_theming
 	$(TOX) pylint ./eox_theming --rcfile=./setup.cfg
-	$(TOX) isort --check-only --recursive --diff ./eox_theming
+	$(TOX) isort --check-only --diff ./eox_theming
 
 test-python: clean ## Run test suite.
 	$(TOX) pip install -r requirements/test.txt --exists-action w
