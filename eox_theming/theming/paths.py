@@ -24,6 +24,8 @@ TopLevelTemplateURI = get_top_level_template_uri()
 LOOKUP = get_lookup()
 clear_lookups = get_clear_lookups()
 
+import  logging
+LOG = logging.getLogger(__name__)
 
 class EoxDynamicTemplateLookup(DynamicTemplateLookup):
     """
@@ -49,7 +51,21 @@ class EoxDynamicTemplateLookup(DynamicTemplateLookup):
         return adjusted_uri
 
     def get_template(self, uri):
-        return ""
+        """
+        Overridden method for using get_template_path_with_theme from eox-theming instead of the function used in
+        the platform.
+        """
+
+        if isinstance(uri, TopLevelTemplateURI):
+            template = self._get_toplevel_template(uri)
+        else:
+            try:
+                # Try to find themed template, i.e. see if current theme overrides the template
+                template = super().get_template(get_template_path_with_theme(uri))
+            except TopLevelLookupException:
+                template = self._get_toplevel_template(uri)
+
+        return template
 
     def _get_toplevel_template(self, uri):
         """
@@ -98,6 +114,8 @@ def get_template_path_with_theme(relative_path):
     Returns:
         (str): template path in current site's theme
     """
+    return ""
+
     relative_path = os.path.normpath(relative_path)
     template_name = re.sub(r'^/+', '', relative_path)
 
@@ -110,12 +128,15 @@ def get_template_path_with_theme(relative_path):
         template_path = theme.template_path / template_name
         absolute_path = theme.path / "templates" / template_name
         if absolute_path.exists():
+            LOG.error(f"Return 1: {template_path}")
             return str(template_path)
 
         if not parent_theme or theme.name == parent_theme.name:
+            LOG.error(f"Return 2: {relative_path}")
             return relative_path
 
     if not parent_theme:
+        LOG.error(f"Return 3: {relative_path}")
         return relative_path
 
     # Try with the theme.parent site theme
@@ -123,6 +144,7 @@ def get_template_path_with_theme(relative_path):
     absolute_path = parent_theme.path / "templates" / template_name
 
     if absolute_path.exists():
+        LOG.error(f"Return 4: {template_path}")
         return str(template_path)
 
     # Try with grandparent
@@ -133,6 +155,7 @@ def get_template_path_with_theme(relative_path):
         absolute_path = grandparent_theme.path / "templates" / template_name
 
         if absolute_path.exists():
+            LOG.error(f"Return 5: {template_path}")
             return str(template_path)
 
     return relative_path
