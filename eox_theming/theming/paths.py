@@ -114,9 +114,9 @@ def get_template_path_with_theme(relative_path):
     Returns:
         (str): template path in current site's theme
     """
+    relative_path = os.path.normpath(relative_path)
     return relative_path
 
-    relative_path = os.path.normpath(relative_path)
     template_name = re.sub(r'^/+', '', relative_path)
 
     theme = ThemingConfiguration.theming_helpers.get_current_theme()
