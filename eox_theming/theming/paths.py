@@ -56,14 +56,7 @@ class EoxDynamicTemplateLookup(DynamicTemplateLookup):
         the platform.
         """
 
-        if isinstance(uri, TopLevelTemplateURI):
-            template = self._get_toplevel_template(uri)
-        else:
-            try:
-                # Try to find themed template, i.e. see if current theme overrides the template
-                template = super().get_template(get_template_path_with_theme(uri))
-            except TopLevelLookupException:
-                template = self._get_toplevel_template(uri)
+        template = self._get_toplevel_template(uri)
 
         return template
 
