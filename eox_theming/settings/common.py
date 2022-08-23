@@ -81,6 +81,7 @@ def plugin_settings(settings):
         'from_eox_tenant_config_theming',
         'from_eox_tenant_config_lms',
         'from_eox_tenant_microsite_v1',
+        'from_eox_tenant_microsite_v2',
         'from_eox_tenant_microsite_v0',
         'from_site_config',
         'from_django_settings',
