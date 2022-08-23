@@ -48,6 +48,19 @@ def from_eox_tenant_microsite_v0(*args):
     return configuration_helpers.get_value(key, None)
 
 
+def from_eox_tenant_microsite_v2(*args):
+    """
+    This source does the v0 compatibility but uses direct readings from the settings
+    dict instead of calls to configuration_helpers.
+    """
+    key = args[-1]
+    try:
+        value = getattr(settings, key, None)
+    except (AttributeError, KeyError):
+        value = None
+    return value
+
+
 def from_eox_tenant_config_lms(*args):
     """
     Given that the eox_microsite version loads all the config variables into
