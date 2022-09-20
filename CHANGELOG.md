@@ -1,8 +1,32 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## v4.0.0 - 2022-09-20
+
+### [4.0.0](https://github.com/eduNEXT/eox-theming/compare/v3.1.0...v4.0.0) (2022-09-20)
+
+#### ⚠ BREAKING CHANGES
+
+- remove support version v3.1.0
+- 
+- perf: add compatibility with openedx nutmeg release
+- 
+- ci(circleci): remove ci and update github actions
+- 
+- build: update requirements and tox
+- 
+- docs: add nutmeg info to README file
+- 
+- build: update requirements
+- 
+
+#### Performance Improvements
+
+- eox-theming support for Nutmeg release ([#40](https://github.com/eduNEXT/eox-theming/issues/40)) ([5e094e7](https://github.com/eduNEXT/eox-theming/commit/5e094e7871f04a575580d1be1c7ee32128d87212))
 
 ## [2.0.0] - 2021-11-09
 
