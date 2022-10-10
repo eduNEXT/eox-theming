@@ -12,9 +12,11 @@ This plugin provides a stable place from where to create and launch your openedx
 | ---------------- | -------------------:|
 |     Juniper      |       >= 1.0 < 2.0  |
 |       Koa        |       >= 2.0 < 3.0  |
-|      Lilac       |       >= 2.0 < 4.0  |
-|      Maple       |       >= 3.0 < 4.0  |
-|      Nutmeg      |         >= 4.0      |
+|      Lilac       |       >= 2.0        |
+|      Maple       |       >= 3.0        |
+|      Nutmeg      |       >= 4.0        |
+
+**NOTE**: Maple and Lilac versions do not support Django 2.2 but do support Django 3.2 as of eox-core 4.0.
 
 The following changes to the plugin settings are necessary. If the release you are looking for is
 not listed, then the accumulation of changes from previous releases is enough.
