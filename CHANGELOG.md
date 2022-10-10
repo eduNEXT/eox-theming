@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v4.0.1 - 2022-10-10
+
+### [4.0.1](https://github.com/eduNEXT/eox-theming/compare/v4.0.0...v4.0.1) (2022-10-10)
+
+### Bug Fixes
+
+- add workflow to publish in pypi ([77b7e81](https://github.com/eduNEXT/eox-theming/commit/77b7e8192b81ba90d8810602899fb29710728325))
+
+### Documentation
+
+- update README file ([e6bdc9f](https://github.com/eduNEXT/eox-theming/commit/e6bdc9fa4e2ad517f82db3a27670887656c5c8a5))
+
 ## v4.0.0 - 2022-09-20
 
 ### [4.0.0](https://github.com/eduNEXT/eox-theming/compare/v3.1.0...v4.0.0) (2022-09-20)
