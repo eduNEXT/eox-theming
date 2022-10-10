@@ -10,6 +10,9 @@ import re
 from setuptools import setup
 
 
+with open("README.rst", "r") as fh:
+    README = fh.read()
+
 def get_version(*file_paths):
     """
     Extract the version string from the file at the given relative path fragments.
@@ -58,9 +61,21 @@ setup(
     description='Open edX Theming Plugin',
     author='eduNEXT',
     author_email='contact@edunext.co',
+    long_description=README,
+    long_description_content_type='text/x-rst',
     packages=[
         'eox_theming'
     ],
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Framework :: Django :: 3.2',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU Affero General Public License v3',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.10',
+    ],
+    license='AGPL',
     include_package_data=True,
     install_requires=load_requirements('requirements/base.in'),
     zip_safe=False,

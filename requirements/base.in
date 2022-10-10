@@ -3,4 +3,4 @@
 
 Django
 six
-eox-tenant @ git+https://github.com/eduNEXT/eox-tenant.git
+eox-tenant
