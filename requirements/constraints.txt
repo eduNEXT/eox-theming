@@ -9,18 +9,18 @@
 # linking to it here is good.
 
 # Keep same platform version
-Django<=3.2.15
-pylint==2.13.5
-testfixtures==6.18.5
-coverage[toml]==6.3.2
-mako==1.2.0
+Django<4.0
+pylint<2.14
+testfixtures==7.0.0
+coverage[toml]==6.5.0
+mako==1.2.3
 mock==4.0.3
 path-py==12.5.0
-pycodestyle==2.8.0
-pytz==2022.1
+pycodestyle<2.9.0
+pytz==2022.2.1
 
-# Version used in Nutmeg version of edx-platform
+# Version used in Olive version of edx-platform
 edx-opaque-keys==2.3.0
 
-# Version used in Nutmeg version of eox-tenant
-eox-tenant<7.0.0
+# Version used in Olive version of eox-tenant
+eox-tenant>= 8.0 
