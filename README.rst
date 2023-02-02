@@ -24,8 +24,10 @@ Compatibility Notes
 +------------------+---------------------+
 |      Nutmeg      |       >= 4.0        |
 +------------------+---------------------+
+|      Olive       |       >= 5.0        |
++------------------+---------------------+
 
-**NOTE**: Maple and Lilac versions do not support Django 2.2 but do support Django 3.2 as of eox-core 4.0.
+**NOTE**: From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
 
 The following changes to the plugin settings are necessary. If the release you are looking for is
 not listed, then the accumulation of changes from previous releases is enough.
@@ -54,8 +56,8 @@ Koa (optional)**
     EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
 
 
-Lilac - Maple - Nutmeg
-~~~~~~~~~~~~~~~~~~~~~~
+Lilac - Maple - Nutmeg - Olive
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -78,6 +80,12 @@ Open edX devstack
 - Install the plugin as follows: pip install -e /path/to/your/src/folder
 - Restart lms/cms services.
 
+Tutor
+~~~~~
+
+- Install the plugin with OPENEDX_EXTRA_PIP_REQUIREMENTS, this should be added in the config.yml. 
+- Restart lms/cms services.
+
 Usage
 -----
 
@@ -86,7 +94,7 @@ Include a usage description for your plugin.
 Settings
 ~~~~~~~~
 
-To start using eox-theming, we must make the settings shown in the microsite settings (if we don't have one created, create it and configure it), add some available settings to the tenant:
+To start using eox-theming, we must make the settings shown in the tenant settings (if we don't have one created, create it and configure it), add some available settings to the tenant:
 
 .. code-block:: json
 
