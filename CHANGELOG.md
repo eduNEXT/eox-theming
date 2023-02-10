@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v5.0.0 - 2023-02-10
+
+### [5.0.0](https://github.com/eduNEXT/eox-theming/compare/v4.0.1...v5.0.0) (2023-02-10)
+
+#### ⚠ BREAKING CHANGES
+
+- - refactor: delete unsupported backends for older releases
+- 
+
+#### Features
+
+- add compativility with olive realese ([#44](https://github.com/eduNEXT/eox-theming/issues/44)) ([4025a14](https://github.com/eduNEXT/eox-theming/commit/4025a1487264d7c085b4364112a961f0831a972b))
+
+#### Continuous Integration
+
+- adds mantainer group ([fe5daff](https://github.com/eduNEXT/eox-theming/commit/fe5daff24dcf3a351a553d58a34c71c8a091094c))
+- update the changelog updater step in bumpversion ([#42](https://github.com/eduNEXT/eox-theming/issues/42)) ([1c7aaa9](https://github.com/eduNEXT/eox-theming/commit/1c7aaa93f15e40a21eacb0e6844c2dfd1b3898c8))
+
 ## v4.0.1 - 2022-10-10
 
 ### [4.0.1](https://github.com/eduNEXT/eox-theming/compare/v4.0.0...v4.0.1) (2022-10-10)
