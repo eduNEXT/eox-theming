@@ -74,6 +74,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
     license='AGPL',
     include_package_data=True,
