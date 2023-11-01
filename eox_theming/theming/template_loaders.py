@@ -17,6 +17,7 @@ class EoxThemeTemplateLoader(OpenedxThemeLoader):
 
     See: openedx.core.djangoapps.theming.template_loaders.py
     """
+
     def __init__(self, *args):
         MakoLoader.__init__(self, EoxThemeFilesystemLoader(*args))
 
@@ -79,3 +80,17 @@ class EoxThemeFilesystemLoader(ThemeFilesystemLoader):
             return grandparent_theme.template_dirs
 
         return template_paths
+
+    def get_dirs(self):
+        """This overrides the default get_dirs method from django
+        https://github.com/django/django/blob/3.2/django/template/loaders/filesystem.py#L18
+        due to the django implementation depends on the initialization process that is performed by
+        the sub-class ThemeFilesystemLoader
+        https://github.com/eduNEXT/edunext-platform/blob/open-release/maple.master/openedx/core/djangoapps/theming/template_loaders.py#L30
+        however that implementation is cached and doesn't allow to get the right values during the execution time.
+
+        Finally this returns the result of the `get_theme_template_sources` method
+        https://github.com/eduNEXT/edunext-platform/blob/master/openedx/core/djangoapps/theming/template_loaders.py#L39
+        instead of using the cached values of self.dirs on runtime.
+        """
+        return ThemeFilesystemLoader.get_theme_template_sources()
