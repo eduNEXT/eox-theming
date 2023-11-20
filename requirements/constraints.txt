@@ -10,17 +10,9 @@
 
 # Keep same platform version
 Django<4.0
-pylint<2.14
-testfixtures==7.0.0
-coverage[toml]==6.5.0
-mako==1.2.3
-mock==4.0.3
-path-py==12.5.0
+pylint<2.16.0
 pycodestyle<2.9.0
-pytz==2022.2.1
+pytz<2023
 
-# Version used in Olive version of edx-platform
-edx-opaque-keys==2.3.0
-
-# Version used in Olive version of eox-tenant
-eox-tenant>= 8.0 
+# Version used in Palm version of eox-tenant
+eox-tenant>= 10.0.0 

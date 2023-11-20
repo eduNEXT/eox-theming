@@ -26,6 +26,8 @@ Compatibility Notes
 +------------------+---------------------+
 |      Olive       |       >= 5.0        |
 +------------------+---------------------+
+|      Palm        |       >= 6.0        |
++------------------+---------------------+
 
 **NOTE**: From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
 
@@ -56,8 +58,8 @@ Koa (optional)**
     EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
 
 
-Lilac - Maple - Nutmeg - Olive
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Lilac - Maple - Nutmeg - Olive - Palm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
