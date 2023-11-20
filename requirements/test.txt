@@ -20,7 +20,7 @@ dill==0.3.7
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/test.in
-eox-tenant==9.2.1
+eox-tenant==10.0.0
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
