@@ -5,13 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v6.0.0 - 2023-11-20
+
+### [6.0.0](https://github.com/eduNEXT/eox-theming/compare/v5.0.0...v6.0.0) (2023-11-20)
+
+#### ⚠ BREAKING CHANGES
+
+- add compatibility with palm release   
+  
+- ci: update workflow dependencies   
+  
+- docs: update README   
+  
+- build: update plugin requirements   
+  
+- fix: message_control enabled weren't being used   
+  
+- refactor: allow 120 characters per line when pylint is executed   
+  
+- feat: override get_dirs method   
+  
+- chore: increase eox-tenant version   
+  
+- fix: gh-action-pypi-publish version   
+  
+
+#### Performance Improvements
+
+- add compatibility with palm release ([#50](https://github.com/eduNEXT/eox-theming/issues/50)) ([0f21bb2](https://github.com/eduNEXT/eox-theming/commit/0f21bb2eaca9118ba998990b73b014bab94251f8))
+
 ## v5.0.0 - 2023-02-10
 
 ### [5.0.0](https://github.com/eduNEXT/eox-theming/compare/v4.0.1...v5.0.0) (2023-02-10)
 
 #### ⚠ BREAKING CHANGES
 
-- - refactor: delete unsupported backends for older releases
+- - refactor: delete unsupported backends for older releases   
+  
 - 
 
 #### Features
