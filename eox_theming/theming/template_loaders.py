@@ -93,4 +93,6 @@ class EoxThemeFilesystemLoader(ThemeFilesystemLoader):
         https://github.com/eduNEXT/edunext-platform/blob/master/openedx/core/djangoapps/theming/template_loaders.py#L39
         instead of using the cached values of self.dirs on runtime.
         """
-        return ThemeFilesystemLoader.get_theme_template_sources()
+        theme_dirs = ThemeFilesystemLoader.get_theme_template_sources()
+
+        return theme_dirs if theme_dirs else super().get_dirs()
