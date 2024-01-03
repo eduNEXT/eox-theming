@@ -5,29 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v6.0.1 - 2024-01-03
+
+### [6.0.1](https://github.com/eduNEXT/eox-theming/compare/v6.0.0...v6.0.1) (2024-01-03)
+
+### Bug Fixes
+
+* improved handling of empty directories in get_dirs method ([#51](https://github.com/eduNEXT/eox-theming/issues/51)) ([bd10dc3](https://github.com/eduNEXT/eox-theming/commit/bd10dc34030c8d4110009037ed928c78f895154f))
+
 ## v6.0.0 - 2023-11-20
 
 ### [6.0.0](https://github.com/eduNEXT/eox-theming/compare/v5.0.0...v6.0.0) (2023-11-20)
 
 #### ⚠ BREAKING CHANGES
 
-- add compatibility with palm release   
+- add compatibility with palm release
   
-- ci: update workflow dependencies   
+- ci: update workflow dependencies
   
-- docs: update README   
+- docs: update README
   
-- build: update plugin requirements   
+- build: update plugin requirements
   
-- fix: message_control enabled weren't being used   
+- fix: message_control enabled weren't being used
   
-- refactor: allow 120 characters per line when pylint is executed   
+- refactor: allow 120 characters per line when pylint is executed
   
-- feat: override get_dirs method   
+- feat: override get_dirs method
   
-- chore: increase eox-tenant version   
+- chore: increase eox-tenant version
   
-- fix: gh-action-pypi-publish version   
+- fix: gh-action-pypi-publish version
   
 
 #### Performance Improvements
@@ -40,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### ⚠ BREAKING CHANGES
 
-- - refactor: delete unsupported backends for older releases   
+- - refactor: delete unsupported backends for older releases
   
 - 
 
