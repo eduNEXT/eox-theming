@@ -9,10 +9,10 @@
 # linking to it here is good.
 
 # Keep same platform version
-Django<4.0
+Django<5.0
 pylint<2.16.0
 pycodestyle<2.9.0
-pytz<2023
+click<9.0
 
 # Version used in Palm version of eox-tenant
 eox-tenant>= 10.0.0 
