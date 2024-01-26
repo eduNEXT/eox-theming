@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v7.0.0 - 2024-01-26
+
+### [7.0.0](https://github.com/eduNEXT/eox-theming/compare/v6.0.1...v7.0.0) (2024-01-26)
+
+#### ⚠ BREAKING CHANGES
+
+* add compatibility with quince release
+  
+* chore: update constraints & upgrade requirements
+  
+* fix: modify deprecated method
+  
+* fix: was mandatory to send any get_response
+  
+* chore: update github-actions
+  
+* docs: update README for showing quince support
+  
+
+#### Performance Improvements
+
+* add compatibility with Quince release ([#52](https://github.com/eduNEXT/eox-theming/issues/52)) ([38970ba](https://github.com/eduNEXT/eox-theming/commit/38970ba14891d32527841406296e77051ca487f6))
+
 ## v6.0.1 - 2024-01-03
 
 ### [6.0.1](https://github.com/eduNEXT/eox-theming/compare/v6.0.0...v6.0.1) (2024-01-03)
