@@ -22,7 +22,6 @@ coverage==7.5.3
 dill==0.3.8
     # via pylint
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/test.in
