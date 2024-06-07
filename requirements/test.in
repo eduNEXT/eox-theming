@@ -10,3 +10,4 @@ coverage
 mako
 path-py
 testfixtures
+pyyaml
