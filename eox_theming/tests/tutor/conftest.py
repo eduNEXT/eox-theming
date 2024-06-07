@@ -6,7 +6,7 @@ django_db_setup is required.
 See: https://pytest-django.readthedocs.io/en/latest/database.html
 """
 
-import pytest
+import pytest  # pylint: disable=import-error
 
 
 @pytest.fixture(scope="session")
