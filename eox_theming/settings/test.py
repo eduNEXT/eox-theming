@@ -73,5 +73,4 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
     if lms_cfg:
         with codecs.open(lms_cfg, encoding='utf-8') as file:
             env_tokens = yaml.safe_load(file)
-        # print(f'\n\nEnv Tokens: {env_tokens}\n\n')
         settings.DATABASES = env_tokens['DATABASES']
