@@ -1,12 +1,38 @@
-=======================
-Open edX Theming Plugin
-=======================
+===========
+EOX Theming
+===========
 
-Features
---------
+|Maintainance Badge| |Test Badge| |PyPI Badge|
 
-This plugin provides a stable place from where to create and launch your openedx theme.
+.. |Maintainance Badge| image:: https://img.shields.io/badge/Status-Maintained-brightgreen
+   :alt: Maintainance Status
+.. |Test Badge| image:: https://img.shields.io/github/actions/workflow/status/edunext/eox-theming/.github%2Fworkflows%2Ftests.yml?label=Test
+   :alt: GitHub Actions Workflow Test Status
+.. |PyPI Badge| image:: https://img.shields.io/pypi/v/eox-theming?label=PyPI
+   :alt: PyPI - Version
 
+Django plugin that extends the tools and configuration for customizing the look and feel of the platform, as part of the
+Edunext Open edX Extensions (EOX). 
+
+
+Installation
+============
+
+1. Install eox-theming in Tutor with `OPENEDX_EXTRA_PIP_REQUIREMENTS` setting in the config.yml:
+
+   .. code-block:: yaml
+      
+      OPENEDX_EXTRA_PIP_REQUIREMENTS:
+         - eox-theming=={{version}}
+
+
+2. Save the configuration with `tutor config save`.
+
+3. Build the image and launch your platform with `tutor local launch`.
+
+
+Usage
+=====
 
 Compatibility Notes
 -------------------
@@ -31,33 +57,9 @@ Compatibility Notes
 |      Quince      |       >= 7.0        |
 +------------------+---------------------+
 
-**NOTE**: From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
+⚠️ From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
 
-The following changes to the plugin settings are necessary. If the release you are looking for is
-not listed, then the accumulation of changes from previous releases is enough.
-
-Juniper
-~~~~~~~
-
-.. code-block:: bash
-
-    EOX_THEMING_BASE_FINDER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_finders'
-    EOX_THEMING_BASE_LOADER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_loaders'
-    EOX_THEMING_SITE_THEME_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_models'
-    EOX_THEMING_CONFIGURATION_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_configuration_helpers'
-    EOX_THEMING_THEMING_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_theming_helpers'
-    EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_storage'
-    STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxProductionStorage'
-    EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_mako'
-
-
-Koa (optional)**
-~~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-    EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
-    EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
+The plugin is configured for the latest release (Redwood). The following changes in the plugin settings should be applied to be used for previous releases.
 
 
 Lilac - Maple - Nutmeg - Olive - Palm - Quince
@@ -69,31 +71,12 @@ Lilac - Maple - Nutmeg - Olive - Palm - Quince
     EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
 
 
-Those settings can be changed in ``eox_theming/settings/common.py`` or, for example, in ansible configurations.
+Those settings can be changed in ``eox_theming/settings/common.py`` or, for example, in the instance configurations.
 
-**NOTE**: the current ``common.py`` works with Open edX lilac version.
+🚨 If the release you are looking for is not listed, please note:
 
-Installation
-------------
-
-Open edX devstack
-~~~~~~~~~~~~~~~~~
-
-- Clone this repo in the src folder of your devstack.
-- Open a new Lms/Devstack shell.
-- Install the plugin as follows: pip install -e /path/to/your/src/folder
-- Restart lms/cms services.
-
-Tutor
-~~~~~
-
-- Install the plugin with OPENEDX_EXTRA_PIP_REQUIREMENTS, this should be added in the config.yml. 
-- Restart lms/cms services.
-
-Usage
------
-
-Include a usage description for your plugin.
+- If the Open edX release is compatible with the current eox-theming version (see `Compatibility Notes <https://github.com/eduNEXT/eox-theming?tab=readme-ov-file#compatibility-notes>`_), the default configuration is sufficient.
+- If incompatible, you can refer to the README from the relevant version tag for configuration details (e.g., `v6.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v6.0.0/README.rst>`_).
 
 Settings
 ~~~~~~~~
@@ -125,7 +108,7 @@ Include the follow configuration in devstack.py:
     def plugin_settings(settings):
         """
         Set of plugin settings used by the Open Edx platform.
-        More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
+        More info: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
         """
         settings.STATICFILES_FINDERS = [
             'eox_theming.theming.finders.EoxThemeFilesFinder',
