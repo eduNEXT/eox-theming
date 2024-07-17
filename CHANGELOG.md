@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v7.1.1 - 2024-07-17
+
+### Changed
+- **Update requirements**: The `requirements` for both the plugin and the `GitHub workflows` have been upgraded.
+
+### Fixed
+- **Sending wrong footer in the Wiki**: The issue occurred when only the template directory for the current theme was being returned. If this directory didn't exist, the default template was returned instead ([issue #9](https://github.com/eduNEXT/eox-release/issues/9)). This problem was resolved by executing the `get_theme_template_sources` method from the `EoxThemeFilesystemLoader`, which retrieves the template directories not only for the current theme but also for its parent and grandparent themes.
+
 ## v7.1.0 - 2024-03-19
 
 ### [7.1.0](https://github.com/eduNEXT/eox-theming/compare/v7.0.0...v7.1.0) (2024-03-19)

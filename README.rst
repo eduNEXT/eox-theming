@@ -1,115 +1,134 @@
-=======================
-Open edX Theming Plugin
-=======================
+===========
+EOX Theming
+===========
+|Maintainance Badge| |Test Badge| |PyPI Badge|
 
-Features
---------
+.. |Maintainance Badge| image:: https://img.shields.io/badge/Status-Maintained-brightgreen
+   :alt: Maintainance Status
+.. |Test Badge| image:: https://img.shields.io/github/actions/workflow/status/edunext/eox-theming/.github%2Fworkflows%2Ftests.yml?label=Test
+   :alt: GitHub Actions Workflow Test Status
+.. |PyPI Badge| image:: https://img.shields.io/pypi/v/eox-theming?label=PyPI
+   :alt: PyPI - Version
 
-This plugin provides a stable place from where to create and launch your openedx theme.
+********
+Overview
+********
 
+Eox theming is a plugin for `Open edX <https://github.com/openedx/edx-platform>`_, and part of the Edunext Open Extensiones (aka EOX) that provides a stable place from where to create and launch themes to the Open edX platform.
 
+If you are looking for professional development or support with multitenancy or multi-sites in the Open edX platform, you can reach out to sales@edunext.co
+
+*******************
 Compatibility Notes
--------------------
+*******************
 
-+------------------+---------------------+
-| Open edX Release |        Version      |
-+==================+=====================+
-|     Juniper      |       >= 1.0 < 2.0  |
-+------------------+---------------------+
-|       Koa        |       >= 2.0 < 3.0  |
-+------------------+---------------------+
-|      Lilac       |       >= 2.0        |
-+------------------+---------------------+
-|      Maple       |       >= 3.0        |
-+------------------+---------------------+
-|      Nutmeg      |       >= 4.0        |
-+------------------+---------------------+
-|      Olive       |       >= 5.0        |
-+------------------+---------------------+
-|      Palm        |       >= 6.0        |
-+------------------+---------------------+
-|      Quince      |       >= 7.0        |
-+------------------+---------------------+
++------------------+--------------+
+| Open edX Release | Version      |
++==================+==============+
+| Juniper          | >= 1.0 < 2.0 |
++------------------+--------------+
+| Koa              | >= 2.0 < 3.0 |
++------------------+--------------+
+| Lilac            | >= 2.0       |
++------------------+--------------+
+| Maple            | >= 3.0       |
++------------------+--------------+
+| Nutmeg           | >= 4.0       |
++------------------+--------------+
+| Olive            | >= 5.0       |
++------------------+--------------+
+| Palm             | >= 6.0       |
++------------------+--------------+
+| Quince, Redwood  | >= 7.0       |
++------------------+--------------+
 
-**NOTE**: From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
+* From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
 
-The following changes to the plugin settings are necessary. If the release you are looking for is
-not listed, then the accumulation of changes from previous releases is enough.
-
-Juniper
-~~~~~~~
-
-.. code-block:: bash
-
-    EOX_THEMING_BASE_FINDER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_finders'
-    EOX_THEMING_BASE_LOADER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_loaders'
-    EOX_THEMING_SITE_THEME_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_models'
-    EOX_THEMING_CONFIGURATION_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_configuration_helpers'
-    EOX_THEMING_THEMING_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_theming_helpers'
-    EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_storage'
-    STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxProductionStorage'
-    EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_mako'
-
-
-Koa (optional)**
-~~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-    EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
-    EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
-
-
-Lilac - Maple - Nutmeg - Olive - Palm - Quince
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-    EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
-    EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
-
-
-Those settings can be changed in ``eox_theming/settings/common.py`` or, for example, in ansible configurations.
-
-**NOTE**: the current ``common.py`` works with Open edX lilac version.
-
+************
 Installation
-------------
+************
+
+Pre-requirements
+----------------
+
+- A compatible version of `eox-tenant <https://github.com/eduNEXT/eox-tenant>`_
+- Ensure you have a theme or themes following the `Changing Themes guide <https://edx.readthedocs.io/projects/edx-installing-configuring-and-running/en/latest/configuration/changing_appearance/theming/index.html>`_ and compile them so they are accessible for the platform
+
+.. note::
+    In order to simplify this process, we encourage the use of ``Distro Tutor Plugin`` for managing the addition and compilation of custom themes: `README of Distro <https://github.com/eduNEXT/tutor-contrib-edunext-distro?tab=readme-ov-file#themes>`_
 
 Open edX devstack
-~~~~~~~~~~~~~~~~~
+-----------------
 
-- Clone this repo in the src folder of your devstack.
-- Open a new Lms/Devstack shell.
-- Install the plugin as follows: pip install -e /path/to/your/src/folder
-- Restart lms/cms services.
+#. Clone this repo in the ``src`` folder of your devstack.
+#. Open a new ``lms/devstack`` shell.
+#. Install the plugin as follows: ``pip install -e /path/to/your/src/folder``
+#. Restart lms/cms services.
 
 Tutor
-~~~~~
-
-- Install the plugin with OPENEDX_EXTRA_PIP_REQUIREMENTS, this should be added in the config.yml. 
-- Restart lms/cms services.
-
-Usage
 -----
 
-Include a usage description for your plugin.
+#. Install the plugin adding it to ``OPENEDX_EXTRA_PIP_REQUIREMENTS`` in the ``config.yml``.
+   
+   .. code-block:: yaml
+      
+      OPENEDX_EXTRA_PIP_REQUIREMENTS:
+         - eox-theming=={{version}}
+
+#. Save the configuration with ``tutor config save``
+#. Launch the platform with ``tutor [local | dev] launch``
+
+*****
+Usage
+*****
 
 Settings
-~~~~~~~~
+--------
 
-To start using eox-theming, we must make the settings shown in the tenant settings (if we don't have one created, create it and configure it), add some available settings to the tenant:
+Next,  with ``eox-tenant`` create a new ``route`` or modify an existing one to point to a ``tenant config`` that lists your theme names in hierarchical order.  This hierarchy, which follows the priority for template lookup, uses the attributes ``name``, ``parent``, and ``grandparent`` respectively. You ``tenant config`` JSON will need a property similar to the following one:
 
 .. code-block:: json
 
-    {"THEME_OPTIONS":{"theme":{"grandparent":"test-3","name":"test-1","parent":"test-2"}}}
+    {
+        "EDNX_USE_SIGNAL": true,
+        "THEME_OPTIONS": {
+            "theme": {
+                "name":"my-theme-1",
+                "parent":"my-theme-2"
+                "grandparent":"my-theme-3",
+            }
+        }
+    }
 
+**Using Tutor**
 
-For this, you must also make sure you have eox-tenant installed in your environment,
-and to configure it we must locate the `common.py`_
-file and set the ``USE_EOX_TENANT`` variable to ``True``
+If you chose to use ``Distro Tutor Plugin``, just follow the instructions given in the `Themes section <https://github.com/eduNEXT/tutor-contrib-edunext-distro/blob/master/README.md#themes>`_. Otherwise, if you are doing the process manually, follow this steps:
 
-.. _common.py: https://github.com/eduNEXT/eox-tenant/blob/master/eox_tenant/settings/common.py#L52
+#. Add the following settings to your environment file ``env/apps/openedx/settings/lms/[development | production].py``:
+
+   .. code:: python
+   
+       COMPREHENSIVE_THEME_DIRS.extend(
+           [
+               "/path-to-your-theme/in-the-lms-container/my-theme-1/edx-platform",
+               "/path-to-your-theme/in-the-lms-container/my-theme-2/edx-platform",
+               "/path-to-your-theme/in-the-lms-container/my-theme-3/edx-platform"
+           ]
+       )
+       EOX_THEMING_DEFAULT_THEME_NAME = "my-theme-1" # Or the theme you want
+   
+       ################## EOX_THEMING ##################
+       if "EOX_THEMING_DEFAULT_THEME_NAME" in locals() and EOX_THEMING_DEFAULT_THEME_NAME:
+       from lms.envs.common import _make_mako_template_dirs  # pylint: disable=import-error
+   
+   
+       ENABLE_COMPREHENSIVE_THEMING = True
+       TEMPLATES[1]["DIRS"] = _make_mako_template_dirs
+       derive_settings("lms.envs.[devstack | production]")  # lms.envs.devstack or lms.envs.production
+
+#. Compile the before added themes according to you are using a `production environment <https://github.com/eduNEXT/tutor-contrib-edunext-distro/blob/a63e585b9bc3089e00623974c8b365ea874f0a2b/README.md?plain=1#L219>`_ or a `dev environment <https://github.com/eduNEXT/tutor-contrib-edunext-distro/blob/a63e585b9bc3089e00623974c8b365ea874f0a2b/README.md?plain=1#L234>`_
+
+**Using devstack**
 
 Include the follow configuration in devstack.py:
 
