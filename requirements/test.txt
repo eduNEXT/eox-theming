@@ -14,18 +14,19 @@ astroid==2.13.5
     #   pylint
 backports-zoneinfo==0.2.1 ; python_version < "3.9"
     # via
-    #   -c requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
     #   -r requirements/base.txt
     #   django
-coverage==7.5.3
+coverage==7.6.0
     # via -r requirements/test.in
 dill==0.3.8
     # via pylint
     # via
-    #   -c requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/test.in
-eox-tenant==11.2.0
+eox-tenant==11.7.0
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
@@ -41,35 +42,37 @@ mccabe==0.7.0
     # via pylint
 mock==5.1.0
     # via -r requirements/test.in
-path==16.14.0
-    # via path-py
+path==16.11.0
+    # via
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+    #   path-py
 path-py==12.5.0
     # via -r requirements/test.in
 platformdirs==4.2.2
     # via pylint
 pycodestyle==2.8.0
     # via
-    #   -c requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
     #   -r requirements/test.in
 pylint==2.15.10
     # via
-    #   -c requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
     #   -r requirements/test.in
 pyyaml==6.0.1
     # via -r requirements/test.in
 six==1.16.0
     # via -r requirements/base.txt
-sqlparse==0.5.0
+sqlparse==0.5.1
     # via
     #   -r requirements/base.txt
     #   django
-testfixtures==8.2.0
+testfixtures==8.3.0
     # via -r requirements/test.in
 tomli==2.0.1
     # via pylint
-tomlkit==0.12.5
+tomlkit==0.13.0
     # via pylint
-typing-extensions==4.12.1
+typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   asgiref

@@ -8,19 +8,20 @@ asgiref==3.8.1
     # via django
 backports-zoneinfo==0.2.1 ; python_version < "3.9"
     # via
-    #   -c requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
     #   django
-django==4.2.13
+django==4.2.14
     # via
-    #   -c requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
     #   -r requirements/base.in
-eox-tenant==11.2.0
+eox-tenant==11.7.0
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
 six==1.16.0
     # via -r requirements/base.in
-sqlparse==0.5.0
+sqlparse==0.5.1
     # via django
-typing-extensions==4.12.1
+typing-extensions==4.12.2
     # via asgiref
