@@ -14,18 +14,36 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
       - name: Generate GitHub App Installation Token
         id: generate_token
+        env:
+          APP_ID: ${{ secrets.APOLLO_APP_ID }}
+          PRIVATE_KEY: ${{ secrets.APOLLO_APP_SECRET }}
         run: |
-          sudo apt-get update && sudo apt-get install -y jq
-          app_id="${{ secrets.APOLLO_APP_ID }}"
-          private_key="${{ secrets.APOLLO_APP_SECRET }}"
-          payload=$(echo -n "{\"iat\":$(date +%s),\"exp\":$(($(date +%s)+600)),\"iss\":${app_id}}" | openssl dgst -sha256 -sign <(echo "$private_key" | base64 -d) | openssl base64 | tr -d '\n')
-          jwt=$(echo -n "$payload" | base64 -d)
-          token=$(curl -s -X POST -H "Authorization: Bearer $jwt" -H "Accept: application/vnd.github.v3+json" https://api.github.com/app/installations | jq -r '.[0].access_tokens_url' | xargs curl -s -X POST -H "Authorization: Bearer $jwt" -H "Accept: application/vnd.github.v3+json" | jq -r '.token')
-          echo "::set-output name=token::$token"
+          # Create the JWT
+          now=$(date +%s)
+          exp=$(($now + 600))
+          header=$(echo -n '{"alg":"RS256","typ":"JWT"}' | base64 | tr -d '=' | tr '/+' '_-' | tr -d '\n')
+          payload=$(echo -n "{\"iat\":$now,\"exp\":$exp,\"iss\":${APP_ID}}" | base64 | tr -d '=' | tr '/+' '_-' | tr -d '\n')
+          data="$header.$payload"
+          sig=$(echo -n "$data" | openssl dgst -sha256 -sign <(echo "$PRIVATE_KEY" | base64 -d) | base64 | tr -d '=' | tr '/+' '_-' | tr -d '\n')
+          jwt="$data.$sig"
+
+          # Get installation ID
+          installation_id=$(curl -s -X GET -H "Authorization: Bearer $jwt" -H "Accept: application/vnd.github.v3+json" https://api.github.com/app/installations | jq '.[0].id')
+
+          # Get the installation access token
+          token=$(curl -s -X POST -H "Authorization: Bearer $jwt" -H "Accept: application/vnd.github.v3+json" https://api.github.com/app/installations/$installation_id/access_tokens | jq -r '.token')
+
+          # Save the token to the environment file
+          echo "GITHUB_APP_TOKEN=$token" >> $GITHUB_ENV
 
       - uses: actions/add-to-project@v0.5.0
         with:
           project-url: https://github.com/orgs/eduNEXT/projects/1
-          github-token: ${{ steps.generate_token.outputs.token }}
+          github-token: ${{ env.GITHUB_APP_TOKEN }}
