@@ -11,7 +11,21 @@ jobs:
     name: Add to project
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate GitHub App Installation Token
+        id: generate_token
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          app_id="${{ secrets.APOLLO_APP_ID }}"
+          private_key="${{ secrets.APOLLO_APP_SECRET }}"
+          payload=$(echo -n "{\"iat\":$(date +%s),\"exp\":$(($(date +%s)+600)),\"iss\":${app_id}}" | openssl dgst -sha256 -sign <(echo "$private_key" | base64 -d) | openssl base64 | tr -d '\n')
+          jwt=$(echo -n "$payload" | base64 -d)
+          token=$(curl -s -X POST -H "Authorization: Bearer $jwt" -H "Accept: application/vnd.github.v3+json" https://api.github.com/app/installations | jq -r '.[0].access_tokens_url' | xargs curl -s -X POST -H "Authorization: Bearer $jwt" -H "Accept: application/vnd.github.v3+json" | jq -r '.token')
+          echo "::set-output name=token::$token"
+
       - uses: actions/add-to-project@v0.5.0
         with:
           project-url: https://github.com/orgs/eduNEXT/projects/1
-          github-token: ${{ secrets.DEDALO_PAT }}
+          github-token: ${{ steps.generate_token.outputs.token }}
