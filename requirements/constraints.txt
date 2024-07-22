@@ -8,8 +8,13 @@
 # pin when possible.  Writing an issue against the offending project and
 # linking to it here is good.
 
-# Constraints for Open edX Redwood release
--c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+# Must be the same used in the platform https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+Django<5.0
+click==8.1.6
+backports.zoneinfo;python_version<"3.9"
+path<16.12.0
+pycodestyle<2.9.0
+pylint<2.16.0
 
 # Version used in Redwood version of eox-tenant
 eox-tenant < 12.0.0 

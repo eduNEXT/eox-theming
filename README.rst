@@ -14,7 +14,7 @@ EOX Theming
 Overview
 ********
 
-Eox theming is a plugin for `Open edX <https://github.com/openedx/edx-platform>`_, and part of the Edunext Open Extensiones (aka EOX) that provides a stable place from where to create and launch themes to the Open edX platform.
+Eox theming is a plugin for `Open edX platform <https://github.com/openedx/edx-platform>`_, and part of the Edunext Open edX Extensions (aka EOX) that provides a series of tools to customize and launch themes.
 
 If you are looking for professional development or support with multitenancy or multi-sites in the Open edX platform, you can reach out to sales@edunext.co
 
