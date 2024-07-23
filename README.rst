@@ -16,6 +16,10 @@ Overview
 
 Eox theming is a plugin for `Open edX platform <https://github.com/openedx/edx-platform>`_, and part of the Edunext Open edX Extensions (aka EOX) that provides a series of tools to customize and launch themes.
 
+This plugin improves the ``edx-platform`` by enhancing its Django and Mako template management. It allows for a more flexible theming process by introducing different levels of customization, enabling templates to be accessed from various theme directories where custom themes were stored.
+
+The plugin conducts a hierarchical search for the requested template. It begins with the main theme (identified by ``name``), then moves to the second level (identified by ``parent``), and finally to the third level (identified by ``grandparent``). This hierarchical approach ensures that the plugin searches through the theme directories, prioritizing the most specific customizations over the default ones. You can find how to use the theme hierarchy in the upcoming **Usage** section.
+
 If you are looking for professional development or support with multitenancy or multi-sites in the Open edX platform, you can reach out to sales@edunext.co
 
 *******************
@@ -48,7 +52,7 @@ Compatibility Notes
 
 The plugin is configured for the latest release (Redwood). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
 
-For example, if you need compatibility for Koa, you can go to the `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.rst>`_ to the ``Compatibility Notes`` section; you'll see something like this:
+For example, if you need compatibility for Koa, you can go to the `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.md>`_ to the ``Compatibility Notes`` section; you'll see something like this:
 
 .. code-block:: python
 
@@ -60,7 +64,7 @@ Then you need to change the configuration in ``eox_theming/settings/common.py`` 
 🚨 If the release you are looking for is not listed, please note:
 
 - If the Open edX release is compatible with the current eox-theming version (see `Compatibility Notes <https://github.com/eduNEXT/eox-theming?tab=readme-ov-file#compatibility-notes>`_), the default configuration is sufficient.
-- If incompatible, you can refer to the README from the relevant version tag for configuration details (e.g., `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.rst>`_).
+- If incompatible, you can refer to the README from the relevant version tag for configuration details (e.g., `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.rmd`_).
 
 
 ************
@@ -97,7 +101,7 @@ Usage
 Settings
 --------
 
-Next,  with ``eox-tenant`` create a new ``route`` or modify an existing one to point to a ``tenant config`` that lists your theme names in hierarchical order.  This hierarchy, which follows the priority for template lookup, uses the attributes ``name``, ``parent``, and ``grandparent`` respectively. You ``tenant config`` JSON will need a property similar to the following one:
+Next,  with ``eox-tenant`` create a new ``route`` or modify an existing one to point to a ``tenant config`` that lists your theme names in hierarchical order.  This hierarchy, which follows the priority for template lookup, uses the attributes ``name``, ``parent``, and ``grandparent`` respectively. Your ``tenant config`` JSON will need a property similar to the following one:
 
 .. code-block:: json
 
@@ -163,8 +167,9 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
 
 In ``COMPREHENSIVE_THEME_DIRS`` it must contain a list of directories where the folders of the themes to be tested are located.
 
+************
 Contributing
-------------
+************
 
 Contributions are welcome! See our `CONTRIBUTING`_
 file for more information - it also contains guidelines for how to maintain high code
