@@ -2,9 +2,9 @@ name: Add issues and PRs to the Dedalo project
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
   pull_request:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   add-to-project:
