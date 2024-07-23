@@ -7,8 +7,8 @@ on:
     types: [opened]
 
 jobs:
-  add-to-project:
-    name: Add to project
+  auto-assign:
+    name: Auto assign
     runs-on: ubuntu-latest
     steps:
       - name: Get Token
