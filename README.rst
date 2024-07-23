@@ -48,6 +48,15 @@ Compatibility Notes
 
 The plugin is configured for the latest release (Redwood). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
 
+For example, if you need compatibility for Koa, you can go to the `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.rst>`_ to the ``Compatibility Notes`` section; you'll see something like this:
+
+.. code-block:: python
+
+    EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
+    EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
+
+Then you need to change the configuration in ``eox_theming/settings/common.py`` to use the previous ones.
+
 🚨 If the release you are looking for is not listed, please note:
 
 - If the Open edX release is compatible with the current eox-theming version (see `Compatibility Notes <https://github.com/eduNEXT/eox-theming?tab=readme-ov-file#compatibility-notes>`_), the default configuration is sufficient.
