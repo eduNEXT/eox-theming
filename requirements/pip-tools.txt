@@ -8,11 +8,11 @@ build==1.2.1
     # via pip-tools
 click==8.1.6
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+    #   -c requirements/constraints.txt
     #   pip-tools
 importlib-metadata==6.11.0
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   build
 packaging==24.1
     # via build

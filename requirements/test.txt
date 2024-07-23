@@ -14,7 +14,7 @@ astroid==2.13.5
     #   pylint
 backports-zoneinfo==0.2.1 ; python_version < "3.9"
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   django
 coverage==7.6.0
@@ -22,8 +22,7 @@ coverage==7.6.0
 dill==0.3.8
     # via pylint
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/common_constraints.txt
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/test.in
 eox-tenant==11.7.0
@@ -44,7 +43,7 @@ mock==5.1.0
     # via -r requirements/test.in
 path==16.11.0
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+    #   -c requirements/constraints.txt
     #   path-py
 path-py==12.5.0
     # via -r requirements/test.in
@@ -52,11 +51,11 @@ platformdirs==4.2.2
     # via pylint
 pycodestyle==2.8.0
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+    #   -c requirements/constraints.txt
     #   -r requirements/test.in
 pylint==2.15.10
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-platform/open-release/redwood.master/requirements/constraints.txt
+    #   -c requirements/constraints.txt
     #   -r requirements/test.in
 pyyaml==6.0.1
     # via -r requirements/test.in

@@ -44,7 +44,15 @@ Compatibility Notes
 | Redwood          | >= 7.0       |
 +------------------+--------------+
 
-* From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
+⚠️ From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
+
+The plugin is configured for the latest release (Redwood). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
+
+🚨 If the release you are looking for is not listed, please note:
+
+- If the Open edX release is compatible with the current eox-theming version (see `Compatibility Notes <https://github.com/eduNEXT/eox-theming?tab=readme-ov-file#compatibility-notes>`_), the default configuration is sufficient.
+- If incompatible, you can refer to the README from the relevant version tag for configuration details (e.g., `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.rst>`_).
+
 
 ************
 Installation
@@ -56,17 +64,9 @@ Pre-requirements
 - A compatible version of `eox-tenant <https://github.com/eduNEXT/eox-tenant>`_
 - Ensure you have a theme or themes following the `Changing Themes guide <https://edx.readthedocs.io/projects/edx-installing-configuring-and-running/en/latest/configuration/changing_appearance/theming/index.html>`_ and compile them so they are accessible for the platform
 
-.. note::
+**NOTE**
 
-    In order to simplify this process, we encourage the use of ``Distro Tutor Plugin`` for managing the addition and compilation of custom themes: `README of Distro <https://github.com/eduNEXT/tutor-contrib-edunext-distro?tab=readme-ov-file#themes>`_
-
-Using Open edX devstack
------------------------
-
-#. Clone this repo in the ``src`` folder of your devstack.
-#. Open a new ``lms/devstack`` shell.
-#. Install the plugin as follows: ``pip install -e /path/to/your/src/folder``
-#. Restart lms/cms services.
+In order to simplify this process, we encourage the use of ``Distro Tutor Plugin`` for managing the addition and compilation of custom themes: `README of Distro <https://github.com/eduNEXT/tutor-contrib-edunext-distro?tab=readme-ov-file#themes>`_
 
 Using Tutor
 -----------
@@ -97,8 +97,8 @@ Next,  with ``eox-tenant`` create a new ``route`` or modify an existing one to p
         "THEME_OPTIONS": {
             "theme": {
                 "name":"my-theme-1",
-                "parent":"my-theme-2"
-                "grandparent":"my-theme-3",
+                "parent":"my-theme-2",
+                "grandparent":"my-theme-3"
             }
         }
     }
@@ -120,50 +120,39 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
    
        ################## EOX_THEMING ##################
        if "EOX_THEMING_DEFAULT_THEME_NAME" in locals() and EOX_THEMING_DEFAULT_THEME_NAME:
-       from lms.envs.common import _make_mako_template_dirs  # pylint: disable=import-error
-   
-   
-       ENABLE_COMPREHENSIVE_THEMING = True
-       TEMPLATES[1]["DIRS"] = _make_mako_template_dirs
-       derive_settings("lms.envs.[devstack | production]")  # lms.envs.devstack or lms.envs.production
+           from lms.envs.common import _make_mako_template_dirs  # pylint: disable=import-error
+           ENABLE_COMPREHENSIVE_THEMING = True
+           TEMPLATES[1]["DIRS"] = _make_mako_template_dirs
+           derive_settings("lms.envs.[devstack | production]")  # lms.envs.devstack or lms.envs.production
 
 #. Compile the before added themes according to you are using a `production environment <https://github.com/eduNEXT/tutor-contrib-edunext-distro/blob/a63e585b9bc3089e00623974c8b365ea874f0a2b/README.md?plain=1#L219>`_ or a `dev environment <https://github.com/eduNEXT/tutor-contrib-edunext-distro/blob/a63e585b9bc3089e00623974c8b365ea874f0a2b/README.md?plain=1#L234>`_
 
 
 #. Ensure is included the follow configuration in `devstack.py` in `eox-theming`:
 
-.. code-block:: python
+    .. code-block:: python
 
-    """
-    Production Django settings for eox_theming project.
-    """
-
-    from __future__ import unicode_literals
-
-
-    def plugin_settings(settings):
         """
-        Set of plugin settings used by the Open Edx platform.
-        More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
+        Production Django settings for eox_theming project.
         """
-        settings.STATICFILES_FINDERS = [
-            'eox_theming.theming.finders.EoxThemeFilesFinder',
-        ] + settings.STATICFILES_FINDERS
 
-        settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxDevelopmentStorage'
+        from __future__ import unicode_literals
 
-        # If you are using devstack, ensure this file contains the following
-        from lms.envs.common import _make_mako_template_dirs # pylint: disable=import-error
-        settings.ENABLE_COMPREHENSIVE_THEMING = True
-        settings.COMPREHENSIVE_THEME_DIRS = [
-            '/edx/src/themes/ednx-test-themes/edx-platform/',
-        ]
-        settings.TEMPLATES[1]["DIRS"] = _make_mako_template_dirs
-        settings.derive_settings("lms.envs.devstack")
 
-.. note::
-    
-    Note that in ``COMPREHENSIVE_THEME_DIRS`` it must contain a list of directories where the folders of the themes to be tested are located.
+        def plugin_settings(settings):
+            """
+            Set of plugin settings used by the Open Edx platform.
+            More info: https://github.com/edx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
+            """
+            settings.STATICFILES_FINDERS = [
+                'eox_theming.theming.finders.EoxThemeFilesFinder',
+            ] + settings.STATICFILES_FINDERS
+
+            settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxDevelopmentStorage'
+
+**NOTE** 
+
+In ``COMPREHENSIVE_THEME_DIRS`` it must contain a list of directories where the folders of the themes to be tested are located.
 
 Contributing
 ------------

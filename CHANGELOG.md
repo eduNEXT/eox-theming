@@ -5,13 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v7.1.1 - 2024-07-17
+## v7.2.0 - 2024-07-17
 
 ### Changed
-- **Update requirements**: The `requirements` for both the plugin and the `GitHub workflows` have been upgraded.
+- **Redwood Support**: The `requirements` have been updated in line with the `edx-platform` Redwood release. Additionally, the `GitHub workflows` dependencies have been upgraded to the latest functional versions, and various documentation sections have been revised.
 
 ### Fixed
-- **Django templates were not found according to the THEME_OPTIONS definition**: The issue occurred because the function `get_template_sources` only returns the directory for the current theme, then if this directory doesn't exist, the default template is returned instead ([issue #9](https://github.com/eduNEXT/eox-release/issues/9)). This problem was resolved by executing the `get_theme_template_sources` method from the `EoxThemeFilesystemLoader`, which retrieves the template directories not only for the current theme but also for its parent and grandparent themes.
+- **Django templates were not found according to the THEME_OPTIONS definition**: The issue occurred because the `get_template_sources` method only returns the directory for the current theme, then if this directory doesn't exist, the default template is returned instead ([issue #9](https://github.com/eduNEXT/eox-release/issues/9)). This problem was resolved by executing the `get_theme_template_sources` method from the `EoxThemeFilesystemLoader`, which retrieves the template directories not only for the current theme but also for its parent and grandparent themes.
 
 ## v7.1.0 - 2024-03-19
 
