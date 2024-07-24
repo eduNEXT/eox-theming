@@ -1,7 +1,7 @@
 ===========
 EOX Theming
 ===========
-|Maintainance Badge| |Test Badge| |PyPI Badge|
+|Maintainance Badge| |Test Badge| |PyPI Badge| |Python Badge|
 
 .. |Maintainance Badge| image:: https://img.shields.io/badge/Status-Maintained-brightgreen
    :alt: Maintainance Status
@@ -9,6 +9,7 @@ EOX Theming
    :alt: GitHub Actions Workflow Test Status
 .. |PyPI Badge| image:: https://img.shields.io/pypi/v/eox-theming?label=PyPI
    :alt: PyPI - Version
+.. |Python Badge| image:: https://img.shields.io/pypi/pyversions/eox-theming.svg
 
 Overview
 ========
@@ -43,7 +44,7 @@ Compatibility Notes
 +------------------+--------------+
 | Quince           | >= 7.0       |
 +------------------+--------------+
-| Redwood          | >= 7.0       |
+| Redwood          | >= 7.2.0     |
 +------------------+--------------+
 
 ⚠️ From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
@@ -133,7 +134,35 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
            TEMPLATES[1]["DIRS"] = _make_mako_template_dirs
            derive_settings("lms.envs.[devstack | production]")  # lms.envs.devstack or lms.envs.production
 
-#. Compile the before added themes according to you are using a `production environment <https://github.com/eduNEXT/tutor-contrib-edunext-distro/blob/a63e585b9bc3089e00623974c8b365ea874f0a2b/README.md?plain=1#L219>`_ or a `dev environment <https://github.com/eduNEXT/tutor-contrib-edunext-distro/blob/a63e585b9bc3089e00623974c8b365ea874f0a2b/README.md?plain=1#L234>`_
+#. Compile the before added themes:
+  
+  - In a ``production`` environment run 
+    
+    .. code-block:: bash
+
+      tutor images build openedx
+      tutor local do init
+      tutor local start
+
+      # or
+
+      tutor local launch
+  
+  - In a ``dev`` environment run 
+    
+    .. code-block:: bash
+
+      tutor images build openedx-dev
+      tutor dev do init
+      tutor dev start
+      tutor dev exec lms bash
+      npm run compile-sass -- --theme-dir X --theme-dir Y --theme A --theme B
+
+      # or
+
+      tutor dev launch
+      tutor dev exec lms bash
+      npm run compile-sass -- --theme-dir X --theme-dir Y --theme A --theme B
 
 
 #. Ensure is included the following configuration in `devstack.py` in `eox-theming`:
@@ -166,3 +195,9 @@ file for more information - it also contains guidelines for how to maintain high
 quality, which will make your contribution more likely to be accepted.
 
 .. _CONTRIBUTING: https://github.com/eduNEXT/eox-theming/blob/master/CONTRIBUTING.rst
+
+
+License
+=======
+
+This project is licensed under the AGPL-3.0 License. See the `LICENSE <LICENSE.txt>`_ file for details.
