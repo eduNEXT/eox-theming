@@ -10,9 +10,8 @@ EOX Theming
 .. |PyPI Badge| image:: https://img.shields.io/pypi/v/eox-theming?label=PyPI
    :alt: PyPI - Version
 
-********
 Overview
-********
+========
 
 Eox theming is a plugin for `Open edX platform <https://github.com/openedx/edx-platform>`_, and part of the Edunext Open edX Extensions (aka EOX) that provides a series of tools to customize and launch themes.
 
@@ -22,9 +21,8 @@ The plugin conducts a hierarchical search for the requested template. It begins 
 
 If you are looking for professional development or support with multitenancy or multi-sites in the Open edX platform, you can reach out to sales@edunext.co
 
-*******************
 Compatibility Notes
-*******************
+===================
 
 +------------------+--------------+
 | Open edX Release | Version      |
@@ -67,9 +65,8 @@ Then you need to change the configuration in ``eox_theming/settings/common.py`` 
 - If incompatible, you can refer to the README from the relevant version tag for configuration details (e.g., `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.md>`_).
 
 
-************
 Installation
-************
+============
 
 Pre-requirements
 ----------------
@@ -93,9 +90,8 @@ Using Tutor
 #. Save the configuration with ``tutor config save``
 #. Launch the platform with ``tutor [local | dev] launch``
 
-*****
 Usage
-*****
+=====
 
 Settings
 --------
@@ -162,9 +158,8 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
 
 In ``COMPREHENSIVE_THEME_DIRS`` it must contain a list of directories where the folders of the themes to be tested are located.
 
-************
 Contributing
-************
+============
 
 Contributions are welcome! See our `CONTRIBUTING`_
 file for more information - it also contains guidelines for how to maintain high code
