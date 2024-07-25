@@ -95,14 +95,14 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
 
 #. Compile the themes after adding them:
     
-    .. code-block:: bash
+   .. code-block:: bash
 
-       tutor images build openedx
-       tutor local do init
+      tutor images build openedx
+      tutor local do init
 
        # or
 
-       tutor local launch
+      tutor local launch
 
 #. Add the following settings to your environment file ``env/apps/openedx/settings/lms/production.py``:
 
@@ -148,37 +148,37 @@ Use case example
 
 Having the following theme folder structure:
     
-    .. code-block:: JSON
+    .. code-block:: txt
 
-       themes-main-folder
-       ├── edx-platform
-           └── global-customizations
-               └── lms
-                   └── static
-                   └── templates
-               └── cms
-                   └── static
-                   └── templates
-           └── more-specific-customizations
-               └── org-customization-theme
-                   └── lms
-                       └── static
-                       └── templates
-                   └── cms
-                       └── static
-                       └── templates
-           └── much-more-specific-customizations
-               └── client-customization-theme
-                   └── lms
-                       └── static
-                       └── templates
-                   └── cms
-                       └── static
-                       └── templates
-    
+        themes-main-folder
+        ├── edx-platform
+            └── global-customizations
+                └── lms
+                    └── static
+                    └── templates
+                └── cms
+                    └── static
+                    └── templates
+            └── more-specific-customizations
+                └── org-customization-theme
+                    └── lms
+                        └── static
+                        └── templates
+                    └── cms
+                        └── static
+                        └── templates
+            └── much-more-specific-customizations
+                └── client-customization-theme
+                    └── lms
+                        └── static
+                        └── templates
+                    └── cms
+                        └── static
+                        └── templates
+
     **NOTE**
 
-    You can see there are 3 levels of customizations in the themes folder: ``global-customizations``, ``more-specific-customizations``, and ``much-more-specific-customizations``; the names are just for illustrate the hierarchy the example will follow.
+    You can see there are 3 levels of customization in the themes folder: ``global-customizations``, ``more-specific-customizations``, and ``much-more-specific-customizations``; the names are just to illustrate the hierarchy that the example will follow.
 
 #. Add the ``themes-main-folder`` to ``env/build/openedx/themes`` folder in your environment to make the themes available to the platform; this folder is shared with the container.
 
@@ -197,7 +197,7 @@ Having the following theme folder structure:
        )
        EOX_THEMING_DEFAULT_THEME_NAME = "client-customization-theme"
 
-#. And finally, restart the platform with the `tutor local restart` so this settings are properly added
+#. And finally, restart the platform with the ``tutor local restart`` so this settings are properly added
 
 #. Now you just have to create a `Route` with the ``"theme"`` attribute in the ``tenant config`` as follows:
 
@@ -209,7 +209,7 @@ Having the following theme folder structure:
          "grandparent":"global-customizations"
        }
 
-#. Restart again `tutor local restart` and enjoy :)
+#. Restart again with ``tutor local restart`` and enjoy :)
 
 Contributing
 ============
