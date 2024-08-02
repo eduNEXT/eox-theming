@@ -21,13 +21,13 @@ def from_site_config(*args):
     """
     This source is compatible with the site_configurations from Open edX platform.
     """
+    value = None
     options_dict = configuration_helpers.get_value("THEME_OPTIONS", {})
     if args:
         try:
             value = reduce(operator.getitem, args, options_dict)
         except (AttributeError, KeyError):
             LOG.debug("Found nothing when reading the theme options for %s", ".".join(args))
-            value = None
     return value
 
 
@@ -81,6 +81,7 @@ def from_django_settings(*args):
     """
     Takes a THEME_OPTIONS dictionary in the settings module as the source.
     """
+    value = None
     options_dict = getattr(settings, "THEME_OPTIONS", {})
 
     if args:
@@ -88,5 +89,4 @@ def from_django_settings(*args):
             value = reduce(operator.getitem, args, options_dict)
         except (AttributeError, KeyError):
             LOG.debug("Found nothing when reading the theme options for %s on django settings", ".".join(args))
-            value = None
     return value
