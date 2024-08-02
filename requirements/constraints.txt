@@ -11,9 +11,5 @@
 # Common constraints for Open edX repos
 -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
 
-# Keep same platform version
-click==8.1.6
-backports.zoneinfo;python_version<"3.9"
-path<16.12.0
-pycodestyle<2.9.0
-pylint<2.16.0
+# backports.zoneinfo is only needed for Python < 3.9
+backports.zoneinfo; python_version<'3.9'

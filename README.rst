@@ -20,8 +20,6 @@ This plugin improves the ``edx-platform`` by enhancing its Django and Mako templ
 
 The plugin conducts a hierarchical search for the requested template. It begins with the main theme (identified by ``name``), then moves to the second level (identified by ``parent``), and finally to the third level (identified by ``grandparent``). This hierarchical approach ensures that the plugin searches through the theme directories, prioritizing the most specific customizations over the default ones. You can find how to use the theme hierarchy in the upcoming `Usage`_ section.
 
-If you are looking for professional development or support with multitenancy or multi-sites in the Open edX platform, you can reach out to sales@edunext.co
-
 Compatibility Notes
 ===================
 
@@ -148,37 +146,37 @@ Use case example
 
 Having the following theme folder structure:
     
-    .. code-block:: txt
+.. code-block:: txt
 
-        themes-main-folder
-        ├── edx-platform
-            └── global-customizations
+    themes-main-folder
+    ├── edx-platform
+        └── global-customizations
+            └── lms
+                └── static
+                └── templates
+            └── cms
+                └── static
+                └── templates
+        └── more-specific-customizations
+            └── org-customization-theme
                 └── lms
                     └── static
                     └── templates
                 └── cms
                     └── static
                     └── templates
-            └── more-specific-customizations
-                └── org-customization-theme
-                    └── lms
-                        └── static
-                        └── templates
-                    └── cms
-                        └── static
-                        └── templates
-            └── much-more-specific-customizations
-                └── client-customization-theme
-                    └── lms
-                        └── static
-                        └── templates
-                    └── cms
-                        └── static
-                        └── templates
+        └── much-more-specific-customizations
+            └── client-customization-theme
+                └── lms
+                    └── static
+                    └── templates
+                └── cms
+                    └── static
+                    └── templates
 
-    **NOTE**
+**NOTE**
 
-    You can see there are 3 levels of customization in the themes folder: ``global-customizations``, ``more-specific-customizations``, and ``much-more-specific-customizations``; the names are just to illustrate the hierarchy that the example will follow.
+You can see there are 3 levels of customization in the themes folder: ``global-customizations``, ``more-specific-customizations``, and ``much-more-specific-customizations``; the names are just to illustrate the hierarchy that the example will follow.
 
 #. Add the ``themes-main-folder`` to ``env/build/openedx/themes`` folder in your environment to make the themes available to the platform; this folder is shared with the container.
 
@@ -199,7 +197,7 @@ Having the following theme folder structure:
 
 #. And finally, restart the platform with the ``tutor local restart`` so this settings are properly added
 
-#. Now you just have to create a `Route` with the ``"theme"`` attribute in the ``tenant config`` as follows:
+#. Now you just have to create a ``Route`` with the ``"theme"`` attribute in the ``tenant config`` to point to your themes in the hierarchy you choose:
 
    .. code-block:: json
 

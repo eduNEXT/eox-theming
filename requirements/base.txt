@@ -15,9 +15,7 @@ django==4.2.14
     #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
 eox-tenant==11.7.0
-    # via
-    #   -c requirements/constraints.txt
-    #   -r requirements/base.in
+    # via -r requirements/base.in
 six==1.16.0
     # via -r requirements/base.in
 sqlparse==0.5.1
