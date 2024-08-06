@@ -7,12 +7,12 @@
 build==1.2.1
     # via pip-tools
 click==8.1.7
+    # via pip-tools
+importlib-metadata==6.11.0
     # via
-    #   -c requirements/constraints.txt
-    #   pip-tools
-importlib-metadata==7.1.0
-    # via build
-packaging==24.0
+    #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   build
+packaging==24.1
     # via build
 pip-tools==7.4.1
     # via -r requirements/pip-tools.in
