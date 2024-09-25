@@ -17,9 +17,8 @@ jobs:
         with:
           application_id: ${{ vars.APOLLO_APP_ID }}
           application_private_key: ${{ secrets.APOLLO_APP_SECRET }}
-      - name: 'Auto-assign PR-Issue'
-        uses: pozil/auto-assign-issue@v1.13.0
+      - name: Auto-assign PR-Issue
+        uses: pozil/auto-assign-issue@v2
         with:
           repo-token: ${{ steps.get_workflow_token.outputs.token }}
-          teams: theming
-          numOfAssignee: 2
+          teams: dedalo
