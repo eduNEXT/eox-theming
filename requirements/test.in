@@ -4,6 +4,8 @@
 Django
 mock
 pylint
+pytest
+pytest-django
 astroid
 pycodestyle
 coverage
