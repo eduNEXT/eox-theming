@@ -42,6 +42,9 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 	mv requirements/test.tmp requirements/test.txt
 
 run-integration-tests:
+# Install setuptools before running tests because pkg_resources is used 
+# in paths.py, which is required by the apps.py `ready()` method.
+	pip install setuptools
 	pip install -r requirements/test.txt
 	pytest -rPf ./eox_theming/tests/management/integration
 
