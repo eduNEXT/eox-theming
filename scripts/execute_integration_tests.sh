@@ -1,3 +1,3 @@
 #!/bin/bash
 
-run-integration-tests
+make run-integration-tests
