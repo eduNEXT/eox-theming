@@ -46,7 +46,7 @@ run-integration-tests:
 # in paths.py, which is required by the apps.py `ready()` method.
 	pip install setuptools
 	pip install -r requirements/test.txt
-	pytest -rPf ./eox_theming/tests/management/integration
+	pytest -rPf ./eox_theming/management/tests/integration
 
 quality: clean ## check coding style with pycodestyle and pylint
 	$(TOX) pycodestyle ./eox_theming
