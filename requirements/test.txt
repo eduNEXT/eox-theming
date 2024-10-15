@@ -17,6 +17,11 @@ backports-zoneinfo==0.2.1 ; python_version < "3.9"
     #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   django
+    #   djangorestframework
+certifi==2024.8.30
+    # via requests
+charset-normalizer==3.4.0
+    # via requests
 coverage==7.6.1
     # via -r requirements/test.in
 dill==0.3.9
@@ -25,10 +30,15 @@ dill==0.3.9
     #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.txt
     #   -r requirements/test.in
+    #   djangorestframework
+djangorestframework==3.15.2
+    # via -r requirements/test.in
 eox-tenant==11.7.0
     # via -r requirements/base.txt
 exceptiongroup==1.2.2
     # via pytest
+idna==3.10
+    # via requests
 iniconfig==2.0.0
     # via pytest
 isort==5.13.2
@@ -63,6 +73,8 @@ pytest-django==4.9.0
     # via -r requirements/test.in
 pyyaml==6.0.2
     # via -r requirements/test.in
+requests==2.32.3
+    # via -r requirements/test.in
 six==1.16.0
     # via -r requirements/base.txt
 sqlparse==0.5.1
@@ -83,3 +95,5 @@ typing-extensions==4.12.2
     #   asgiref
     #   astroid
     #   pylint
+urllib3==2.2.3
+    # via requests

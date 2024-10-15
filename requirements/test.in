@@ -2,6 +2,7 @@
 -r base.txt
 
 Django
+djangorestframework
 mock
 pylint
 pytest
@@ -12,4 +13,5 @@ coverage
 mako
 path-py
 testfixtures
+requests
 pyyaml
