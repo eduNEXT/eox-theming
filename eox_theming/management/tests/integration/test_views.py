@@ -22,7 +22,7 @@ class TestInfoView(TestCase):
         - The status code is 200.
         - The response contains the version, name and git commit hash.
         """
-        url = f"{settings['EOX_THEMING_BASE_URL']}{reverse('eox-info')}"
+        url = f"{settings['EOX_THEMING_BASE_URL']}{reverse('eox-theming-management:eox-info')}"
 
         response = requests.get(url, timeout=settings["API_TIMEOUT"])
 

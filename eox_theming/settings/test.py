@@ -79,6 +79,6 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
 # Integration tests settings
 INTEGRATION_TEST_SETTINGS = {
     # Retrieved from the Tutor environment where the integration tests run
-    "EOX_THEMING_BASE_URL": f"http://{os.environ.get('LMS_HOST', 'local.edly.io')}/eox-tenant",
+    "EOX_THEMING_BASE_URL": f"http://{os.environ.get('LMS_HOST', 'local.edly.io')}/eox-theming",
     "API_TIMEOUT": 5,
 }
