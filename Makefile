@@ -41,6 +41,13 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 	sed '/^[dD]jango==/d;' requirements/test.txt > requirements/test.tmp
 	mv requirements/test.tmp requirements/test.txt
 
+run-integration-tests:
+# Install setuptools before running tests because pkg_resources is used 
+# in paths.py, which is required by the apps.py `ready()` method.
+	pip install setuptools
+	pip install -r requirements/test.txt
+	pytest -rPf ./eox_theming/management/tests/integration
+
 quality: clean ## check coding style with pycodestyle and pylint
 	$(TOX) pycodestyle ./eox_theming
 	$(TOX) pylint ./eox_theming --rcfile=./setup.cfg
@@ -48,7 +55,7 @@ quality: clean ## check coding style with pycodestyle and pylint
 
 test-python: clean ## Run test suite.
 	$(TOX) pip install -r requirements/test.txt --exists-action w
-	$(TOX) coverage run --source ./eox_theming manage.py test
+	$(TOX) coverage run --source="." -m pytest ./eox_theming --ignore-glob='**/integration/*'
 	$(TOX) coverage report -m --fail-under=74
 
 run-tests: test-python quality
