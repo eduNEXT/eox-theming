@@ -14,5 +14,4 @@ jobs:
         with:
           tutor_version: ${{ matrix.tutor_version }}
           app_name: 'eox-theming'
-          shell_file_to_run: 'scripts/execute_integration_tests.sh'
           openedx_imports_test_file_path: 'eox_theming/edxapp_wrapper/tests/integration/test_backends.py'
