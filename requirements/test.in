@@ -2,12 +2,16 @@
 -r base.txt
 
 Django
+djangorestframework
 mock
 pylint
+pytest
+pytest-django
 astroid
 pycodestyle
 coverage
 mako
 path-py
 testfixtures
+requests
 pyyaml
