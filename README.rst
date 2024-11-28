@@ -44,10 +44,12 @@ Compatibility Notes
 +------------------+---------------+
 | Redwood          | >= 7.2.0      |
 +------------------+---------------+
+| Sumac            | >= 8.1.0      |
++------------------+---------------+
 
 ⚠️ From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
 
-The plugin is configured for the latest release (Redwood). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
+The plugin is configured for the latest release (Sumac). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
 
 For example, if you need compatibility for Koa, you can go to the `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.md>`_ to the ``Compatibility Notes`` section; you'll see something like this:
 
@@ -75,9 +77,9 @@ Installation
 ============
 
 #. Install the plugin adding it to ``OPENEDX_EXTRA_PIP_REQUIREMENTS`` in the ``config.yml``.
-   
+
    .. code-block:: yaml
-      
+
       OPENEDX_EXTRA_PIP_REQUIREMENTS:
          - eox-theming=={{version}}
 
@@ -92,7 +94,7 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
 #. Add the themes to your instance by adding your themes folder to the container shared folder ``env/build/openedx/themes``
 
 #. Compile the themes after adding them:
-    
+
    .. code-block:: bash
 
       tutor images build openedx
@@ -105,7 +107,7 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
 #. Add the following settings to your environment file ``env/apps/openedx/settings/lms/production.py``:
 
    .. code:: python
-   
+
        COMPREHENSIVE_THEME_DIRS.extend(
            [
                "/path-to-your-themes-folder/in-the-lms-container/edx-platform",
@@ -113,7 +115,7 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
            ]
        )
        EOX_THEMING_DEFAULT_THEME_NAME = "my-theme-1" # Or the theme you want
-   
+
        ################## EOX_THEMING ##################
        if "EOX_THEMING_DEFAULT_THEME_NAME" in locals() and EOX_THEMING_DEFAULT_THEME_NAME:
            from lms.envs.common import _make_mako_template_dirs  # pylint: disable=import-error
@@ -145,7 +147,7 @@ Use case example
 ================
 
 Having the following theme folder structure:
-    
+
 .. code-block:: txt
 
     themes-main-folder
@@ -185,7 +187,7 @@ You can see there are 3 levels of customization in the themes folder: ``global-c
 #. Then, ensure are properly configured the `Settings`_ required and customize these: 
 
    .. code:: python
-   
+
        COMPREHENSIVE_THEME_DIRS.extend(
            [
                "/openedx/themes/themes-main-folder/edx-platform",

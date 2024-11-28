@@ -14,11 +14,11 @@ django==4.2.16
     # via
     #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
-eox-tenant==11.7.0
+eox-tenant==12.1.0
     # via -r requirements/base.in
 six==1.16.0
     # via -r requirements/base.in
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via django
 typing-extensions==4.12.2
     # via asgiref
