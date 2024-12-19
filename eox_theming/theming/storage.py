@@ -2,6 +2,8 @@
 Theming Storage abstraction used in eox-theming
 """
 import os
+import logging
+
 
 from django.contrib.staticfiles.finders import find
 from django.contrib.staticfiles.storage import StaticFilesStorage
@@ -20,6 +22,7 @@ OpenedxThemeStorage = get_theme_storage()
 ThemeCachedFilesMixin = get_themecached_mixin()
 ProductionStorageMixin = get_production_mixin()
 ThemePipelineMixin = get_themepipeline_mixin()
+logger = logging.getLogger(__name__)
 
 
 class EoxThemeStorage(OpenedxThemeStorage):
@@ -102,21 +105,41 @@ class EoxProductionStorage(
 
         See the class docstring for more info.
         """
+        logger.info("**********************************************************************")
+        logger.info("**********************************************************************")
+        logger.info("**********************************************************************")
+        logger.info("**********************************************************************")
+        logger.info("**********************************************************************")
+        logger.info("**********************************************************************")
+        logger.info("Segundo intento")
+
         theme = ThemingConfiguration.theming_helpers.get_current_theme()
         if theme and theme.theme_dir_name not in name:
+            logger.info("Entro a line sospechosa")
+            logger.info("Theme %s", theme)
+            logger.info("Theme dir name %s", theme.theme_dir_name)
+            logger.info("Name %s", name)
             # during server run, append theme name to the asset name if it is not already there
             # this is ensure that correct hash is created and default asset is not always
             # used to create hash of themed assets.
             name = os.path.join(theme.theme_dir_name, name)
+
         parsed_name = urlsplit(unquote(name))
         clean_name = parsed_name.path.strip()
         asset_name = name
+
+        logger.info("ParsedName %s", parsed_name)
+        logger.info("Clean Name %s", clean_name)
+        logger.info("Asset Name %s", asset_name)
+
         if not self.exists(clean_name):
+            logger.info("Primer if")
             # if themed asset does not exists then use default asset
             theme_name = name.split("/", 1)[0]
             # verify that themed asset was accessed
             if theme_name in [theme.theme_dir_name for theme in ThemingConfiguration.theming_helpers.get_themes()]:
                 asset_name = "/".join(name.split("/")[1:])
+                logger.info("Asset Name primer if %s", asset_name)
         elif theme and theme.theme_dir_name in asset_name:
             return asset_name
 
@@ -124,10 +147,15 @@ class EoxProductionStorage(
         parent_theme = ThemingConfiguration.get_parent_or_default_theme()
 
         if theme and parent_theme.name == theme.name:
+            logger.info("Poco probable %s", asset_name)
             return asset_name
 
         theme = parent_theme
         if theme and theme.theme_dir_name not in asset_name:
+            logger.info("Entro a line sospechosa 2")
+            logger.info("Theme %s", theme)
+            logger.info("Theme dir name %s", theme.theme_dir_name)
+            logger.info("Name %s", name)
             # during server run, append theme name to the asset name if it is not already there
             # this is ensure that correct hash is created and default asset is not always
             # used to create hash of themed assets.
@@ -135,12 +163,19 @@ class EoxProductionStorage(
         parsed_name = urlsplit(unquote(name))
         clean_name = parsed_name.path.strip()
         asset_name = name
+
+        logger.info("ParsedName %s", parsed_name)
+        logger.info("Clean Name %s", clean_name)
+        logger.info("Asset Name %s", asset_name)
+
         if not self.exists(clean_name):
+            logger.info("Segundo if")
             # if themed asset does not exists then use default asset
             theme = name.split("/", 1)[0]
             # verify that themed asset was accessed
             if theme in [theme.theme_dir_name for theme in ThemingConfiguration.theming_helpers.get_themes()]:
                 asset_name = "/".join(name.split("/")[1:])
+                logger.info("Asset Name segundo if %s", asset_name)
 
         return asset_name
 
