@@ -4,10 +4,10 @@ Set up lookup paths for mako templates.
 See: common.djangoapps.edxmako.paths
 """
 
+import importlib.resources
 import os
 import re
 
-import importlib.resources
 from django.conf import settings
 from mako.exceptions import TopLevelLookupException
 
