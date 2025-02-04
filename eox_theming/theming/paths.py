@@ -7,7 +7,7 @@ See: common.djangoapps.edxmako.paths
 import os
 import re
 
-import pkg_resources
+import importlib.resources
 from django.conf import settings
 from mako.exceptions import TopLevelLookupException
 
@@ -91,7 +91,7 @@ def add_lookup(namespace, directory, package=None, prepend=False):
             encoding_errors='replace',
         )
     if package:
-        directory = pkg_resources.resource_filename(package, directory)
+        directory = importlib.resources.files(package) / directory
     templates.add_directory(directory, prepend=prepend)
 
 
