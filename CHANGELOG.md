@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Remove support for python 3.8
-* pkg_resources is deprecated, and its recommended replacement, importlib.resources, is only fully available in Python 3.9+.
+* Replaced deprecated `pkg_resources` APIs with `importlib.resources` and `importlib.metadata` to ensure compatibility with newer Django and Python versions.
 
 ## [v8.1.0](https://github.com/eduNEXT/eox-theming/compare/v8.0.0...v8.1.0) - (2024-11-27)
 
