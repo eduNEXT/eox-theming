@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v9.0.0](https://github.com/eduNEXT/eox-theming/compare/v8.1.0...v9.0.0) - (2025-02-04)
+
+### Changed
+
+* Removed support for Python 3.8.
+* Replaced deprecated `pkg_resources` with `importlib.resources` for better compatibility with newer Django and Python versions.
+* Starting with this version, this package is no longer compatible with releases older than Redwood.
+
 ## [v8.1.0](https://github.com/eduNEXT/eox-theming/compare/v8.0.0...v8.1.0) - (2024-11-27)
 
 ### Changed
