@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Removed support for Python 3.8.
-* Replaced deprecated `pkg_resources` APIs with `importlib.resources` and `importlib.metadata` to ensure compatibility with newer Django and Python versions.
+* Replaced deprecated `pkg_resources` with `importlib.resources` for better compatibility with newer Django and Python versions.
 * Starting with this version, this package is no longer compatible with releases older than Redwood.
 
 ## [v8.1.0](https://github.com/eduNEXT/eox-theming/compare/v8.0.0...v8.1.0) - (2024-11-27)
