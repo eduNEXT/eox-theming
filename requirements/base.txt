@@ -6,11 +6,11 @@
 #
 asgiref==3.8.1
     # via django
-django==4.2.18
+django==4.2.22
     # via
     #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
-eox-tenant==13.0.0
+eox-tenant==13.1.0
     # via -r requirements/base.in
 six==1.17.0
     # via -r requirements/base.in
