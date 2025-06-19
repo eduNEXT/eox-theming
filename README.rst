@@ -46,10 +46,10 @@ Compatibility Notes
 +------------------+---------------+
 | Sumac            | >= 8.1.0      |
 +------------------+---------------+
+| Teak             | >= 9.0.0      |
++------------------+---------------+
 
-⚠️ From Lilac version Django 2.2 is not supported, you should use Django 3.2 and eox-tenant >=4.0.
-
-The plugin is configured for the latest release (Sumac). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
+The plugin is configured for the latest release (Teak). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
 
 For example, if you need compatibility for Koa, you can go to the `v2.0.0 README <https://github.com/eduNEXT/eox-theming/blob/v2.0.0/README.md>`_ to the ``Compatibility Notes`` section; you'll see something like this:
 
