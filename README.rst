@@ -123,6 +123,21 @@ If you chose to use ``Distro Tutor Plugin``, just follow the instructions given 
            TEMPLATES[1]["DIRS"] = _make_mako_template_dirs
            derive_settings("lms.envs.production")
 
+
+**Note for Teak and later versions (>= 9.0.0):**
+
+Starting from Teak, the function ``_make_mako_template_dirs`` requires a ``settings`` argument.  
+You need to update the configuration block like this:
+
+    .. code-block:: python
+
+        from django.conf import settings
+        from lms.envs.common import _make_mako_template_dirs  # pylint: disable=import-error
+
+        ENABLE_COMPREHENSIVE_THEMING = True
+        TEMPLATES[1]["DIRS"] = _make_mako_template_dirs(settings)
+        derive_settings("lms.envs.production")
+
 Usage
 =====
 
