@@ -4,13 +4,13 @@
 #
 #    make upgrade
 #
-asgiref==3.8.1
+asgiref==3.10.0
     # via django
-django==4.2.22
+django==5.2.7
     # via
-    #   -c https://raw.githubusercontent.com/openedx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c requirements/constraints.txt
     #   -r requirements/base.in
-eox-tenant==13.1.0
+eox-tenant==14.1.1
     # via -r requirements/base.in
 six==1.17.0
     # via -r requirements/base.in
