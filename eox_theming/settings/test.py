@@ -62,6 +62,8 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
     except AttributeError:
         pass
 
+    settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxProductionStorage'
+
     if not hasattr(settings, 'STORAGES'):
         settings.STORAGES = {}
 

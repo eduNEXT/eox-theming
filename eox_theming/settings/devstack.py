@@ -14,6 +14,8 @@ def plugin_settings(settings):
         'eox_theming.theming.finders.EoxThemeFilesFinder',
     ] + settings.STATICFILES_FINDERS
 
+    settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxProductionStorage'
+
     if not hasattr(settings, 'STORAGES'):
         settings.STORAGES = {}
 
