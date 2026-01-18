@@ -48,7 +48,7 @@ Compatibility Notes
 +------------------+---------------+
 | Teak             | >= 9.0.0      |
 +------------------+---------------+
-| Ulmo             | >= 9.3.0      |
+| Ulmo             | >= 9.3.1      |
 +------------------+---------------+
 
 The plugin is configured for the latest release (Teak). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
