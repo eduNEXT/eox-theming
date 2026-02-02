@@ -94,7 +94,7 @@ def plugin_settings(settings):
     settings.EOX_THEMING_THEMING_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_theming_helpers'
     settings.EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
 
-    if hasattr(settings, 'STATICFILES_STORAGE'):
+    if hasattr(settings, 'DEFAULT_FILE_STORAGE'):
         settings.STATICFILES_STORAGE = (
             'eox_theming.theming.storage.EoxProductionStorage'
         )
