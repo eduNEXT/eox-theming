@@ -68,7 +68,7 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
     try:
         settings.STORAGES['staticfiles']['BACKEND'] = 'openedx.core.storage.ProductionStorage'
     except Exception:  # pylint: disable=broad-except
-        logger.error("Couldn't set ProductionStorage as staticfiles storage backend. Check your settings configuration.")
+        logger.error("Couldn't set ProductionStorage as staticfiles storage backend.")
 
     settings.STATICFILES_FINDERS = [
         x for x in settings.STATICFILES_FINDERS if 'EoxThemeFilesFinder' not in x
