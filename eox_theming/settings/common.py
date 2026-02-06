@@ -99,7 +99,7 @@ def plugin_settings(settings):
     settings.EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
 
     try:
-        settings.STORAGES['staticfiles']['BACKEND'] = 'eox_theming.theming.storage.EoxDevelopmentStorage'
+        settings.STORAGES['staticfiles']['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
     except Exception:  # pylint: disable=broad-except
         logger.error("Couldn't set EoxThemeStorage as staticfiles storage backend. Check your settings configuration.")
 
