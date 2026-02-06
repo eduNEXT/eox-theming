@@ -12,11 +12,17 @@ from eox_theming.configuration import ThemingConfiguration
 from eox_theming.edxapp_wrapper.storage import (
     get_production_mixin,
     get_theme_storage,
+    get_themecached_mixin,
     get_themepipeline_mixin,
 )
 
+OpenedxThemeStorage = get_theme_storage()
+ThemeCachedFilesMixin = get_themecached_mixin()
+ProductionStorageMixin = get_production_mixin()
+ThemePipelineMixin = get_themepipeline_mixin()
 
-class EoxThemeStorage(get_theme_storage()):
+
+class EoxThemeStorage(OpenedxThemeStorage):
     """
     The eox theme storage class is the intervention point to make sure
     that we are loading all the themes statics assets into the platform.
@@ -81,7 +87,7 @@ class AbsoluteUrlAssetsMixin:
 
 class EoxProductionStorage(
         AbsoluteUrlAssetsMixin,
-        get_production_mixin(),
+        ProductionStorageMixin,
         EoxThemeStorage,
         StaticFilesStorage
 ):
@@ -171,7 +177,7 @@ class EoxProductionStorage(
 class EoxDevelopmentStorage(
         AbsoluteUrlAssetsMixin,
         NonPackagingMixin,
-        get_themepipeline_mixin(),
+        ThemePipelineMixin,
         EoxThemeStorage,
         StaticFilesStorage
 ):

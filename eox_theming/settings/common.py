@@ -60,10 +60,30 @@ def plugin_settings(settings):
 
     try:
         eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
-        if eox_configuration_path not in settings.TEMPLATES[0]['OPTIONS']['context_processors']:
-            settings.TEMPLATES[0]['OPTIONS']['context_processors'].append(eox_configuration_path)
-        if eox_configuration_path not in settings.TEMPLATES[1]['OPTIONS']['context_processors']:
-            settings.TEMPLATES[1]['OPTIONS']['context_processors'].append(eox_configuration_path)
+
+        # Accedemos de forma segura a los context_processors
+        template_options_0 = settings.TEMPLATES[0].setdefault('OPTIONS', {})
+        template_options_1 = settings.TEMPLATES[1].setdefault('OPTIONS', {})
+        context_processors_0 = template_options_0.get('context_processors', [])
+        context_processors_1 = template_options_1.get('context_processors', [])
+
+        # Si context_processors es un objeto Derived o similar, lo convertimos a lista
+        if not isinstance(context_processors_0, list):
+            context_processors_0 = list(context_processors_0)
+
+        if eox_configuration_path not in context_processors_0:
+            context_processors_0.append(eox_configuration_path)
+            # Reasignamos para asegurar que el cambio persista en el objeto Derived/settings
+            template_options_0['context_processors'] = context_processors_0
+
+        # Si context_processors es un objeto Derived o similar, lo convertimos a lista
+        if not isinstance(context_processors_1, list):
+            context_processors_1 = list(context_processors_1)
+
+        if eox_configuration_path not in context_processors_1:
+            context_processors_1.append(eox_configuration_path)
+            # Reasignamos para asegurar que el cambio persista en el objeto Derived/settings
+            template_options_1['context_processors'] = context_processors_1
 
         settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
     except AttributeError:
