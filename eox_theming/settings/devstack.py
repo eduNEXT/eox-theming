@@ -4,6 +4,10 @@ Production Django settings for eox_theming project.
 
 from __future__ import unicode_literals
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def plugin_settings(settings):
     """

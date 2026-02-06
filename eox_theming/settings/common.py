@@ -10,6 +10,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 from __future__ import unicode_literals
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 

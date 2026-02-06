@@ -5,11 +5,14 @@ Test Django settings for eox_theming project.
 from __future__ import unicode_literals
 
 import codecs
+import logging
 import os
 
 import yaml
 
 from .common import *  # pylint: disable=wildcard-import
+
+logger = logging.getLogger(__name__)
 
 
 class SettingsClass:
