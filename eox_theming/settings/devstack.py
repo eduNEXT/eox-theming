@@ -14,7 +14,9 @@ def plugin_settings(settings):
         'eox_theming.theming.finders.EoxThemeFilesFinder',
     ] + settings.STATICFILES_FINDERS
 
+    # Django 4.2+ prefers STORAGES; keep STATICFILES_STORAGE for older releases.
     if not hasattr(settings, 'STORAGES'):
         settings.STORAGES = {}
-
     settings.STORAGES.setdefault('staticfiles', {})['BACKEND'] = 'eox_theming.theming.storage.EoxDevelopmentStorage'
+
+    settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxDevelopmentStorage'
