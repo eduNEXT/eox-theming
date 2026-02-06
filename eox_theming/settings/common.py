@@ -94,10 +94,9 @@ def plugin_settings(settings):
     settings.EOX_THEMING_THEMING_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_theming_helpers'
     settings.EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
 
-    # Django 4.2+ prefers STORAGES; avoid setting STATICFILES_STORAGE when STORAGES is present
-    if hasattr(settings, 'STORAGES'):
-        settings.STORAGES.setdefault('staticfiles', {})['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
-    else:
-        settings.STATICFILES_STORAGE = 'eox_theming.theming.storage.EoxProductionStorage'
+    try:
+        settings.STORAGES['staticfiles']['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
+    except Exception:  # pylint: disable=broad-except
+        logger.error("Couldn't set EoxThemeStorage as staticfiles storage backend. Check your settings configuration.")
 
     settings.EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'

@@ -62,11 +62,10 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
     except AttributeError:
         pass
 
-    # Django 4.2+ prefers STORAGES; avoid setting STATICFILES_STORAGE when STORAGES is present
-    if hasattr(settings, 'STORAGES'):
-        settings.STORAGES.setdefault('staticfiles', {})['BACKEND'] = 'openedx.core.storage.ProductionStorage'
-    else:
-        settings.STATICFILES_STORAGE = 'openedx.core.storage.ProductionStorage'
+    try:
+        settings.STORAGES['staticfiles']['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
+    except Exception:  # pylint: disable=broad-except
+        logger.error("Couldn't set EoxThemeStorage as staticfiles storage backend. Check your settings configuration.")
 
     settings.STATICFILES_FINDERS = [
         x for x in settings.STATICFILES_FINDERS if 'EoxThemeFilesFinder' not in x
