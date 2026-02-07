@@ -10,10 +10,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 from __future__ import unicode_literals
 
-import logging
-
-logger = logging.getLogger(__name__)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -48,56 +44,51 @@ def plugin_settings(settings):
     Set of plugin settings used by the Open Edx platform.
     More info: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
     """
+    def resolve_settings(obj):
+        """
+        Ayudante para resolver objetos 'Derived' sin importar la clase
+        y evitar errores de linter.
+        """
+        if hasattr(obj, '_resolve'):
+            # pylint: disable=protected-access
+            return obj._resolve(settings)
+        return obj
+
+    current_finders = getattr(settings, 'STATICFILES_FINDERS', [])
+    current_finders = resolve_settings(current_finders)
+
     settings.STATICFILES_FINDERS = [
         'eox_theming.theming.finders.EoxThemeFilesFinder',
-    ] + getattr(settings, 'STATICFILES_FINDERS', [])
+    ] + list(current_finders)
 
-    try:
-        settings.TEMPLATES[0]['OPTIONS']['loaders'][0] = 'eox_theming.theming.template_loaders.EoxThemeTemplateLoader'
-    except AttributeError:
-        # We must find a way to register this error
-        pass
+    eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
 
-    try:
-        eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
+    templates = resolve_settings(getattr(settings, 'TEMPLATES', []))
 
-        # Accedemos de forma segura a los context_processors
-        template_options_0 = settings.TEMPLATES[0].setdefault('OPTIONS', {})
-        template_options_1 = settings.TEMPLATES[1].setdefault('OPTIONS', {})
-        context_processors_0 = template_options_0.get('context_processors', [])
-        context_processors_1 = template_options_1.get('context_processors', [])
+    for template_engine in templates:
+        options = template_engine.get('OPTIONS', {})
+        cp_list = options.get('context_processors', [])
+        cp_list = list(resolve_settings(cp_list))
 
-        # Si context_processors es un objeto Derived o similar, lo convertimos a lista
-        if not isinstance(context_processors_0, list):
-            context_processors_0 = list(context_processors_0)
+        if eox_configuration_path not in cp_list:
+            cp_list.append(eox_configuration_path)
+            template_engine['OPTIONS']['context_processors'] = cp_list
 
-        if eox_configuration_path not in context_processors_0:
-            context_processors_0.append(eox_configuration_path)
-            # Reasignamos para asegurar que el cambio persista en el objeto Derived/settings
-            template_options_0['context_processors'] = context_processors_0
+    current_middleware = resolve_settings(getattr(settings, 'MIDDLEWARE', []))
 
-        # Si context_processors es un objeto Derived o similar, lo convertimos a lista
-        if not isinstance(context_processors_1, list):
-            context_processors_1 = list(context_processors_1)
+    settings.MIDDLEWARE = [
+        'eox_theming.theming.middleware.EoxThemeMiddleware' if 'CurrentSiteThemeMiddleware' in x else x
+        for x in current_middleware
+    ]
 
-        if eox_configuration_path not in context_processors_1:
-            context_processors_1.append(eox_configuration_path)
-            # Reasignamos para asegurar que el cambio persista en el objeto Derived/settings
-            template_options_1['context_processors'] = context_processors_1
-
-        settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
-    except AttributeError:
-        # We must find a way to register this error
-        pass
-
-    try:
-        settings.MIDDLEWARE = [
-            'eox_theming.theming.middleware.EoxThemeMiddleware' if 'CurrentSiteThemeMiddleware' in x else x
-            for x in settings.MIDDLEWARE
-        ]
-    except AttributeError:
-        # We must find a way to register this error.
-        pass
+    # 4. Storage (Django 5)
+    if hasattr(settings, 'STORAGES'):
+        new_storages = dict(settings.STORAGES)
+        if 'staticfiles' in new_storages:
+            static_cfg = dict(new_storages['staticfiles'])
+            static_cfg['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
+            new_storages['staticfiles'] = static_cfg
+            settings.STORAGES = new_storages
 
     settings.EOX_THEMING_DEFAULT_THEME_NAME = 'bragi'
 
@@ -117,10 +108,4 @@ def plugin_settings(settings):
     settings.EOX_THEMING_CONFIGURATION_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_configuration_helpers'
     settings.EOX_THEMING_THEMING_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_theming_helpers'
     settings.EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
-
-    try:
-        settings.STORAGES['staticfiles']['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
-    except Exception:  # pylint: disable=broad-except
-        logger.error("Couldn't set EoxThemeStorage as staticfiles storage backend. Check your settings configuration.")
-
     settings.EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'
