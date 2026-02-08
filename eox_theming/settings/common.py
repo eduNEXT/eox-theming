@@ -44,51 +44,57 @@ def plugin_settings(settings):
     Set of plugin settings used by the Open Edx platform.
     More info: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/README.rst
     """
-    def resolve_settings(obj):
+    def resolve_completely(obj):
         """
-        Ayudante para resolver objetos 'Derived' sin importar la clase
-        y evitar errores de linter.
+        Resuelve objetos 'Derived' de forma recursiva hasta obtener el valor real.
         """
-        if hasattr(obj, '_resolve'):
-            # pylint: disable=protected-access
-            return obj._resolve(settings)
+        for _ in range(10):
+            if hasattr(obj, '_resolve'):
+                # pylint: disable=protected-access
+                obj = obj._resolve(settings)
+            else:
+                break
         return obj
 
-    current_finders = getattr(settings, 'STATICFILES_FINDERS', [])
-    current_finders = resolve_settings(current_finders)
-
+    finders = resolve_completely(getattr(settings, 'STATICFILES_FINDERS', []))
     settings.STATICFILES_FINDERS = [
         'eox_theming.theming.finders.EoxThemeFilesFinder',
-    ] + list(current_finders)
+    ] + list(finders)
 
-    eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
+    eox_cp = 'eox_theming.theming.context_processor.eox_configuration'
+    templates = resolve_completely(getattr(settings, 'TEMPLATES', []))
 
-    templates = resolve_settings(getattr(settings, 'TEMPLATES', []))
+    if isinstance(templates, (list, tuple)):
+        updated_templates = []
+        for engine in templates:
+            engine_dict = dict(engine)
+            options = dict(engine_dict.get('OPTIONS', {}))
 
-    for template_engine in templates:
-        options = template_engine.get('OPTIONS', {})
-        cp_list = options.get('context_processors', [])
-        cp_list = list(resolve_settings(cp_list))
+            cp_list = options.get('context_processors', [])
+            cp_list = list(resolve_completely(cp_list))
 
-        if eox_configuration_path not in cp_list:
-            cp_list.append(eox_configuration_path)
-            template_engine['OPTIONS']['context_processors'] = cp_list
+            if eox_cp not in cp_list:
+                cp_list.append(eox_cp)
 
-    current_middleware = resolve_settings(getattr(settings, 'MIDDLEWARE', []))
+            options['context_processors'] = cp_list
+            engine_dict['OPTIONS'] = options
+            updated_templates.append(engine_dict)
 
+        settings.TEMPLATES = updated_templates
+
+    middleware = resolve_completely(getattr(settings, 'MIDDLEWARE', []))
     settings.MIDDLEWARE = [
         'eox_theming.theming.middleware.EoxThemeMiddleware' if 'CurrentSiteThemeMiddleware' in x else x
-        for x in current_middleware
+        for x in middleware
     ]
 
-    # 4. Storage (Django 5)
     if hasattr(settings, 'STORAGES'):
-        new_storages = dict(settings.STORAGES)
-        if 'staticfiles' in new_storages:
-            static_cfg = dict(new_storages['staticfiles'])
+        current_storages = dict(resolve_completely(settings.STORAGES))
+        if 'staticfiles' in current_storages:
+            static_cfg = dict(current_storages['staticfiles'])
             static_cfg['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
-            new_storages['staticfiles'] = static_cfg
-            settings.STORAGES = new_storages
+            current_storages['staticfiles'] = static_cfg
+            settings.STORAGES = current_storages
 
     settings.EOX_THEMING_DEFAULT_THEME_NAME = 'bragi'
 
