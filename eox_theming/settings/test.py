@@ -5,11 +5,14 @@ Test Django settings for eox_theming project.
 from __future__ import unicode_literals
 
 import codecs
+import logging
 import os
 
 import yaml
 
 from .common import *  # pylint: disable=wildcard-import
+
+logger = logging.getLogger(__name__)
 
 
 class SettingsClass:
@@ -60,12 +63,15 @@ def plugin_settings(settings):  # pylint: disable=function-redefined
             for x in settings.MIDDLEWARE
         ]
     except AttributeError:
-        pass
+        logger.error("Couldn't set MIDDLEWARE. Check your settings.")
 
-    if not hasattr(settings, 'STORAGES'):
-        settings.STORAGES = {}
-
-    settings.STORAGES.setdefault('staticfiles', {})['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
+    if hasattr(settings, 'STORAGES'):
+        new_storages = dict(settings.STORAGES)
+        if 'staticfiles' in new_storages:
+            static_cfg = dict(new_storages['staticfiles'])
+            static_cfg['BACKEND'] = 'openedx.core.storage.ProductionStorage'
+            new_storages['staticfiles'] = static_cfg
+            settings.STORAGES = new_storages
 
     settings.STATICFILES_FINDERS = [
         x for x in settings.STATICFILES_FINDERS if 'EoxThemeFilesFinder' not in x

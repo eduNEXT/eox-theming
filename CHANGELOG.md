@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v10.0.0](https://github.com/eduNEXT/eox-theming/compare/v9.3.1...v10.0.0) - (2026-02-11)
+
+#### ⚠ BREAKING CHANGES
+
+- **Dropped Support for Django 4.2**: Removed support for Django 4.2 in this plugin. As a result, we have also dropped support for Open edX releases from Palm up to and including Teak, which rely on Django 4.2. Future versions of this plugin may not be compatible with these Open edX releases.
+
 ## [v9.3.1](https://github.com/eduNEXT/eox-theming/compare/v9.3.0...v9.3.1) - (2026-01-20)
 
 ### Changed

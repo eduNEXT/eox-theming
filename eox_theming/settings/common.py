@@ -10,6 +10,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 from __future__ import unicode_literals
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -50,9 +54,8 @@ def plugin_settings(settings):
 
     try:
         settings.TEMPLATES[0]['OPTIONS']['loaders'][0] = 'eox_theming.theming.template_loaders.EoxThemeTemplateLoader'
-    except AttributeError:
-        # We must find a way to register this error
-        pass
+    except (AttributeError, TypeError):
+        logger.error("Couldn't set template loaders. Check your settings.")
 
     try:
         eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
@@ -62,18 +65,24 @@ def plugin_settings(settings):
             settings.TEMPLATES[1]['OPTIONS']['context_processors'].append(eox_configuration_path)
 
         settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
-    except AttributeError:
-        # We must find a way to register this error
-        pass
+    except (AttributeError, TypeError):
+        logger.error("Couldn't set default template engine. Check your settings.")
 
     try:
         settings.MIDDLEWARE = [
             'eox_theming.theming.middleware.EoxThemeMiddleware' if 'CurrentSiteThemeMiddleware' in x else x
             for x in settings.MIDDLEWARE
         ]
-    except AttributeError:
-        # We must find a way to register this error.
-        pass
+    except (AttributeError, TypeError):
+        logger.error("Couldn't set MIDDLEWARE. Check your settings.")
+
+    if hasattr(settings, 'STORAGES'):
+        new_storages = dict(settings.STORAGES)
+        if 'staticfiles' in new_storages:
+            static_cfg = dict(new_storages['staticfiles'])
+            static_cfg['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
+            new_storages['staticfiles'] = static_cfg
+            settings.STORAGES = new_storages
 
     settings.EOX_THEMING_DEFAULT_THEME_NAME = 'bragi'
 
@@ -93,10 +102,4 @@ def plugin_settings(settings):
     settings.EOX_THEMING_CONFIGURATION_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_configuration_helpers'
     settings.EOX_THEMING_THEMING_HELPER_BACKEND = 'eox_theming.edxapp_wrapper.backends.j_theming_helpers'
     settings.EOX_THEMING_STORAGE_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_storage'
-
-    if not hasattr(settings, 'STORAGES'):
-        settings.STORAGES = {}
-
-    settings.STORAGES.setdefault('staticfiles', {})['BACKEND'] = 'eox_theming.theming.storage.EoxProductionStorage'
-
     settings.EOX_THEMING_EDXMAKO_BACKEND = 'eox_theming.edxapp_wrapper.backends.l_mako'

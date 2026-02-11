@@ -14,7 +14,10 @@ def plugin_settings(settings):
         'eox_theming.theming.finders.EoxThemeFilesFinder',
     ] + settings.STATICFILES_FINDERS
 
-    if not hasattr(settings, 'STORAGES'):
-        settings.STORAGES = {}
-
-    settings.STORAGES.setdefault('staticfiles', {})['BACKEND'] = 'eox_theming.theming.storage.EoxDevelopmentStorage'
+    if hasattr(settings, 'STORAGES'):
+        new_storages = dict(settings.STORAGES)
+        if 'staticfiles' in new_storages:
+            static_cfg = dict(new_storages['staticfiles'])
+            static_cfg['BACKEND'] = 'eox_theming.theming.storage.EoxDevelopmentStorage'
+            new_storages['staticfiles'] = static_cfg
+            settings.STORAGES = new_storages
