@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v10.1.1](https://github.com/eduNEXT/eox-theming/compare/v10.1.0...v10.1.1) - (2026-09-03)
+
+### Fixed
+
+- **Verawood context processor registration**: Register the ``theming`` context processor on
+  ``CONTEXT_PROCESSORS`` instead of mutating ``TEMPLATES[*]['OPTIONS']['context_processors']``
+  directly. From Verawood onwards those entries are ``Derived`` values (not lists), so the
+  previous ``.append()`` raised and was silently swallowed, leaving the ``theming`` template
+  variable undefined and causing every legacy Mako page to fail with
+  ``AttributeError: 'Undefined' object has no attribute 'options'``. The new approach remains
+  compatible with earlier releases, where both template engines derive their context processors
+  from the same ``CONTEXT_PROCESSORS`` list.
+
 ## [v10.1.0](https://github.com/eduNEXT/eox-theming/compare/v10.0.0...v10.1.0) - (2026-06-24)
 
 ### Changed

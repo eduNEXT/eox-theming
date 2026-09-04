@@ -59,14 +59,30 @@ def plugin_settings(settings):
 
     try:
         eox_configuration_path = 'eox_theming.theming.context_processor.eox_configuration'
-        if eox_configuration_path not in settings.TEMPLATES[0]['OPTIONS']['context_processors']:
-            settings.TEMPLATES[0]['OPTIONS']['context_processors'].append(eox_configuration_path)
-        if eox_configuration_path not in settings.TEMPLATES[1]['OPTIONS']['context_processors']:
-            settings.TEMPLATES[1]['OPTIONS']['context_processors'].append(eox_configuration_path)
+        # Register the eox-theming context processor on ``CONTEXT_PROCESSORS``. Both the Django
+        # and Mako template engines build their ``context_processors`` from this setting, so this
+        # works across releases: earlier releases point each engine's ``context_processors`` at
+        # this very list, while from Verawood onwards those entries are ``Derived`` values that
+        # resolve to ``settings.CONTEXT_PROCESSORS`` and can no longer be mutated in place.
+        # Appending to the ``Derived`` object raised an ``AttributeError`` that was silently
+        # swallowed, so the ``theming`` variable was never injected and every legacy Mako page
+        # failed with ``'Undefined' object has no attribute 'options'``.
+        context_processors = getattr(settings, 'CONTEXT_PROCESSORS', None)
+        if isinstance(context_processors, list):
+            if eox_configuration_path not in context_processors:
+                context_processors.append(eox_configuration_path)
+        else:
+            # Fallback for releases that don't expose a ``CONTEXT_PROCESSORS`` setting: register
+            # on every template engine whose ``context_processors`` is still a plain list.
+            for engine in settings.TEMPLATES:
+                engine_context_processors = engine.get('OPTIONS', {}).get('context_processors')
+                if isinstance(engine_context_processors, list) \
+                        and eox_configuration_path not in engine_context_processors:
+                    engine_context_processors.append(eox_configuration_path)
 
         settings.DEFAULT_TEMPLATE_ENGINE = settings.TEMPLATES[0]
     except (AttributeError, TypeError):
-        logger.error("Couldn't set default template engine. Check your settings.")
+        logger.error("Couldn't register the eox-theming context processor. Check your settings.")
 
     try:
         settings.MIDDLEWARE = [
