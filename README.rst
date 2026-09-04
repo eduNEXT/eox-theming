@@ -50,7 +50,7 @@ Compatibility Notes
 +------------------+-----------------+
 | Ulmo             | >= 10.0.0       |
 +------------------+-----------------+
-| Verawood         | >= 10.1.0       |
+| Verawood         | >= 10.1.1       |
 +------------------+-----------------+
 
 The plugin is configured for the latest release (Teak). If you need compatibility for previous releases, go to the README of the relevant version tag and if it is necessary you can change the configuration in ``eox_theming/settings/common.py``.
@@ -140,6 +140,21 @@ You need to update the configuration block like this:
 
         ENABLE_COMPREHENSIVE_THEMING = True
         TEMPLATES[1]["DIRS"] = _make_mako_template_dirs(settings)
+        derive_settings("lms.envs.production")
+
+**Note for Verawood and later versions (>= 10.1.1):**
+
+Starting from Verawood, the helper was renamed to ``make_mako_template_dirs`` (without the
+leading underscore) and moved to ``openedx.envs.common``. Update the configuration block like
+this:
+
+    .. code-block:: python
+
+        from django.conf import settings
+        from openedx.envs.common import make_mako_template_dirs  # pylint: disable=import-error
+
+        ENABLE_COMPREHENSIVE_THEMING = True
+        TEMPLATES[1]["DIRS"] = make_mako_template_dirs(settings)
         derive_settings("lms.envs.production")
 
 Usage
